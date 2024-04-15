@@ -1,0 +1,9 @@
+.filepond--root {
+    margin-bottom: unset;
+}
+
+
+.filepond--drop-label,
+.filepond--drop-label>label:first-child {
+    cursor: pointer;
+}

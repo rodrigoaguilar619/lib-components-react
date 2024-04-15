@@ -1,0 +1,21 @@
+// --------- REACT TOOLTIP MODIFY -----------
+.react-tooltip {
+    max-width: 250px;
+    border: 1px solid black;
+    color: black !important;
+    background: white !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.tooltip-button-nested-options {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.react-tooltip-arrow {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}

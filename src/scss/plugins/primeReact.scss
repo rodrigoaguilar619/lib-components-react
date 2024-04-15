@@ -1,0 +1,68 @@
+// --------- DATATABLE MODIFY BORDERS AND PADDING -----------
+.p-datatable .p-datatable-tbody > tr > td, .p-datatable .p-datatable-thead > tr > th {
+    padding: 0.5rem 0.5rem
+}
+
+.p-datatable thead, tbody, tfoot, tr, td, th {
+    border-color: #E4E1E1;
+    border-style: solid;
+    border-width: 0.1rem;
+}
+
+.p-datatable table tbody td {
+    position: relative;
+}
+
+.p-datatable-scrollable-table > .p-datatable-thead {
+    z-index: unset;
+}
+
+// ---------- MESSAGES MODIFY MARGINS ----------------
+.p-message {
+    margin: 0rem 0;
+    margin-bottom: 1rem;
+}
+
+.p-message-wrapper .p-message-close.p-link {
+    margin-left: auto;
+}
+
+// --------- INPUTS MODIFY ---------------------------
+
+.p-inputtext, .p-inputnumber, .p-dropdown, .p-calendar  {
+    height: 2.5rem;
+}
+
+//apply to all components except when is inside a datatable
+.p-inputtext:not(.p-datatable .p-inputtext),
+.p-inputnumber:not(.p-datatable .p-inputnumber),
+.p-dropdown:not(.p-datatable .p-dropdown),
+.p-calendar:not(.p-datatable .p-calendar)  {
+    width: -webkit-fill-available !important;
+}
+
+.p-invalid.p-inputtext:enabled:focus {
+    box-shadow: 0 0 0 0.2rem #fbbaba;
+}
+
+// --------- DROPDOWN MODIFY -----------------------
+
+.p-dropdown-label.p-inputtext {
+    padding: 0.40rem 0.75rem;
+    font-family: $app-font-family;
+    color: $app-color-text;
+}
+
+.p-dropdown-items {
+    padding-left: 0rem;
+    margin: 0rem;
+}
+
+.p-dropdown-item  {
+    color: $app-color-text;
+}
+
+// --------- ACCORDION MODIFY TO REMOVE TITLE HIPERLINK ------
+.p-accordion-header-link {
+    text-decoration: none;
+}

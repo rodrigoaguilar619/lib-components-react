@@ -1,0 +1,13 @@
+node_modules
+config
+dist
+public
+reports_build
+src
+tsconfig.json
+.scannerwork
+
+lib/_moduleTest
+lib/index.*
+lib/setupTests.*
+lib/reportWebVitals.*
