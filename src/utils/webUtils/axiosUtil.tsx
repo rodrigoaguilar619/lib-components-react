@@ -3,11 +3,16 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 const requestHandler = (request: any) => {
-    //TODO: Get username correctly
-    if(process.env.APP_USERNAME_DEFAULT != undefined) {
-        console.warn("Setting username default: ", process.env.APP_USERNAME_DEFAULT);
-        request.data.userName = process.env.APP_USERNAME_DEFAULT;
-    }
+
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('userName');
+
+    if (token)
+        request.headers.Authorization = `Bearer ${token}`;
+
+    if (username)
+        request.data.userName = username;
+
     return request;
 }
 
