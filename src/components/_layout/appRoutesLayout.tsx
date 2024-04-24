@@ -5,7 +5,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 const AppRoutesLayout: React.FC<AppRoutesPropsI> = (props) => {
 
     useEffect(() => {
-        console.log('AppRoutesLayout');
 
         if(process.env.APP_USERNAME_DEFAULT != undefined) {
             console.warn("Setting into localstorage username default: ", process.env.APP_USERNAME_DEFAULT);

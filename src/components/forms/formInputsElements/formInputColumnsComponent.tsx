@@ -15,7 +15,6 @@ const FormInputColumnsComponent: React.FC<FormInputColumnsPropsI> = (props) => {
     }, []);
 
     const updateFormData = (formData: Record<string, any>, inputId: string, value: string) => {
-    console.log("test updateFormData", formData, inputId, value);
         let formDataUpdated = { ...formData, [inputId]: value };
         props.selectorUpdateFormData(formDataUpdated);
 
@@ -36,7 +35,7 @@ const FormInputColumnsComponent: React.FC<FormInputColumnsPropsI> = (props) => {
         const buildValidatorSection = buildValidator(inputColumnProps);
         let valueInput = props.formData[inputColumnProps.id] ?? "";
         let isShowError: boolean = buildValidatorSection?.props.children !== undefined;
-        console.log("test buildColumn", props.formData, inputColumnProps.inputProps, isShowError);
+        
         return (<Col key={inputColumnProps.id} md={"auto"} style={{ width: width, paddingTop: "3px" }}>
             <LabelInputComponent label={inputColumnProps.label} icon={faQuestionCircle} tooltipHelpText={inputColumnProps.tooltipText} />
             <InputElementComponent inputProps={{

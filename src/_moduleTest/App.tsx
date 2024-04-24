@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
 
     if (_APP_API_MOCK_IS_LOAD_ === true) {
-      console.log("DEV: init configs mocks");
+      console.warn("DEV: init configs mocks");
       initConfigMocks(mockApiConfigList);
     }
   }, []);

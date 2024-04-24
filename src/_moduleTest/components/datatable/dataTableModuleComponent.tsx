@@ -89,7 +89,6 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     }
 
     const executeFilterSearch = () => {
-        console.log("executeFilterSearch", formFilterData);
         executeGetDataTableList();
     }
 
@@ -98,7 +97,6 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     };
 
     const executeFilterSearchOnchage = (formData: Record<string, any>) => {
-        console.log("executeFilterSearch on search", formData);
     }
 
     const actionTemplate = (rowData: any, column: any) => {

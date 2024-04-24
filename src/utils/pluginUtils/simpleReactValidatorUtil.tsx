@@ -11,7 +11,6 @@ const customValidators: any = {
     isGreaterThan: {
         message: "This field is not greater than \":fieldToCompare\"",
         rule: (val: any, params: any, _validator: any) => {
-            console.log("test custom isGreaterThan", val, params);
             return (parseFloat(val) > parseFloat(params[1] ?? 0));
         },
         messageReplace: (message: any, params: any) => message.replace(':fieldToCompare', params[0]),

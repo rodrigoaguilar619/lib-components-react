@@ -101,8 +101,6 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
         if (props.footerButtons !== undefined)
             contentSideRight = <ButtonsOrganizerComponent buttonOptions={props.footerButtons} />
 
-        console.log("renderFooter", contentSideRight);
-
         return (<div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ alignSelf: "flex-start" }}>Total records: {getTotalRows()}</div>
             <div style={{ alignSelf: "flex-end" }}>{contentSideRight}</div>

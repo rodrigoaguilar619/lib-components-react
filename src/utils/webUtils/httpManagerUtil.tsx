@@ -59,7 +59,7 @@ export function manageAlertModuleError(dispatch: any, componentType: ComponentTy
                 errorMessage = "Error internal server";
             }
             else
-                errorMessage = "Error with status:" + error.response.status;
+                errorMessage = "Error with status: " + error.response.status;
         }
         else if (error.message !== undefined) {
             errorMessage = error.message;
