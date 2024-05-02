@@ -97,6 +97,7 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     };
 
     const executeFilterSearchOnchage = (formData: Record<string, any>) => {
+        alert(JSON.stringify(formData));
     }
 
     const actionTemplate = (rowData: any, column: any) => {

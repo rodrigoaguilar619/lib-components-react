@@ -1,4 +1,5 @@
 export interface MainAppPropsI {
     routesSection: AppRoutesPropsI,
-    menusSection: AppMenusPropsI
+    menusSection: AppMenusPropsI,
+    loginTemplate?: React.ComponentType<any>
 }

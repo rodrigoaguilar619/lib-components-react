@@ -9,6 +9,7 @@ import MainApp from '@app/templates/environments/coreui/mainApp'
 import routes from '@app/_moduleTest/config/routers/routes'
 import _nav from '@app/_moduleTest/config/navs/_nav'
 import { mockApiConfigList } from './config/mock/mockApiConfig'
+import LoginCoreUI from '@app/templates/logins/loginCoreUI'
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
     <MainApp
       routesSection={{ routes: routes, routeStart: _APP_ROUTE_START_ }}
       menusSection={{ menuItems: _nav, isFromApi: false }}
+      loginTemplate={LoginCoreUI}
     />
     </Provider>)
 }

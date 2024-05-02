@@ -1,15 +1,10 @@
-import { MainTemplatePropsI } from '@app/@types/templates/environments/coreui/template/mainTemplate';
 import React, { Component, Suspense } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { MainTemplatePropsI } from '@app/@types/templates/environments/coreui/template/mainTemplate';
+import LoginLayout from '@app/components/_layout/loginLayout';
+import { _APP_CONTEXT_PATH_ } from '@app/catalogs/constantCatalog';
 
-// Containers
 const MainLayout = React.lazy(() => import('./mainLayout'))
-
-// Pages
-/*const Login = React.lazy(() => import('src/views/pages/login/Login'))
-const Register = React.lazy(() => import('src/views/pages/register/Register'))
-const Page404 = React.lazy(() => import('src/views/pages/page404/Page404'))
-const Page500 = React.lazy(() => import('src/views/pages/page500/Page500'))*/
 
 const loading = (
     <div className="pt-3 text-center">
@@ -23,17 +18,25 @@ class MainTemplate extends Component<MainTemplatePropsI> {
       super(props);
   }
 
+  renderRoutesList() {
+    
+    let routesList: JSX.Element[] = [];
+
+    if (this.props.loginTemplate != undefined)
+        routesList.push(<Route key={'login'} index path={ _APP_CONTEXT_PATH_ + 'login'} element={<LoginLayout loginTemplate={this.props.loginTemplate} />} />);
+
+    //routesList.push(<Route index path="/404" element={<Page404 />} />);
+    routesList.push(<Route key={'main'} path="*" element={<MainLayout {...this.props} />} />);
+
+    return routesList;
+  }
+
     render() {
         return (
           <HashRouter>
             <Suspense fallback={loading}>
               <Routes>
-                {//TODO: Develop components
-                /*<Route index path="/login" element={<Login />} />
-                <Route index path="/register" element={<Register />} />
-                <Route index path="/404" element={<Page404 />} />
-                <Route index path="/500" element={<Page500 />} />*/ }
-                <Route path="*" element={<MainLayout {...this.props} />} />
+                {this.renderRoutesList()}
               </Routes>
             </Suspense>
           </HashRouter>
