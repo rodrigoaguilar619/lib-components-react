@@ -7,12 +7,15 @@ import { setSidebarShowFoldableAction, setSidebarShowAction } from '@app/templat
 import { CoreuiSideBarStateI } from '@app/@types/templates/environments/coreui/controllers/reducers/coreuiSideBarReducer'
 import { SidebarNavLayout } from './sidebarNavLayout'
 import { AppMenusItemsPropsDataI, AppMenusPropsI } from '@app/@types/components/layout/appMenuLayout';
+import { NAV_LOGOUT } from '@app/catalogs/navCatalog';
+import { _APP_NAV_LOGOUT_ENABLED_ } from '@app/catalogs/constantCatalog';
 
 const MenuLayout: React.FC<AppMenusPropsI> = (props) => {
   const dispatch = useDispatch();
   const coreuiSideBarState: CoreuiSideBarStateI = useSelector((state: any) => state.coreuiSideBarState);
 
-  const menuItems: AppMenusItemsPropsDataI[] = props.menuItems ?? [];
+  const menuLogout: AppMenusItemsPropsDataI[] = _APP_NAV_LOGOUT_ENABLED_ ? [NAV_LOGOUT] : [];
+  const menuItems: AppMenusItemsPropsDataI[] = [...props.menuItems ?? [], ...menuLogout];
 
   return (
     <CSidebar className="sidebar-content"

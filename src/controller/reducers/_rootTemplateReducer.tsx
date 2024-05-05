@@ -6,8 +6,10 @@ import { templateMenuReducer } from './templateMenuReducer';
 import { buildTemplateAlertReducer } from './templateAlertsReducer';
 import { templateLoadingReducer } from './templateLoadingReducer';
 import { ComponentTypeEnum } from '@app/catalogs/enumCatalog';
+import { templateSessionReducer } from './templateSessionReducer';
 
 export const rootReducerGroup = {
+  templateSessionState: templateSessionReducer,
   templateHeaderState: templateHeaderReducer,
   templateFooterState: templateFooterReducer,
   templateMenuState: templateMenuReducer,

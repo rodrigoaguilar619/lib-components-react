@@ -6,4 +6,5 @@ export const _APP_ROUTE_START_: string = _APP_CONTEXT_PATH_ + (process.env.APP_R
 export const _APP_ALERT_TIME_TOAST_MILLIS_: number = Number(process.env.APP_ALERT_TIME_TOAST_MILLIS ?? 5000);   //time in millis for alerts duration to disappear
 export const _APP_REDUX_IS_LOAD_LOGGER_: boolean = JSON.parse(process.env.APP_REDUX_IS_LOAD_LOGGER ?? "true");  //boolean for define if load redux logger console for browser devtools
 export const _APP_API_MOCK_IS_LOAD_: boolean = JSON.parse(process.env.APP_API_MOCK_IS_LOAD ?? "true");          //boolean to determine if load mock apis
+export const _APP_NAV_LOGOUT_ENABLED_: boolean = JSON.parse(process.env.APP_NAV_LOGOUT_ENABLED ?? "false");        //boolean to determine if logout is enabled and added option menu to nav
 export const _APP_SECURITY_ENABLED_: boolean = JSON.parse(process.env.APP_SECURITY_ENABLED ?? "false");          //boolean to determine if security is enabled
