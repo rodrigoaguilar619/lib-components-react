@@ -1,23 +1,28 @@
+import { Navigate, useLocation } from 'react-router-dom'
+import { setRedirectSessionRestart } from '@app/utils/webUtils/httpManagerUtil'
+import { useDispatch } from 'react-redux'
 import axios, { HttpStatusCode } from 'axios'
 import React, { useEffect } from 'react'
-import { LoginLayoutPropsI } from '@app/@types/components/layout/loginLayout'
-import { _APP_CONTEXT_PATH_, _APP_ENVIRONMENT_ } from '@app/catalogs/constantCatalog'
-import { EnvironmentEnum } from '@app/catalogs/enumCatalog'
-import DebugClass from '@app/classes/debugClass'
-import { loginService, verifySessionService } from '@app/controller/services/authService'
-import { debug, debugError, generateDebugClassModule, showDataDevelopment } from '@app/utils/webUtils/debugUtil'
 import {
     CCol,
     CContainer,
     CRow
 } from '@coreui/react'
-import { Navigate } from 'react-router-dom'
+import { LoginLayoutPropsI } from '@app/@types/components/layout/loginLayout'
+import { _APP_ENVIRONMENT_ } from '@app/catalogs/constantCatalog'
+import { ComponentLoginMessageTypeEnum, EnvironmentEnum } from '@app/catalogs/enumCatalog'
+import DebugClass from '@app/classes/debugClass'
+import { loginService, verifySessionService } from '@app/controller/services/authService'
+import { debug, debugError, generateDebugClassModule, showDataDevelopment } from '@app/utils/webUtils/debugUtil'
 
 const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
 
+    window.history.replaceState({}, '')
+    
+    const dispatch = useDispatch();
+    let location = useLocation();
     const [isRedirect, setIsRedirect] = React.useState(false);
-    const [isSessionExpired, setIsSessionExpired] = React.useState(false);
-    const [isLoginError, setIsLoginError] = React.useState(false);
+    const [messageType, setMessageType] = React.useState<ComponentLoginMessageTypeEnum | undefined>(undefined);
     const [currentMessage, setCurrentMessage] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);
     const [loadingText, setLoadingText] = React.useState("Loading...");
@@ -26,11 +31,20 @@ const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
 
     useEffect(() => {
 
-        if (localStorage.getItem('userName') != undefined && localStorage.getItem('token') != undefined) {
+        setRedirectSessionRestart(dispatch);
+        if ( !location.state?.isLogout && localStorage.getItem('userName') != undefined && localStorage.getItem('token') != undefined) {
             initVerifySession();
         }
 
     }, []);
+
+    useEffect(() => {
+        if (location.state?.isSessionExpiredApp)
+            setMessageType(ComponentLoginMessageTypeEnum.SESSION_EXPIRED);
+        else if (location.state?.isLogout)
+            setMessageType(ComponentLoginMessageTypeEnum.LOGOUT);
+
+    }, [location.state]);
 
     async function pauseExecution(seconds: number) {
         await new Promise(resolve => setTimeout(resolve, seconds * 1000));
@@ -43,19 +57,18 @@ const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
         if (error.response !== undefined) {
 
             if (error.response.status === HttpStatusCode.Unauthorized) {
-                setIsSessionExpired(true);
-                errorMessage = "Session expired";
+                setMessageType(ComponentLoginMessageTypeEnum.SESSION_EXPIRED);
 
                 localStorage.removeItem('userName');
                 localStorage.removeItem('token');
             }
             else {
-                setIsLoginError(true);
+                setMessageType(ComponentLoginMessageTypeEnum.ERROR);
+                setCurrentMessage(errorMessage);
                 errorMessage = "Error with status: " + error.response.status;
             }
         }
 
-        setCurrentMessage(errorMessage);
         debugError(debugClass, "<" + errorMessage + ">", error);
     }
 
@@ -72,7 +85,7 @@ const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
                 errorMessage = "Error with status: " + error.response.status;
         }
 
-        setIsLoginError(true);
+        setMessageType(ComponentLoginMessageTypeEnum.ERROR);
         setCurrentMessage(errorMessage);
         debugError(debugClass, "<" + errorMessage + ">", error);
     }
@@ -104,8 +117,6 @@ const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
         let debugClass = generateDebugClassModule("init submit login");
         debug(debugClass, "start");
 
-        setIsLoginError(false);
-        setIsSessionExpired(false);
         setIsLoading(true);
         setLoadingText("Logging in...");
         await pauseExecution(1);
@@ -135,8 +146,7 @@ const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
             <CContainer>
                 <CRow className="justify-content-center">
                     <CCol md={4}>
-                        {showDataDevelopment("isSessionExpired", isSessionExpired + "")}
-                        {showDataDevelopment("isLoginError", isLoginError + "")}
+                        {showDataDevelopment("messageType", messageType)}
                         {showDataDevelopment("userName", userName)}
                         {showDataDevelopment("password", password)}
                     </CCol>
@@ -148,12 +158,11 @@ const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
     return (
         <div>
             {renderDevData()}
-            {isRedirect ? <Navigate to={_APP_CONTEXT_PATH_} replace /> : null}
+            {isRedirect ? <Navigate to={"/"} replace /> : null}
             <props.loginTemplate
             isLoading={isLoading}
             loadingText={loadingText}
-            isSessionExpired={isSessionExpired}
-            isLoginError={isLoginError}
+            messageType={messageType}
             currentMessage={currentMessage}
             updateUserName={setUserName}
             updatePassword={setPassword}

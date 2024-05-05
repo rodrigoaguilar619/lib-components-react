@@ -2,6 +2,7 @@ import React from 'react'
 import { LoginChildrenPropsI } from '@app/@types/components/layout/loginLayout'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { Message } from 'primereact/message'
 import {
     CButton,
     CCard,
@@ -16,26 +17,35 @@ import {
     CRow,
     CSpinner,
 } from '@coreui/react'
-import { Message } from 'primereact/message'
+import { ComponentLoginMessageTypeEnum } from '@app/catalogs/enumCatalog'
 
 const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
 
-    const renderMessageSessionExpired = () => {
+    const renderMessage = () => {
 
-        if (props.isSessionExpired) {
-            return (
-                <Message severity="warn" text={props.currentMessage} />
-            )
+        if (props.currentMessage === undefined || props.isLoading)
+            return;
+       
+        let message = "";
+        let severity: "error" | "success" | "warn" | undefined = undefined;
+
+        if(props.messageType === ComponentLoginMessageTypeEnum.ERROR) {
+            severity = "error";
+            message = props.currentMessage;
         }
-    }
-
-    const renderMessageLoginError = () => {
-
-        if (props.isLoginError) {
-            return (
-                <Message severity="error" text={props.currentMessage} />
-            )
+        else if(props.messageType === ComponentLoginMessageTypeEnum.LOGOUT) {
+            severity = "success";
+            message = "Logout success";
         }
+        else if(props.messageType === ComponentLoginMessageTypeEnum.SESSION_EXPIRED || props.messageType === ComponentLoginMessageTypeEnum.SESSION_EXPIRED_APP) {
+            severity = "warn";
+            message = "Session expired";
+        }
+        
+        if(severity !== undefined)
+            return (
+                <Message severity={severity} text={message} />
+            )
     }
 
     const renderLoading = () => {
@@ -65,9 +75,8 @@ const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
                         <CCol md={4}>
                             <CCardGroup>
                                 <CCard className="p-4">
-                                    {renderMessageSessionExpired()}
-                                    {renderMessageLoginError()}
                                     {renderLoading()}
+                                    {renderMessage()}
                                     <CCardBody>
                                         <CForm>
                                             <h1>{renderLoginTitle()}</h1>

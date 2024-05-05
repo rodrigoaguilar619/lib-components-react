@@ -49,3 +49,10 @@ export enum ComponentTypeEnum {
     MODULE = "module",
     POPUP = "popup"
 }
+
+export enum ComponentLoginMessageTypeEnum {
+    ERROR = "error",
+    LOGOUT = "logout",
+    SESSION_EXPIRED = "session_expired",
+    SESSION_EXPIRED_APP = "session_expired_app"
+}
