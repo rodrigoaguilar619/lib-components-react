@@ -4,30 +4,26 @@
 $enable-ltr: true;
 $enable-rtl: true;
 
-
-
 // Import CoreUI for React components library
 @import "@coreui/coreui/scss/coreui";
+@import "@coreui/coreui/scss/functions";
+@import "@coreui/coreui/scss/variables";
+@import "@coreui/coreui/scss/mixins";
 
 // Import Chart.js custom tooltips styles
 @import "@coreui/chartjs/scss/coreui-chartjs";
 
-@import "layout";
-@import "example";
-
-@import "simplebar/dist/simplebar.min.css";
+//@import "simplebar/dist/simplebar.min.css";
+@import 'simplebar-react/dist/simplebar.min.css';
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";  
 @import "primereact/resources/primereact.css";
 @import "primereact/resources/themes/lara-light-indigo/theme.css";
 @import "filepond/dist/filepond.min.css";
 
-//@import 'react-bootstrap/dist/react-bootstrap.min.js';
-//@import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'bootstrap/scss/bootstrap';
-
 // If you want to add custom CSS you can put it here.
 @import "custom";
+@import "../../../scss/plugins/coreUI.scss";
 @import "../../../scss/plugins/primeReact.scss";
 @import "../../../scss/plugins/reactTooltip.scss";
 @import "../../../scss/plugins/filepond.scss";

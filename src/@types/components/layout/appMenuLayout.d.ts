@@ -8,6 +8,7 @@ export interface AppMenusItemsPropsDataI
     };
     icon?: React.ReactNode;
     to?: string;
+    href?: string;
     items?: AppSidebarNavItem[];
 }
 

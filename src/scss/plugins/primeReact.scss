@@ -17,6 +17,15 @@
     z-index: unset;
 }
 
+// --------- DATATABLE MODIFY SEARCH INPUT TEXT -----------
+.p-datatable .p-input-icon-left .pi.pi-search {
+    padding-left: 5px;
+}
+
+.p-datatable .p-input-icon-left .p-inputtext.p-component {
+    padding-left: 20px;
+}
+
 // ---------- MESSAGES MODIFY MARGINS ----------------
 .p-message {
     margin: 0rem 0;
