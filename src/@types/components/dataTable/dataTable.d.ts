@@ -46,6 +46,7 @@ export interface DataTableComponentI {
     isSortable?: boolean,
     footerButtons?: any,
     customMaskData?: Function | undefined,
+    rowExpansionTemplate?: any,
     extraProps?: any,
     isShowSearch?: boolean,
     isShowHeader?: boolean,

@@ -1,4 +1,4 @@
-import { DataTable } from 'primereact/datatable';
+import { DataTable, DataTableExpandedRows, DataTableValueArray } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { useRef, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
@@ -26,6 +26,7 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
 
     const [globalFilterValue, setGlobalFilterValue] = useState('');
     const [selectedRow, setSelectedRow] = useState<any>(null);
+    const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows | DataTableValueArray | undefined>(undefined);
     const [totalRecordsData, setTotalRecordsData] = useState({ totalRecordsGlobalFilter: null });
     const dt = useRef<DataTable<any>>(null);
 
@@ -107,6 +108,17 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
         </div>)
     };
 
+    const generateRowExpansionTemplate = () => {
+        if (props.rowExpansionTemplate === undefined)
+             return undefined;
+
+        return {
+            rowExpansionTemplate: props.rowExpansionTemplate,
+            expandedRows: expandedRows,
+            onRowToggle: (e: any) => { setExpandedRows(e.data)}
+        };
+    };
+ 
     const header = renderHeader();
     const footer = renderFooter();
 
@@ -116,7 +128,9 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
         <DataTable ref={dt} value={props.columnDataList} tableStyle={{ minWidth: '50rem' }}
             header={header} globalFilter={globalFilterValue} {...showRowsPage()} footer={footer}
             selectionMode="single" onSelectionChange={(e) => setSelectedRow(e.value)} selection={selectedRow}
+            {...generateRowExpansionTemplate()}
             {...props.extraProps}>
+            {props.rowExpansionTemplate !== undefined ? <Column expander={true} style={{ width: '2%' }} /> : undefined}
             {buildColumnOptions(props.columnOptionsTemplate)}
             {props.columnDefList.map((col) => (
                 <Column key={col.field}
