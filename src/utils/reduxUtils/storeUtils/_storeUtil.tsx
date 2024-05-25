@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, combineReducers, Store, Middleware } from 'redux';
+import { combineReducers, Store, Middleware } from 'redux';
+import { Tuple, configureStore } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk';
 import logger from 'redux-logger';
-import { composeWithDevTools } from '@redux-devtools/extension';
 
 import { rootReducerGroup } from '@app/controller/reducers/_rootTemplateReducer';
 import { _APP_REDUX_IS_LOAD_LOGGER_ } from '@app/catalogs/constantCatalog';
@@ -16,7 +16,6 @@ import { _APP_REDUX_IS_LOAD_LOGGER_ } from '@app/catalogs/constantCatalog';
 export function createStoreCustom(combinedReducersGroupExtra: any, titleDevTools: string) {
 
     type MiddlewareType = Middleware<{}, any, any>;
-    const composeEnhancers = composeWithDevTools({ name: titleDevTools });
 
     const mergedReducers = combineReducers({
         ...rootReducerGroup,
@@ -28,10 +27,11 @@ export function createStoreCustom(combinedReducersGroupExtra: any, titleDevTools
     if (_APP_REDUX_IS_LOAD_LOGGER_ === true)
         middlewares.push(logger as MiddlewareType);
 
-
-    const store: Store<any, any> & { dispatch: unknown } = createStore(
-        mergedReducers,
-        composeEnhancers(applyMiddleware(...middlewares))
+    const store: Store<any, any> & { dispatch: unknown } = configureStore({
+        reducer: mergedReducers,
+        middleware: () => new Tuple(...middlewares),
+        devTools: { name: titleDevTools },
+      }
     );
 
     return store;
