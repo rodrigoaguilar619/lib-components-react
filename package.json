@@ -1,6 +1,6 @@
 {
   "name": "lib-components-frontend-ts",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "dependencies": {
     "@coreui/chartjs": "^4.0.0",
     "@coreui/coreui": "^5.0.1",
