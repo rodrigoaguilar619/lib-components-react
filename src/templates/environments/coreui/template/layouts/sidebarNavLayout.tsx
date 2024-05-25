@@ -10,14 +10,14 @@ export const SidebarNavLayout: React.FC<AppMenusSideBarPropsI> = ({ items }) => 
   const navLink = (name: string, icon: React.ReactNode, badge: any, indent = false) => {
     return (
       <>
-        {icon
-          ? icon
-          : indent && (
-              <span className="nav-icon">
-                <span className="nav-icon-bullet"></span>
-              </span>
-            )}
-        {name && name}
+        {icon || (
+          indent && (
+            <span className="nav-icon">
+              <span className="nav-icon-bullet"></span>
+            </span>
+          )
+        )}
+        {name && <span>{name}</span>}
         {badge && (
           <CBadge color={badge.color} className="ms-auto">
             {badge.text}
@@ -57,8 +57,8 @@ export const SidebarNavLayout: React.FC<AppMenusSideBarPropsI> = ({ items }) => 
 
   return (
     <CSidebarNav as={SimpleBar}>
-      {items &&
-        items.map((item, index) => (item.items ? navGroup(item, index) : navItem(item, index)))}
+      {items?.map((item, index) => item.items ? navGroup(item, index) : navItem(item, index)
+    )}
     </CSidebarNav>
   )
 }
