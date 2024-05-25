@@ -3,7 +3,7 @@ import {
   cilPuzzle,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
-import { ROUTE_DATATABLE_DATA, ROUTE_FORMS_FORM_INPUTS, ROUTE_FORMS_INPUT_ELEMENTS, ROUTE_FORMS_INPUTS_MULTIPLE } from '@app/_moduleTest/config/catalogs/routesCatalog'
+import { ROUTE_DATATABLE_DATA, ROUTE_DATATABLE_EXPAND_DATA, ROUTE_FORMS_FORM_INPUTS, ROUTE_FORMS_INPUT_ELEMENTS, ROUTE_FORMS_INPUTS_MULTIPLE } from '@app/_moduleTest/config/catalogs/routesCatalog'
 
 const _nav = [
   {
@@ -20,6 +20,11 @@ const _nav = [
         component: CNavItem,
         name: 'Datatable Data',
         to: ROUTE_DATATABLE_DATA,
+      },
+      {
+        component: CNavItem,
+        name: 'Datatable Expand Data',
+        to: ROUTE_DATATABLE_EXPAND_DATA,
       },
     ],
   },
