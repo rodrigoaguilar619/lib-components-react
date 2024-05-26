@@ -6,7 +6,7 @@
  */
 export function countDecimals(number: any) {
     let numberString = number.toString().trim();
-    if (numberString.includes("\.") === false)
+    if (!numberString.includes("."))
         return 0;
     else
         return numberString.split(".")[1].length;

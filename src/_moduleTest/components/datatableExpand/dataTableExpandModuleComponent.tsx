@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { DataTableColumnOptionsPropsI } from '@app/@types/components/dataTable/dataTable';
 import { DataTableModulePropsI } from '@app/_moduleTest/_propTypes/components/datatable/dataTableModule';
 import { getDataTableExpandDataService } from '@app/_moduleTest/controller/services/dataTableService';
