@@ -1,26 +1,19 @@
 import { LoadingState } from '@app/@types/components/_hooks/loadingHook';
 import { useState } from 'react';
 
-const useHookLoading = (): [LoadingState, () => void, () => void] => {
+const useHookLoading = (): [LoadingState, (loading: boolean) => void] => {
     const [loadingState, setLoadingState] = useState<LoadingState>({
         isLoading: true,
     });
 
-    const setLoading = () => {
+    const setLoading = (loading: boolean) => {
         setLoadingState(prevState => ({
             ...prevState,
-            isLoading: true,
+            isLoading: loading,
         }));
     };
 
-    const clearLoading = () => {
-        setLoadingState(prevState => ({
-            ...prevState,
-            isLoading: false,
-        }));
-    };
-
-    return [loadingState, setLoading, clearLoading];
+    return [loadingState, setLoading];
 };
 
 export default useHookLoading;
