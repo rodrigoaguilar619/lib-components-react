@@ -1,11 +1,12 @@
 import { ModalState } from '@app/@types/components/_hooks/modalHook';
 import { useState, ReactNode } from 'react';
 
-const useHookModal = (): [ModalState, () => void, () => void, (body: ReactNode) => void, (title: string) => void] => {
+const useHookModal = (): [ModalState, () => void, () => void, (body: ReactNode) => void, (title: string) => void, (size: "sm" | "md" | "lg") => void] => {
     const [modalState, setModalState] = useState<ModalState>({
         showModal: false,
         bodyModal: undefined,
         titleModal: '',
+        size: "md",
     });
 
     const setOpenModal = () => {
@@ -36,7 +37,14 @@ const useHookModal = (): [ModalState, () => void, () => void, (body: ReactNode) 
         }));
     };
 
-    return [modalState, setOpenModal, setCloseModal, setBodyModal, setTitleModal];
+    const setSizeModal = (size: "sm" | "md" | "lg") => {
+        setModalState(prevState => ({
+            ...prevState,
+            size: size,
+        }));
+    };
+
+    return [modalState, setOpenModal, setCloseModal, setBodyModal, setTitleModal, setSizeModal];
 };
 
 export default useHookModal;
