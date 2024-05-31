@@ -14,6 +14,8 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { showDataDevelopment } from '@app/utils/webUtils/debugUtil';
 import { FormInputsModulePropsI } from '@app/_moduleTest/_propTypes/components/forms/formInputsModule';
+import useHookLoading from '@app/hookStates/loadingHookState';
+import LoadingModuleComponent from '@app/components/loadings/loadingModuleComponent';
 
 const FormInputsModuleComponent: React.FC<FormInputsModulePropsI> = (props) => {
 
@@ -23,15 +25,20 @@ const FormInputsModuleComponent: React.FC<FormInputsModulePropsI> = (props) => {
     const [formData, setFormData] = useState<Record<string, any>>({});
     const [isForceUpdate, setIsForceUpdate] = useState<boolean>(false);
     const [modalState, setOpenModal, setCloseModal, setBodyModal, setTitleModal] = useHookModal();
+    const [loadingState, setLoading] = useHookLoading();
     const validatorControl: any = useRef(buildSimpleReactValidator());
 
     useEffect(() => {
         dispatchTemplateHeaderSubTitleAction(dispatch, props.componentType, "Form Inputs");
         setFormData(buildFormDataContainers(formContainers));
+        setLoading(false);
 
         return () => {
         };
     }, []);
+
+    if(loadingState.isLoading)
+        return <LoadingModuleComponent />
 
     const handleClick = () => {
 
@@ -71,6 +78,7 @@ const FormInputsModuleComponent: React.FC<FormInputsModulePropsI> = (props) => {
     ]
 
     addValidatorRuleIsGreaterThan(inputIds.validate_number_1, formContainers, inputIds.validate_number_2, formData[inputIds.validate_number_2]);
+    
     return (<div>
         <ModalComponent title={modalState.titleModal} visible={modalState.showModal} selectorCloseModal={setCloseModal}
             body={modalState.bodyModal} size="sm" />

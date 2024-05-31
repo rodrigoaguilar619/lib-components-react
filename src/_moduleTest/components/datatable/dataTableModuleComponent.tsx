@@ -23,6 +23,8 @@ import { useNavigate } from 'react-router-dom';
 import { DataTableColumnOptionsPropsI } from '@app/@types/components/dataTable/dataTable';
 import { DataTableModulePropsI } from '@app/_moduleTest/_propTypes/components/datatable/dataTableModule';
 import { getCatalogDataService } from '@app/_moduleTest/controller/services/catalogService';
+import LoadingModuleComponent from '@app/components/loadings/loadingModuleComponent';
+import useHookLoading from '@app/hookStates/loadingHookState';
 
 const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
 
@@ -32,6 +34,7 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     const [dataTableList, setDataTableList] = useState<[]>([]);
     const [formFilterData, setFormFilterData] = useState<Record<string, any>>({});
     const [modalState, setOpenModal, setCloseModal, setBodyModal, setTitleModal] = useHookModal();
+    const [loadingState, setLoading] = useHookLoading();
     const optionsTemplate: DataTableColumnOptionsPropsI = tableOptionsTemplateDefault;
 
     const FormInputsModuleComponent = React.lazy(() => import('@app/_moduleTest/components/forms/formInputsModule/formInputsModuleComponent'))
@@ -60,6 +63,7 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
                 setDataTableList(dataTableData.data);
                 setOptionsToColumnsDefList(filterData.inputColumns, catalogData.data, inputIds.select_normal);
                 dispatch(setTemplateLoadingIsActiveAction(false));
+                setLoading(false);
 
             }))
             .catch((error) => {
@@ -67,6 +71,9 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
                 dispatch(setTemplateLoadingIsActiveAction(false));
             });
     }
+
+    if(loadingState.isLoading)
+        return <LoadingModuleComponent />
 
     const executeGetDataTableList = () => {
 

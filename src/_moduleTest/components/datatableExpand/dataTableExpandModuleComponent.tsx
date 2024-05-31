@@ -14,11 +14,14 @@ import { debug, generateDebugClassModule } from '@app/utils/webUtils/debugUtil';
 import { manageAlertModuleError } from '@app/utils/webUtils/httpManagerUtil';
 import { faHammer, faHome, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { columnsAddressList, columnsList } from './dataTableExpandModuleConfig';
+import useHookLoading from '@app/hookStates/loadingHookState';
+import LoadingModuleComponent from '@app/components/loadings/loadingModuleComponent';
 
 const DataTableExpandModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     
     const dispatch = useDispatch();
     const [dataTableList, setDataTableList] = useState<[]>([]);
+    const [loadingState, setLoading] = useHookLoading();
     const optionsTemplate: DataTableColumnOptionsPropsI = tableOptionsTemplateDefault;
     
     useEffect(() => {
@@ -30,6 +33,7 @@ const DataTableExpandModuleComponent: React.FC<DataTableModulePropsI> = (props) 
         return () => {
         };
     }, []);
+    
 
     const initModule = () => {
 
@@ -43,6 +47,7 @@ const DataTableExpandModuleComponent: React.FC<DataTableModulePropsI> = (props) 
                 debug(debugClass, "result", dataTableData);
                 setDataTableList(dataTableData.data);
                 dispatch(setTemplateLoadingIsActiveAction(false));
+                setLoading(false);
 
             }))
             .catch((error) => {
@@ -50,6 +55,9 @@ const DataTableExpandModuleComponent: React.FC<DataTableModulePropsI> = (props) 
                 dispatch(setTemplateLoadingIsActiveAction(false));
             });
     }
+
+    if(loadingState.isLoading)
+        return <LoadingModuleComponent />
 
     const actionTemplate = (rowData: any, column: any) => {
 

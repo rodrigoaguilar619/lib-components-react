@@ -11,6 +11,8 @@ import { ButtonSubmitComponent, ButtonsOrganizerComponent } from '@app/component
 import { dispatchTemplateHeaderSubTitleAction } from '@app/utils/componentUtils/templateUtil';
 import { showDataDevelopment } from '@app/utils/webUtils/debugUtil';
 import { FormInputsMultipleModulePropsI } from '@app/_moduleTest/_propTypes/components/forms/formInputsMultipleModule';
+import useHookLoading from '@app/hookStates/loadingHookState';
+import LoadingModuleComponent from '@app/components/loadings/loadingModuleComponent';
 
 const FormInputsMultipleModuleComponent: React.FC<FormInputsMultipleModulePropsI> = (props) => {
 
@@ -19,16 +21,21 @@ const FormInputsMultipleModuleComponent: React.FC<FormInputsMultipleModulePropsI
     const [formDataList, setFormDataList] = useState<Record<string, any>[]>([]);
     const [isForceUpdate, setIsForceUpdate] = useState<boolean>(false);
     const [modalState, setOpenModal, setCloseModal, setBodyModal, setTitleModal] = useHookModal();
+    const [loadingState, setLoading] = useHookLoading();
     const validatorControl: any = useRef(buildSimpleReactValidator());
 
     useEffect(() => {
         dispatchTemplateHeaderSubTitleAction(dispatch, props.componentType, "Form Inputs Multiple");
         setFormData(buildFormDataContainers(formContainers));
         setFormDataList([...buildFormDataMultiple(inputSectionMultiple)])
+        setLoading(false);
 
         return () => {
         };
     }, []);
+
+    if(loadingState.isLoading)
+        return <LoadingModuleComponent />
 
     const handleClick = () => {
 
