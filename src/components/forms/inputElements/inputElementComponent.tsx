@@ -82,11 +82,16 @@ const buildInputElement = (props: InputElementPropsListI) => {
     }
     case InputElementEnum.SELECT: {
       const selectProps = props as InputElementSelectPropsI;
+      let showClear = true;
       let optionsSelect: { code: string; name: string }[] = buildcatalogOptions(selectProps.options, selectProps.isOptionAll);
+      
+      if(selectProps.value === "")
+        showClear = false;
+
       return <Dropdown className={classNames.join(" ")} disabled={props.isReadOnly}
         value={getDropDownValue(optionsSelect, selectProps.value)}
         onChange={(e: DropdownChangeEvent) => { executeOnChange(selectProps.updateValue, (e.value?.code ?? null), selectProps.executeOnChange) }} options={optionsSelect} optionLabel="name"
-        placeholder={"-- " + (selectProps.placeholder ?? "Select element") + " --"} showClear />
+        placeholder={"-- " + (selectProps.placeholder ?? "Select element") + " --"} showClear={showClear} />
     }
     case InputElementEnum.CALENDAR: {
       const calendarProps = props as InputElementCalendarPropsI;
