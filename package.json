@@ -98,7 +98,7 @@
     "start-dev": "webpack-dev-server --config ./config/webpack/webpack.dev.server.tsx --open",
     "build": "react-scripts build",
     "build-publish-scss": "rimraf ./lib && babel src/scss/ --out-dir lib/scss --copy-files",
-    "build-publish-types": "babel src/@types/ --out-dir lib/@types --copy-files",
+    "build-publish-types": "babel src/@types/ --out-dir lib/@types --copy-files && babel public/ --out-dir lib/public --copy-files",
     "build-publish-tsc": "tsc && tsc-alias && rimraf ./lib/_tests ./lib/_moduleTest",
     "build-publish": "npm-run-all build-publish-scss build-publish-types build-publish-tsc",
     "build-dev": "webpack --config ./config/webpack/webpack.dev.tsx",

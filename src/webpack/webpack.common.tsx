@@ -23,7 +23,7 @@ function getCommonConfig(enviroment: string, args: Record<string, any>) {
         entry: './src/index.tsx',
         output: {
             path: path.resolve(args.dirname, '../../dist/dist_' + enviroment),
-            filename: 'bundles/[name].[hash].bundle.js',
+            filename: 'bundles/[name].[fullhash].bundle.js',
             chunkFilename: 'bundles/[name].chunk.js',
         },
         resolve: {
@@ -104,7 +104,7 @@ function getCommonPlugins(enviroment: string, args: Record<string, any>) {
         }),
         new HtmlWebpackPlugin({
             title: args.htmlTitle,
-            template: "./public/index.html",
+            template: path.resolve(__dirname, "../../public/index.html"),
             filename: "./index.html"
         }),
     ]
@@ -123,8 +123,8 @@ function executeCommonConfig(enviroment: string, args: Record<string, any>) {
         ...getCommonConfig(enviroment, args),
         plugins: [
             new MiniCssExtractPlugin({
-                filename: `styles/[name].[hash].css`,
-                chunkFilename: 'styles/[name].[hash].chunk.js',
+                filename: `styles/[name].[fullhash].css`,
+                chunkFilename: 'styles/[name].[fullhash].chunk.js',
             }),
             ...getCommonPlugins(enviroment, args),
             new CleanWebpackPlugin(),
@@ -135,7 +135,24 @@ function executeCommonConfig(enviroment: string, args: Record<string, any>) {
             concatenateModules: true,
             splitChunks: {
                 chunks: 'all',
-            },
+                minSize: 20000,
+                maxSize: 70000,
+                minChunks: 1,
+                maxAsyncRequests: 30,
+                maxInitialRequests: 30,
+                automaticNameDelimiter: '~',
+                cacheGroups: {
+                  vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                  },
+                  default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                  }
+                }
+              },
             minimizer: [
                 new CssMinimizerPlugin(),
                 new TerserPlugin({
