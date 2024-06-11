@@ -150,7 +150,7 @@ function executeCommonConfig(enviroment: string, args: Record<string, any>) {
                 new BundleAnalyzerPlugin({
                     analyzerMode: 'static',
                     openAnalyzer: false,
-                    reportFilename: path.resolve(args.dirname, '../../reports_build/report.html'),
+                    reportFilename: path.resolve(args.dirname, '../../dist/report_' + enviroment + '.html'),
                 }),
             ],
         }
