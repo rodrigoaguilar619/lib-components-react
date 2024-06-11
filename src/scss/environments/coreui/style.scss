@@ -21,9 +21,4 @@ $enable-rtl: true;
 @import "primereact/resources/themes/lara-light-indigo/theme.css";
 @import "filepond/dist/filepond.min.css";
 
-// If you want to add custom CSS you can put it here.
-@import "custom";
-@import "../../../scss/plugins/coreUI.scss";
-@import "../../../scss/plugins/primeReact.scss";
-@import "../../../scss/plugins/reactTooltip.scss";
-@import "../../../scss/plugins/filepond.scss";
+@import "../../../scss/plugins/dependenceCoreUI.scss";
