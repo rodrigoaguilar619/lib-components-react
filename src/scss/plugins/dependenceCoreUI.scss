@@ -6,3 +6,12 @@
     will-change: auto;
     @include transition(padding .15s);
 }
+
+.sidebar-toggler {
+    --cui-sidebar-toggler-width: 0.9rem;
+    --cui-sidebar-toggler-height: 0.9rem;
+}
+
+.sidebar-footer {
+    height: 34px;
+}
