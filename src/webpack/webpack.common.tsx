@@ -39,15 +39,6 @@ function getCommonConfig(enviroment: string, args: Record<string, any>) {
                 {
                     test: /\.(png|jpg|jpeg|gif|svg)$/,
                     type: 'asset/resource',
-                    /*use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: '[name].[ext]',
-                                outputPath: 'images/',
-                            },
-                        },
-                    ],*/
                 },
                 {
                     test: /\.(sa|sc|c)ss$/,

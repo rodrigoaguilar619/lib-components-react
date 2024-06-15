@@ -1,7 +1,7 @@
 const pathDevServer = require('path');
 const commonConfigDevServer = require('./webpack.common');
 
-function executeConfigDevServer(mode: string, args: Record<string, any>) {
+function executeConfigServer(mode: string, args: Record<string, any>) {
   let webpackConfig = commonConfigDevServer.executeCommonServerConfig(mode, args);
   webpackConfig.devServer = {
     static: {
@@ -28,5 +28,5 @@ function executeConfigDevServer(mode: string, args: Record<string, any>) {
 }
 
 module.exports = {
-  executeConfigDevServer: executeConfigDevServer.bind(this)
+  executeConfigServer: executeConfigServer.bind(this)
 };

@@ -1,4 +1,4 @@
-const configProd = require("../../src/webpack/webpack.config.prod.tsx");
+const configProd = require("../../src/webpack/webpack.config.build.tsx");
 
 module.exports = (arg: Record<string, any>, env: Record<string, any>) => {
 
@@ -6,7 +6,7 @@ module.exports = (arg: Record<string, any>, env: Record<string, any>) => {
   const htmlTitle = "html title prod";
   const dirname = __dirname;
 
-  let mainWebpack = configProd.executeConfigProd(mode, { htmlTitle: htmlTitle, dirname: dirname });
+  let mainWebpack = configProd.executeConfigBuild(mode, { htmlTitle: htmlTitle, dirname: dirname });
 
   console.log("Webpack config prod", JSON.stringify(mainWebpack, null, 2));
   return mainWebpack;
