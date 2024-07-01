@@ -26,23 +26,23 @@ const FormInputColumnsComponent: React.FC<FormInputColumnsPropsI> = (props) => {
         return ((inputColumnProps.validations === undefined || props.validatorControl === undefined))
             ? null :
             (<div>{props.validatorControl.current.message(inputColumnProps.validations.idValidation,
-                props.formData[inputColumnProps.id], inputColumnProps.validations.validatorRules)}
+                props.formData[inputColumnProps.inputProps.id], inputColumnProps.validations.validatorRules)}
             </div>);
     }
 
     const buildColumn = (inputColumnProps: FormInputColumnPropsI, width: string) => {
 
         const buildValidatorSection = buildValidator(inputColumnProps);
-        let valueInput = props.formData[inputColumnProps.id] ?? "";
+        let valueInput = props.formData[inputColumnProps.inputProps.id] ?? "";
         let isShowError: boolean = buildValidatorSection?.props.children !== undefined;
         
-        return (<Col key={inputColumnProps.id} md={"auto"} style={{ width: width, paddingTop: "3px" }}>
+        return (<Col key={inputColumnProps.inputProps.id} md={"auto"} style={{ width: width, paddingTop: "3px" }}>
             <LabelInputComponent label={inputColumnProps.label} icon={faQuestionCircle} tooltipHelpText={inputColumnProps.tooltipText} />
             <InputElementComponent inputProps={{
                 ...inputColumnProps.inputProps,
                 value: valueInput,
                 isShowError: isShowError,
-                updateValue: updateFormData.bind(null, props.formData, inputColumnProps.id),
+                updateValue: updateFormData.bind(null, props.formData, inputColumnProps.inputProps.id),
                 executeOnChange: props.executeOnChange
             }} />
             <div style={{ paddingLeft: "3px" }}>{buildValidatorSection}</div>

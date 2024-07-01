@@ -14,16 +14,12 @@ describe('DataTableComponent', () => {
     header: 'Options',
     actionTemplate: () => <button>Options</button>, // Example action template
     tableConfig: {
-      aligns: {
-        alignHeader: 'center',
-        alignCell: 'center'
-      },
       styleCss: { fontWeight: 'bold' }
     }
   };
 
   const mockColumnDefList: DataTablePropsI[] = [
-    { field: 'id', header: 'ID', tableConfig: { isSortable: true, aligns: { alignHeader: 'right', alignCell: 'right' } } },
+    { field: 'id', header: 'ID', tableConfig: { isSortable: true } },
     { field: 'name', header: 'Name', tableConfig: { isSortable: true } },
     { field: 'age', header: 'Age', tableConfig: { isSortable: true } }
   ];

@@ -12,8 +12,8 @@ describe('FilterAccoridionComponent', () => {
             columnstotal: 2,
             containerWidth: '100%',
             inputColumns: [
-                { label: 'Column 1', id: 'column1', inputProps: { inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } },
-                { label: 'Column 2', id: 'column2', inputProps: { inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } }
+                { label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } },
+                { label: 'Column 2', inputProps: { id: 'column2', inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } }
             ],
         };
         const formData = { column1: '', column2: '' };
@@ -39,8 +39,8 @@ describe('FilterAccoridionComponent', () => {
         const formContainer: FormInputContainerPropsI = {
             columnstotal: 2,
             inputColumns: [
-                { label: 'Column 1', id: 'column1', inputProps: { inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } },
-                { label: 'Column 2', id: 'column2', inputProps: { inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } }
+                { label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } },
+                { label: 'Column 2', inputProps: { id: 'column2', inputType: InputElementEnum.TEXT, value: '', updateValue: () => { } } }
             ],
         };
         const formData = { column1: '', column2: '' };

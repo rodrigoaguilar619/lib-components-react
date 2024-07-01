@@ -7,6 +7,7 @@ export interface InputDropDownValueI {
 }
 
 export interface InputElementPropsI {
+    id: string;
     inputType: InputElementEnum;
     value: string;
     isShowError?: boolean;

@@ -50,7 +50,7 @@ export function addValidatorRule(idField: string, formContainers: FormInputConta
 
         formContainer.inputColumns.forEach((inputColumnProps: FormInputColumnPropsI) => {
 
-            if (inputColumnProps.id === idField) {
+            if (inputColumnProps.inputProps.id === idField) {
 
                 let validatorRuleName = validtorRule.substring(0, validtorRule.indexOf(":"));
                 let indexValidatorRule = inputColumnProps.validations?.validatorRules.findIndex(element => element.startsWith(validatorRuleName));
@@ -76,7 +76,7 @@ export function getLabelFieldLabelToCompare(formContainers: FormInputContainerPr
     
     formContainers.forEach((formContainer: FormInputContainerPropsI) => {
         
-        labelFieldLabelToCompare = formContainer.inputColumns.find((element) => { return element.id === idFieldLabelToCompare })?.label;
+        labelFieldLabelToCompare = formContainer.inputColumns.find((element) => { return element.inputProps.id === idFieldLabelToCompare })?.label;
     });
     return labelFieldLabelToCompare;
 }

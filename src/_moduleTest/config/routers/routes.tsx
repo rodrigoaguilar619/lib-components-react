@@ -5,7 +5,7 @@ import { _APP_CONTEXT_PATH_ } from '@app/catalogs/constantCatalog'
 import DataTableExpandModuleComponent from '@app/_moduleTest/components/datatableExpand/dataTableExpandModuleComponent'
 
 const DataTableModuleComponent = React.lazy(() => import('@app/_moduleTest/components/datatable/dataTableModuleComponent'))
-const InputElementModuleComponent = React.lazy(() => import('@app/_moduleTest/components/forms/inputElementModule/inputElementModuleComponent'))
+const InputElementModuleComponent = React.lazy(() => import('@app/_moduleTest/components/forms/formInputElementModule/inputElementModuleComponent'))
 const FormInputsModuleComponent = React.lazy(() => import('@app/_moduleTest/components/forms/formInputsModule/formInputsModuleComponent'))
 const FormInputsMultipleModuleComponent = React.lazy(() => import('@app/_moduleTest/components/forms/formInputsMultipleModule/formInputsMultipleModuleComponent'))
 

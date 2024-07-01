@@ -9,29 +9,25 @@ export const inputIds = {
 export const columnsList: DataTablePropsI[] = [
     {
         field: 'id', header: 'Id', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     },
     {
         field: 'name', header: 'Name', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     },
     {
         field: 'surname', header: 'Surname', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     },
     {
         field: 'age', header: 'Age', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     }
@@ -41,29 +37,25 @@ export const columnsList: DataTablePropsI[] = [
 export const columnsAddressList: DataTablePropsI[] = [
     {
         field: 'streetAddress', header: 'Street Address', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     },
     {
         field: 'city', header: 'City', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     },
     {
         field: 'state', header: 'State', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     },
     {
         field: 'zip', header: 'Zip', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "5%" },
+            styleCss: { width: "5%", textAlign: "center" },
             isSortable: true
         }
     }

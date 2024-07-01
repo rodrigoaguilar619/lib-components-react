@@ -12,8 +12,7 @@ export const inputIds = {
 export const columnsList: DataTablePropsI[] = [
     {
         field: 'answer', header: 'Answer', tableConfig: {
-            aligns: { alignCell: "center" },
-            styleCss: { width: "7%" },
+            styleCss: { width: "7%", textAlign: "center" },
             isSortable: true
         },
         maskProps: {
@@ -24,8 +23,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'currency', header: 'Currency', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY
@@ -33,8 +31,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'currencyZeroPad', header: 'Currency zeropad 5', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY,
@@ -46,8 +43,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'currencySymbol', header: 'Currency Simbol', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY,
@@ -58,8 +54,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'percentageSymbol', header: 'Percentage Simbol', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY,
@@ -70,8 +65,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'currencyComma', header: 'Currency Commma', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY,
@@ -82,8 +76,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'currencyInteger', header: 'Currency Integer', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY,
@@ -95,8 +88,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'currencyAllOptions', header: 'Currency All Options', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.CURRENCY,
@@ -110,8 +102,7 @@ export const columnsList: DataTablePropsI[] = [
     },
     {
         field: 'dateMillis', header: 'Date', tableConfig: {
-            aligns: { alignCell: "left" },
-            styleCss: { width: "7%" }
+            styleCss: { width: "7%", textAlign: "left" }
         },
         maskProps: {
             maskType: MaskDataTypeEnum.DATE,
@@ -125,27 +116,31 @@ export const columnsList: DataTablePropsI[] = [
 export const filterData: FormInputContainerPropsI = {
     inputColumns: [
         {
-            id: inputIds.text_normal, label: "Text Input required", tooltipText: "Text input type required",
+            label: "Text Input required", tooltipText: "Text input type required",
             inputProps: {
+                id: inputIds.text_normal,
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
             }
         },
         {
-            id: inputIds.select_normal, label: "Select normal",
+            label: "Select normal",
             inputProps: {
+                id: inputIds.select_normal,
                 inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: [],
                 placeholder: "Select city"
             }
         },
         {
-            id: inputIds.calendar_normal, label: "calendar 1",
+            label: "calendar 1",
             inputProps: {
+                id: inputIds.calendar_normal,
                 inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
             }
         },
         {
-            id: "anwser_default", label: "Select normal",
+            label: "Select normal",
             inputProps: {
+                id: "anwser_default",
                 inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: CATALOG_DEFAULT_TRUE_FALSE,
                 placeholder: "Select answer"
             }

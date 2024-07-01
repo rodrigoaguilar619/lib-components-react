@@ -15,8 +15,8 @@ const buildColumnOptions = (columnOptionsTemplate: DataTableColumnOptionsPropsI 
     return (<Column key={"datatable_options"}
         //field={"options"}
         header={columnOptionsTemplate.header}
-        alignHeader={columnOptionsTemplate.tableConfig.aligns?.alignHeader ?? tableConfigDefault.aligns?.alignHeader}
-        align={columnOptionsTemplate.tableConfig.aligns?.alignCell ?? tableConfigDefault.aligns?.alignCell}
+        alignHeader={"center"}
+        /*align={columnOptionsTemplate.tableConfig.aligns?.alignCell ?? tableConfigDefault.aligns?.alignCell}*/
         style={columnOptionsTemplate.tableConfig.styleCss}
         body={columnOptionsTemplate.actionTemplate}
     />);
@@ -137,8 +137,8 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
                     field={col.field}
                     header={col.header}
                     sortable={col.tableConfig.isSortable}
-                    alignHeader={col.tableConfig.aligns?.alignHeader ?? tableConfigDefault.aligns?.alignHeader}
-                    align={col.tableConfig.aligns?.alignCell ?? tableConfigDefault.aligns?.alignCell}
+                    alignHeader={"center"}
+                    /*align={col.tableConfig.aligns?.alignCell ?? tableConfigDefault.aligns?.alignCell}*/
                     style={col.tableConfig.styleCss}
                     {...col.tableConfig.pluginProps}
                     body={(rowData) => { return setMaskData(rowData[col.field], col.maskProps ?? undefined); }}

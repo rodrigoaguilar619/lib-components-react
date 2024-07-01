@@ -8,8 +8,8 @@ import { buildFormDataContainers, buildFormDataColumns, buildFormDataMultiple } 
         const formContainers: FormInputContainerPropsI[] = [
           {
             inputColumns: [
-              { id: "id1", label: "label1", inputProps: { value: "value1", inputType: "text 1", updateValue: () => {} } },
-              { id: "id2", label: "label2", inputProps: { value: "value2", inputType: "text 2", updateValue: () => {} } }
+              { label: "label1", inputProps: { id: "id1", value: "value1", inputType: "text 1", updateValue: () => {} } },
+              { label: "label2", inputProps: { id: "id2", value: "value2", inputType: "text 2", updateValue: () => {} } }
             ],
             columnstotal: 2
           },

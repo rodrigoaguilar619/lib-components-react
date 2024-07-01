@@ -12,7 +12,7 @@ export function buildFormDataContainers(formContainers: FormInputContainerPropsI
 
     formContainers.forEach((formContainerProps: FormInputContainerPropsI) => {
         formContainerProps.inputColumns.forEach((inputColumnProps: FormInputColumnPropsI) => {
-            formData[inputColumnProps.id] = inputColumnProps.inputProps.value;
+            formData[inputColumnProps.inputProps.id] = inputColumnProps.inputProps.value;
         })
     });
 
@@ -30,7 +30,7 @@ export function buildFormDataColumns(formInputs: FormInputColumnPropsI[]) {
     let formData: Record<string, any> = {};
 
     formInputs.forEach((inputColumnProps: FormInputColumnPropsI) => {
-        formData[inputColumnProps.id] = inputColumnProps.inputProps.value;
+        formData[inputColumnProps.inputProps.id] = inputColumnProps.inputProps.value;
     });
 
     return formData;
@@ -76,7 +76,7 @@ export function getParameterCall(location: any, props: any, paramName: string) {
 export const setOptionsToColumnsDefList = (inputColumns: FormInputColumnPropsI[], options: Record<string, any>, id: string) => {
 
     inputColumns.forEach((column) => {
-        if (column.id === id) {
+        if (column.inputProps.id === id) {
             column.inputProps.options = options;
         }
     });

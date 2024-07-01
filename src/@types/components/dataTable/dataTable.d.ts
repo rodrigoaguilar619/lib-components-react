@@ -17,14 +17,8 @@ export interface MaskDataPropsI {
     maskDataProps?: MaskDataCurrencyPropsI | MaskDataDatePropsI,
 }
 
-export interface DataTableAlignsPropsI {
-    alignHeader?: "center" | "left" | "right",
-    alignCell?: "center" | "left" | "right"
-}
-
 export interface DataTableConfigPropsI {
     isSortable?: boolean,
-    aligns?: DataTableAlignsPropsI, //properties for align header and columns
     styleCss?: CSSProperties,       //properties css for column
     pluginProps?: any                //properties extra for plugin
 }

@@ -5,9 +5,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import InputElementComponent from '@app/components/forms/inputElements/inputElementComponent';
 import { InputElementEnum, InputMaskEnum } from '@app/catalogs/enumCatalog';
 import { formatJsonWithBoldKeys } from '@app/utils/formatUtils/formatJsonUtil';
-import { InputElementModulePropsI } from '@app/_moduleTest/_propTypes/components/forms/inputElementModule';
+import { FormInputElementModulePropsI } from '@app/_moduleTest/_propTypes/components/forms/inputElementModule';
 
-const InputElementModuleComponent: React.FC<InputElementModulePropsI> = () => {
+const FormInputElementModuleComponent: React.FC<FormInputElementModulePropsI> = () => {
 
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>('');
@@ -38,32 +38,32 @@ const InputElementModuleComponent: React.FC<InputElementModulePropsI> = () => {
       <Row>
         <Col md={"auto"} style={{width: "33%"}}>
           Text:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.TEXT, value: value, updateValue: setValue}} />
+          <InputElementComponent inputProps={{inputType: InputElementEnum.TEXT, id: 'text', value: value, updateValue: setValue}} />
         </Col>
         <Col md={"auto"} style={{width: "33%"}}>
           Mask Numeric:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.MASK, value: valueMaskNumber, updateValue: setValueMaskNumber, maskType: InputMaskEnum.NUMBER, maskProps: {totalDecimals: 2}}} />
+          <InputElementComponent inputProps={{inputType: InputElementEnum.MASK, id: 'maskNumeric', value: valueMaskNumber, updateValue: setValueMaskNumber, maskType: InputMaskEnum.NUMBER, maskProps: {totalDecimals: 2}}} />
         </Col>
         <Col md={"auto"} style={{width: "33%"}}>
           Mask Phone:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.MASK, value: valueMaskPhone, updateValue: setValueMaskPhone, maskType: InputMaskEnum.PHONE}} />
+          <InputElementComponent inputProps={{inputType: InputElementEnum.MASK, id: 'maskPhone', value: valueMaskPhone, updateValue: setValueMaskPhone, maskType: InputMaskEnum.PHONE}} />
         </Col>
         <Col md={"auto"} style={{width: "33%"}}>
           Dropdown:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.SELECT, value: valueSelect, updateValue: setValueSelect,
+          <InputElementComponent inputProps={{inputType: InputElementEnum.SELECT, id: 'select', value: valueSelect, updateValue: setValueSelect,
             options: cities}} />
         </Col>
         <Col md={"auto"} style={{width: "33%"}}>
           Datepicker default format:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.CALENDAR, value: dateMillis, updateValue: setDateMillis}} />
+          <InputElementComponent inputProps={{inputType: InputElementEnum.CALENDAR, id: 'date', value: dateMillis, updateValue: setDateMillis}} />
         </Col>
         <Col md={"auto"} style={{width: "33%"}}>
           Datepicker format yy/mm/dd:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.CALENDAR, dateFormat: "yy/mm/dd", value: dateMillisFormat, updateValue: setDateMillisFormat}} />
+          <InputElementComponent inputProps={{inputType: InputElementEnum.CALENDAR, id: 'dateFormat', dateFormat: "yy/mm/dd", value: dateMillisFormat, updateValue: setDateMillisFormat}} />
         </Col>
         { <Col md={"auto"} style={{width: "33%"}}>
           File upload:
-          <InputElementComponent inputProps={{inputType: InputElementEnum.FILE, updateValue: setValueFile, value: valueFile}} />
+          <InputElementComponent inputProps={{inputType: InputElementEnum.FILE, id: 'file', updateValue: setValueFile, value: valueFile}} />
         </Col> }
       </Row>
     </Container>
@@ -74,4 +74,4 @@ const InputElementModuleComponent: React.FC<InputElementModulePropsI> = () => {
   );
 }
 
-export default InputElementModuleComponent
+export default FormInputElementModuleComponent

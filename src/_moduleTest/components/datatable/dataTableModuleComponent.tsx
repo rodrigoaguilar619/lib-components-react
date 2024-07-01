@@ -50,6 +50,27 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
         };
     }, []);
 
+    const openFormInputModuleRoute = (id: string) => {
+        navigate(ROUTE_FORMS_FORM_INPUTS, { state: { id: id } });
+    };
+
+    const actionTemplate = (rowData: any, column: any) => {
+
+        let modalBody = <div>rowData:&nbsp;{JSON.stringify(rowData)}<br></br>columns:&nbsp;{JSON.stringify(column.field)}</div>;
+
+        let buttonOptions = [];
+        let buttonNestedOptions = [];
+
+        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faHammer} onClick={() => { setTitleModal("DATA ROW"); setBodyModal(modalBody); setOpenModal() }} tooltip="Show modal row data" />);
+        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faTrash} onClick={() => { }} tooltip="trash" />);
+
+        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHome} onClick={() => { openFormInputModuleRoute(rowData.id) }} tooltip='Open form input module on route' />);
+        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHammer} onClick={() => { setTitleModal("FORM INPUTS TEST"); setBodyModal(<FormInputsModuleComponent componentType={ComponentTypeEnum.POPUP} id={rowData.id} />); setOpenModal() }} tooltip='Open form input module on popup' />);
+        buttonOptions.push(<ButtonWithNestedOptionsComponent idTooltip={rowData.id} buttonOptions={buttonNestedOptions} />);
+
+        return (<ButtonsOrganizerComponent buttonOptions={buttonOptions} />);
+    }
+
     const initModule = () => {
 
         let debugClass = generateDebugClassModule("init datatable list module");
@@ -99,29 +120,8 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
         executeGetDataTableList();
     }
 
-    const openFormInputModuleRoute = (id: string) => {
-        navigate(ROUTE_FORMS_FORM_INPUTS, { state: { id: id } });
-    };
-
     const executeFilterSearchOnchage = (formData: Record<string, any>) => {
         alert(JSON.stringify(formData));
-    }
-
-    const actionTemplate = (rowData: any, column: any) => {
-
-        let modalBody = <div>rowData:&nbsp;{JSON.stringify(rowData)}<br></br>columns:&nbsp;{JSON.stringify(column.field)}</div>;
-
-        let buttonOptions = [];
-        let buttonNestedOptions = [];
-
-        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faHammer} onClick={() => { setTitleModal("DATA ROW"); setBodyModal(modalBody); setOpenModal() }} tooltip="Show modal row data" />);
-        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faTrash} onClick={() => { }} tooltip="trash" />);
-
-        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHome} onClick={() => { openFormInputModuleRoute(rowData.id) }} tooltip='Open form input module on route' />);
-        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHammer} onClick={() => { setTitleModal("FORM INPUTS TEST"); setBodyModal(<FormInputsModuleComponent componentType={ComponentTypeEnum.POPUP} id={rowData.id} />); setOpenModal() }} tooltip='Open form input module on popup' />);
-        buttonOptions.push(<ButtonWithNestedOptionsComponent idTooltip={rowData.id} buttonOptions={buttonNestedOptions} />);
-
-        return (<ButtonsOrganizerComponent buttonOptions={buttonOptions} />);
     }
 
     const showAlertError = () => {
@@ -138,7 +138,6 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
 
     footerButtons.push(<ButtonCustomComponent label="Generate alert success" onClick={showAlertSuccess} />);
     footerButtons.push(<ButtonCustomComponent label="Generate alert error" onClick={showAlertError} />);
-
     return (<div>
         <ModalComponent title={modalState.titleModal} visible={modalState.showModal} selectorCloseModal={setCloseModal}
             body={modalState.bodyModal} size='sm' />

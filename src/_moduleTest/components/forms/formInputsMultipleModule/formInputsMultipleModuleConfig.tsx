@@ -26,8 +26,9 @@ const cities: any[] = [
 const inputSectionInputIndividual: FormInputContainerPropsI = {
     inputColumns: [
         {
-            id: inputIds.text_normal, label: "Text Input required", tooltipText: "Text input type required",
+            label: "Text Input required", tooltipText: "Text input type required",
             inputProps: {
+                id: inputIds.text_normal, 
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
             },
             validations: {
@@ -35,8 +36,9 @@ const inputSectionInputIndividual: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.text_default_value, label: "Text Input default value",
+            label: "Text Input default value",
             inputProps: {
+                id: inputIds.text_default_value,
                 inputType: InputElementEnum.TEXT, value: 'Text 2 default', updateValue: () => { }
             },
             validations: {
@@ -44,8 +46,9 @@ const inputSectionInputIndividual: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.select_normal, label: "Select normal",
+            label: "Select normal",
             inputProps: {
+                id: inputIds.select_normal,
                 inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: cities,
                 placeholder: "Select city"
             },
@@ -54,8 +57,9 @@ const inputSectionInputIndividual: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.calendar_normal, label: "calendar 1",
+            label: "calendar 1",
             inputProps: {
+                id: inputIds.calendar_normal,
                 inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
             },
             validations: {
@@ -63,8 +67,9 @@ const inputSectionInputIndividual: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.calendar_format, label: "calendar format yy/mm/dd",
+            label: "calendar format yy/mm/dd",
             inputProps: {
+                id: inputIds.calendar_format,
                 inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }, dateFormat: "yy/mm/dd"
             },
             validations: {
@@ -78,8 +83,9 @@ const inputSectionInputIndividual: FormInputContainerPropsI = {
 
 export const inputSectionMultiple: FormInputColumnPropsI[] = [
     {
-        id: inputMultipleIds.text, label: "TEXT INPUT",
+        label: "TEXT INPUT",
         inputProps: {
+            id: inputMultipleIds.text,
             inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
         },
         validations: {
@@ -87,8 +93,9 @@ export const inputSectionMultiple: FormInputColumnPropsI[] = [
         }
     },
     {
-        id: inputMultipleIds.select, label: "SELECT INPUT",
+        label: "SELECT INPUT",
         inputProps: {
+            id: inputMultipleIds.select,
             inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: cities,
             placeholder: "Select city"
         },
@@ -97,8 +104,9 @@ export const inputSectionMultiple: FormInputColumnPropsI[] = [
         }
     },
     {
-        id: inputMultipleIds.calendar, label: "CALENDAR INPUT",
+        label: "CALENDAR INPUT",
         inputProps: {
+            id: inputMultipleIds.calendar,
             inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
         },
         validations: {

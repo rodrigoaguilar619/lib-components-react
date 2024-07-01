@@ -55,7 +55,7 @@ const FormInputsMultipleComponent: React.FC<FormInputsMultipleComponentI> = (pro
 
         let columns = inputColumns.map((inputColumnProps: FormInputColumnPropsI) => {
             return (
-                <Col key={inputColumnProps.id} md={"auto"} style={{ width: widthColumns, paddingTop: "3px", textAlign: "center" }}>
+                <Col key={inputColumnProps.inputProps.id} md={"auto"} style={{ width: widthColumns, paddingTop: "3px", textAlign: "center" }}>
                     <b>{inputColumnProps.label}</b>
                 </Col>
             );

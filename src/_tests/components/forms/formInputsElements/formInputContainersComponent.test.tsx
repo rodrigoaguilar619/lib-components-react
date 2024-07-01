@@ -7,7 +7,7 @@ import { FormInputColumnPropsI } from '@app/@types/components/formInputs/formInp
 
 describe('FormInputColumnsComponent', () => {
   it('calls updateFormData when input value changes', () => {
-    const inputColumns: FormInputColumnPropsI[] = [{ id: 'column1', label: 'Column 1', inputProps: { inputType: InputElementEnum.TEXT, value: 'Value 1', updateValue: () => { } } }];
+    const inputColumns: FormInputColumnPropsI[] = [{ label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: 'Value 1', updateValue: () => { } } }];
     const formData = { column1: '' };
     const selectorUpdateFormData = jest.fn();
     const validatorControl = { current: { message: jest.fn() } };

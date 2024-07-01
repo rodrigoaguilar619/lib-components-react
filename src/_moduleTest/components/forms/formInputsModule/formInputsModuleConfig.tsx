@@ -31,8 +31,9 @@ const answers: any[] = [
 const inputSectionOne: FormInputContainerPropsI = {
     inputColumns: [
         {
-            id: inputIds.text_normal, label: "Text Input required", tooltipText: "Text input type required",
+            label: "Text Input required", tooltipText: "Text input type required",
             inputProps: {
+                id: inputIds.text_normal,
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
             },
             validations: {
@@ -40,8 +41,9 @@ const inputSectionOne: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.text_default_value, label: "Text Input default value",
+            label: "Text Input default value",
             inputProps: {
+                id: inputIds.text_default_value,
                 inputType: InputElementEnum.TEXT, value: 'Text 2 default', updateValue: () => { }, isReadOnly: true
             },
             validations: {
@@ -49,8 +51,9 @@ const inputSectionOne: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.select_normal, label: "Select normal",
+            label: "Select normal",
             inputProps: {
+                id: inputIds.select_normal,
                 inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: cities,
                 placeholder: "Select city"
             },
@@ -59,8 +62,9 @@ const inputSectionOne: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.select_answer, label: "Select answer",
+            label: "Select answer",
             inputProps: {
+                id: inputIds.select_answer,
                 inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: answers,
                 placeholder: "Select answer"
             },
@@ -69,8 +73,9 @@ const inputSectionOne: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.calendar_normal, label: "calendar 1",
+            label: "calendar 1",
             inputProps: {
+                id: inputIds.calendar_normal,
                 inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
             },
             validations: {
@@ -78,8 +83,9 @@ const inputSectionOne: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.calendar_format, label: "calendar format yy/mm/dd",
+            label: "calendar format yy/mm/dd",
             inputProps: {
+                id: inputIds.calendar_format,
                 inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }, dateFormat: "yy/mm/dd"
             },
             validations: {
@@ -94,8 +100,9 @@ const inputSectionOne: FormInputContainerPropsI = {
 const inputSectionTwo: FormInputContainerPropsI = {
     inputColumns: [
         {
-            id: inputIds.validate_email, label: "Validate email",
+            label: "Validate email",
             inputProps: {
+                id: inputIds.validate_email,
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
             },
             validations: {
@@ -103,8 +110,9 @@ const inputSectionTwo: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.validate_numeric, label: "Validate numeric with 2 decimals",
+            label: "Validate numeric with 2 decimals",
             inputProps: {
+                id: inputIds.validate_numeric,
                 inputType: InputElementEnum.MASK, value: '', updateValue: () => { },
                 maskType: InputMaskEnum.NUMBER, maskProps: { totalDecimals: 2 }
             },
@@ -120,10 +128,11 @@ const inputSectionTwo: FormInputContainerPropsI = {
 const inputSectionThree: FormInputContainerPropsI = {
     inputColumns: [
         {
-            id: inputIds.validate_number_1, label: "Validate number 1",
+            label: "Validate number 1",
             tooltipText: "This field must be greater than " + inputIds.validate_number_1 + "."
                 + "<br/>la rule is added into the component because needs parameter value which be compare to dinamically",
             inputProps: {
+                id: inputIds.validate_number_1,
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
             },
             validations: {
@@ -131,8 +140,9 @@ const inputSectionThree: FormInputContainerPropsI = {
             }
         },
         {
-            id: inputIds.validate_number_2, label: "Validate number 2",
+            label: "Validate number 2",
             inputProps: {
+                id: inputIds.validate_number_2,
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { },
             },
             validations: {
@@ -147,9 +157,10 @@ const inputSectionThree: FormInputContainerPropsI = {
 const inputSectionFour: FormInputContainerPropsI = {
     inputColumns: [
         {
-            id: inputIds.file, label: "load file",
+            label: "load file",
             tooltipText: "load file",
             inputProps: {
+                id: inputIds.file,
                 inputType: InputElementEnum.FILE, value: null, updateValue: () => { }
             },
             validations: {

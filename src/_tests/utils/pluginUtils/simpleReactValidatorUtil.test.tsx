@@ -29,9 +29,9 @@ describe('Simple React Validator', () => {
             {
                 inputColumns: [
                     {
-                        id: 'inputField',
                         label: 'Input Label',
                         inputProps: {
+                            id: 'inputField',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -42,9 +42,9 @@ describe('Simple React Validator', () => {
                         },
                     },
                     {
-                        id: 'fieldToCompare',
                         label: 'Input Label Field To Compare',
                         inputProps: {
+                            id: 'fieldToCompare',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -69,9 +69,9 @@ describe('Simple React Validator', () => {
             {
                 inputColumns: [
                     {
-                        id: 'inputField',
                         label: 'Input Label',
                         inputProps: {
+                            id: 'inputField',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -96,9 +96,9 @@ describe('Simple React Validator', () => {
             {
                 inputColumns: [
                     {
-                        id: 'inputField',
                         label: 'Input Label',
                         inputProps: {
+                            id: 'inputField',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -122,9 +122,9 @@ describe('Simple React Validator', () => {
             {
                 inputColumns: [
                     {
-                        id: 'inputField',
                         label: 'Input Label',
                         inputProps: {
+                            id: 'inputField',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -135,9 +135,9 @@ describe('Simple React Validator', () => {
                         },
                     },
                     {
-                        id: 'fieldToCompare',
                         label: 'Input Label Field To Compare',
                         inputProps: {
+                            id: 'fieldToCompare',
                             value: '2',
                             inputType: 'text',
                             updateValue: () => {},
@@ -162,9 +162,9 @@ describe('Simple React Validator', () => {
             {
                 inputColumns: [
                     {
-                        id: 'inputField',
                         label: 'Input Label',
                         inputProps: {
+                            id: 'inputField',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -175,9 +175,9 @@ describe('Simple React Validator', () => {
                         },
                     },
                     {
-                        id: 'fieldToCompare',
                         label: 'Input Label Field To Compare',
                         inputProps: {
+                            id: 'fieldToCompare',
                             value: '2',
                             inputType: 'text',
                             updateValue: () => {},
@@ -202,9 +202,9 @@ describe('Simple React Validator', () => {
             {
                 inputColumns: [
                     {
-                        id: 'inputField',
                         label: 'Input Label',
                         inputProps: {
+                            id: 'inputField',
                             value: '',
                             inputType: 'text',
                             updateValue: () => {},
@@ -215,9 +215,9 @@ describe('Simple React Validator', () => {
                         },
                     },
                     {
-                        id: 'fieldToCompare',
                         label: 'Input Label Field To Compare',
                         inputProps: {
+                            id: 'fieldToCompare',
                             value: '2',
                             inputType: 'text',
                             updateValue: () => {},
