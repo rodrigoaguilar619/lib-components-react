@@ -4,16 +4,7 @@
 $enable-ltr: true;
 $enable-rtl: true;
 
-// Import CoreUI for React components library
 @import "@coreui/coreui/scss/coreui";
-@import "@coreui/coreui/scss/functions";
-@import "@coreui/coreui/scss/variables";
-@import "@coreui/coreui/scss/mixins";
-
-// Import Chart.js custom tooltips styles
-@import "@coreui/chartjs/scss/coreui-chartjs";
-
-//@import "simplebar/dist/simplebar.min.css";
 @import 'simplebar-react/dist/simplebar.min.css';
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";  
