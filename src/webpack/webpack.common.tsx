@@ -7,6 +7,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 
 /**
@@ -59,7 +60,8 @@ function getCommonConfig(enviroment: string, args: Record<string, any>) {
                                 '@babel/plugin-proposal-class-properties',
                                 '@babel/plugin-syntax-dynamic-import',
                                 "react-hot-loader/babel",
-                            ]
+                                enviroment === 'development' ? require.resolve('react-refresh/babel') : "",
+                            ].filter(Boolean)
                         }
                     },
                 },
@@ -98,7 +100,8 @@ function getCommonPlugins(enviroment: string, args: Record<string, any>) {
             template: path.resolve(__dirname, "../../public/index.html"),
             filename: "./index.html"
         }),
-    ]
+        enviroment === 'development' ? new ReactRefreshWebpackPlugin() : "",
+    ].filter(Boolean)
 }
 
 /**
