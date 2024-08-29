@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { formContainers, formContainers2, inputIds } from './formInputsModuleConfig';
-import FormInputContainersComponent from '@app/components/forms/formInputsElements/formInputContainersComponent';
+import FormInputContainersComponent from '@app/components/forms/formInputContainersComponent';
 import { buildFormDataContainers, getParameterCall } from '@app/utils/componentUtils/formUtil';
 import { addValidatorRuleIsGreaterThan, buildSimpleReactValidator } from '@app/utils/pluginUtils/simpleReactValidatorUtil';
 import useHookModal from '@app/hookStates/modalHookState';

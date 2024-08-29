@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import FormInputsMultipleComponent from '@app/components/forms/formInputsMultiple/formInputsMultipleComponent';
+import FormInputMultipleComponent from '@app/components/forms/formInputsMultipleComponent';
 import { InputElementEnum } from '@app/catalogs/enumCatalog';
 import { FormInputColumnPropsI } from '@app/@types/components/formInputs/formInputs';
 
@@ -17,7 +17,7 @@ describe('FormInputsMultipleComponent', () => {
         const selectorUpdateFormDataList = jest.fn();
 
         const { getByText } = render(
-            <FormInputsMultipleComponent
+            <FormInputMultipleComponent
                 inputColumns={inputColumns}
                 formDataList={formDataList}
                 validatorControl={validatorControl}

@@ -133,9 +133,9 @@ const buildInputMask = (props: InputElementMaskPropsI) => {
   }
 };
 
-const InputElementComponent: React.FC<InputElementComponentI> = (props) => {
+const FormInputElementComponent: React.FC<InputElementComponentI> = (props) => {
 
   return (buildInputElement(props.inputProps));
 }
 
-export default InputElementComponent
+export default FormInputElementComponent

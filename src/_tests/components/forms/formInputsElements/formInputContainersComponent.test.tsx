@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import FormInputColumnsComponent from '@app/components/forms/formInputsElements/formInputColumnsComponent';
+import FormInputColumnsComponent from '@app/components/forms/formInputColumnsComponent';
 import { InputElementEnum } from '@app/catalogs/enumCatalog';
 import { FormInputColumnPropsI } from '@app/@types/components/formInputs/formInputs';
 

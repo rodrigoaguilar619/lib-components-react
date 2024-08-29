@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTemplateHeaderSubTitleAction } from '@app/controller/actions/templateHeaderAction';
 import { Col, Container, Row } from 'react-bootstrap';
-import InputElementComponent from '@app/components/forms/inputElements/inputElementComponent';
+import InputElementComponent from '@app/components/forms/formInputElementComponent';
 import { InputElementEnum, InputMaskEnum } from '@app/catalogs/enumCatalog';
 import { formatJsonWithBoldKeys } from '@app/utils/formatUtils/formatJsonUtil';
 import { FormInputElementModulePropsI } from '@app/_moduleTest/_propTypes/components/forms/inputElementModule';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Col, Container, Row } from 'react-bootstrap';
-import FormInputColumnsComponent from '@app/components/forms/formInputsElements/formInputColumnsComponent';
+import FormInputColumnsComponent from '@app/components/forms/formInputColumnsComponent';
 import { ButtonSearchComponent } from '@app/components/elements/buttonComponents';
 import { FilterAccordionPropsI } from '@app/@types/components/filterAccordion/filterAccordion';
 import { FormInputContainerPropsI } from '@app/@types/components/formInputs/formInputs';

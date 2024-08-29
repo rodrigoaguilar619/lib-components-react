@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import FormInputColumnsComponent from "@app/components/forms/formInputsElements/formInputColumnsComponent";
+import FormInputColumnsComponent from "@app/components/forms/formInputColumnsComponent";
 import { buildFormDataColumns } from "@app/utils/componentUtils/formUtil";
 import { deepClone } from "@app/utils/dataUtils/dataUtil";
 import { TooltipConfigInputHelp } from "@app/components/tooltip/tooltipConfigComponents";
@@ -9,7 +9,7 @@ import { ButtonCustomComponent, ButtonsOrganizerComponent } from "@app/component
 import { FormInputColumnPropsI } from "@app/@types/components/formInputs/formInputs";
 import { FormInputsMultipleComponentI } from "@app/@types/components/formInputsMultiple/formInputsMultiple";
 
-const FormInputsMultipleComponent: React.FC<FormInputsMultipleComponentI> = (props) => {
+const FormInputMultipleComponent: React.FC<FormInputsMultipleComponentI> = (props) => {
 
     const columnInputWidth = "94%";
     const columnOptionsWidth = "6%";
@@ -126,4 +126,4 @@ const FormInputsMultipleComponent: React.FC<FormInputsMultipleComponentI> = (pro
     return (<div>{formContainersComponents}<TooltipConfigInputHelp /></div>);
 }
 
-export default FormInputsMultipleComponent
+export default FormInputMultipleComponent

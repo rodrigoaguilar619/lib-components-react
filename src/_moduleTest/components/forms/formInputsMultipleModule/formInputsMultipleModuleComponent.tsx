@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { formContainers, inputSectionMultiple } from './formInputsMultipleModuleConfig';
-import FormInputContainersComponent from '@app/components/forms/formInputsElements/formInputContainersComponent';
+import FormInputContainersComponent from '@app/components/forms/formInputContainersComponent';
 import { buildFormDataContainers, buildFormDataMultiple } from '@app/utils/componentUtils/formUtil';
 import { buildSimpleReactValidator } from '@app/utils/pluginUtils/simpleReactValidatorUtil';
 import useHookModal from '@app/hookStates/modalHookState';
 import ModalComponent from '@app/components/modals/modalComponent';
-import FormInputsMultipleComponent from '@app/components/forms/formInputsMultiple/formInputsMultipleComponent';
+import FormInputMultipleComponent from '@app/components/forms/formInputsMultipleComponent';
 import { ButtonSubmitComponent, ButtonsOrganizerComponent } from '@app/components/elements/buttonComponents';
 import { dispatchTemplateHeaderSubTitleAction } from '@app/utils/componentUtils/templateUtil';
 import { showDataDevelopment } from '@app/utils/webUtils/debugUtil';
@@ -58,7 +58,7 @@ const FormInputsMultipleModuleComponent: React.FC<FormInputsMultipleModulePropsI
             validatorControl={validatorControl} selectorUpdateFormData={setFormData} />
         <br></br>
         Inputs multiple selection:
-        <FormInputsMultipleComponent
+        <FormInputMultipleComponent
             inputColumns={inputSectionMultiple}
             formDataList={formDataList}
             validatorControl={validatorControl}

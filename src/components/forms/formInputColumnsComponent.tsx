@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Col } from "react-bootstrap";
-import InputElementComponent from "@app/components/forms/inputElements/inputElementComponent";
+import InputElementComponent from "@app/components/forms/formInputElementComponent";
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { LabelInputComponent } from "@app/components/elements/labelComponents";
 import { FormInputColumnPropsI } from "@app/@types/components/formInputs/formInputs";
