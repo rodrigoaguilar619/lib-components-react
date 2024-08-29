@@ -1,6 +1,6 @@
 {
   "name": "lib-components-react",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "dependencies": {
     "@coreui/chartjs": "^4.0.0",
     "@coreui/coreui": "^5.0.1",
