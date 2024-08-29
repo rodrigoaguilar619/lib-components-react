@@ -172,5 +172,57 @@ const inputSectionFour: FormInputContainerPropsI = {
     containerWidth: "100%"
 }
 
+const inputSectionFive: FormInputContainerPropsI = {
+    inputColumns: [
+        {
+            label: "Text Input required", tooltipText: "Text input type required",
+            columnWidth: "33%",
+            inputProps: {
+                id: inputIds.text_normal,
+                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
+            },
+            validations: {
+                idValidation: inputIds.text_normal, validatorRules: ["required"]
+            }
+        },
+        {
+            label: "Text Input default value",
+            columnWidth: "33%",
+            inputProps: {
+                id: inputIds.text_default_value,
+                inputType: InputElementEnum.TEXT, value: 'Text 2 default', updateValue: () => { }, isReadOnly: true
+            },
+            validations: {
+                idValidation: inputIds.text_default_value, validatorRules: ["required"]
+            }
+        },
+        {
+            label: "Select normal",
+            columnWidth: "33%",
+            inputProps: {
+                id: inputIds.select_normal,
+                inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: cities,
+                placeholder: "Select city"
+            },
+            validations: {
+                idValidation: inputIds.select_normal, validatorRules: ["required"]
+            }
+        },
+        {
+            label: "calendar 1",
+            columnWidth: "25%",
+            inputProps: {
+                id: inputIds.calendar_normal,
+                inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
+            },
+            validations: {
+                idValidation: inputIds.calendar_normal, validatorRules: ["required"]
+            }
+        }
+    ],
+    //columnstotal: 6,
+    containerWidth: "100%"
+}
+
 export const formContainers: FormInputContainerPropsI[] = [inputSectionOne, inputSectionTwo, inputSectionThree];
-export const formContainers2: FormInputContainerPropsI[] = [inputSectionFour];
+export const formContainers2: FormInputContainerPropsI[] = [inputSectionFour, inputSectionFive];

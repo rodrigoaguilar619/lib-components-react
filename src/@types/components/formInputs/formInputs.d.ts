@@ -11,7 +11,7 @@ export interface FormInputColumnPropsI {
 
 export interface FormInputContainerPropsI {
     inputColumns: FormInputColumnPropsI[];
-    columnstotal: number;
+    columnstotal?: number;
     containerWidth?: string;
 }
 

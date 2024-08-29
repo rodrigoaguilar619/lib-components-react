@@ -20,17 +20,21 @@ const FormInputContainersComponent: React.FC<FormInputsComponentI> = (props) => 
 
         let formContainersComponents = formContainers.map((formContainerProps: FormInputContainerPropsI, index: number) => {
 
-            let widthColumns = 100 / formContainerProps.columnstotal;
             let styles: Record<string, string> = {};
+            let widthColumn: string = "200px";
 
             if (formContainerProps.containerWidth !== undefined) {
                 styles.width = formContainerProps.containerWidth;
             }
 
+            if (formContainerProps.columnstotal !== undefined) {
+                widthColumn = (100 / formContainerProps.columnstotal) + "%";
+            }
+
             return <Container key={index} style={styles}><Row>
                 <FormInputColumnsComponent
                     inputColumns={formContainerProps.inputColumns}
-                    width={widthColumns + "%"}
+                    width={widthColumn}
                     formData={props.formData}
                     validatorControl={props.validatorControl}
                     selectorUpdateFormData={props.selectorUpdateFormData}>

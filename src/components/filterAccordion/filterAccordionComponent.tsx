@@ -20,7 +20,7 @@ const FilterAccoridionComponent: React.FC<FilterAccordionPropsI> = (props) => {
             return null;
         }
 
-        let widthColumns = 100 / formContainer.columnstotal;
+        let widthColumns = formContainer.columnstotal !== undefined ? (100 / formContainer.columnstotal) : 3;
         let styles: Record<string, string> = {};
 
         if (formContainer.containerWidth !== undefined) {
