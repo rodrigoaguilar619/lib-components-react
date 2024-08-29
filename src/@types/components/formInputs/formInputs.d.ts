@@ -1,6 +1,7 @@
 export interface FormInputColumnPropsI {
     inputProps: InputElementPropsListI;
     columnWidth?: string;
+    showColumn?: boolean = true;
     label: string;
     tooltipText?: string;
     validations?: {

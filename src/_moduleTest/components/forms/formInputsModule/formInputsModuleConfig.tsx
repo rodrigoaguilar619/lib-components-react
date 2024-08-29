@@ -177,6 +177,7 @@ const inputSectionFive: FormInputContainerPropsI = {
         {
             label: "Text Input required", tooltipText: "Text input type required",
             columnWidth: "33%",
+            showColumn: false,
             inputProps: {
                 id: inputIds.text_normal,
                 inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
@@ -210,7 +211,7 @@ const inputSectionFive: FormInputContainerPropsI = {
         },
         {
             label: "calendar 1",
-            columnWidth: "25%",
+            columnWidth: "66%",
             inputProps: {
                 id: inputIds.calendar_normal,
                 inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }

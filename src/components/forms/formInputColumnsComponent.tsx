@@ -53,6 +53,10 @@ const FormInputColumnsComponent: React.FC<FormInputColumnsPropsI> = (props) => {
     const buildFormColumns = (inputColumns: FormInputColumnPropsI[], width: string) => {
 
         let columns = inputColumns.map((inputColumnProps: FormInputColumnPropsI) => {
+
+            if (inputColumnProps.showColumn === false) {
+                return null;
+            }
             return buildColumn(inputColumnProps, width);
         })
 
