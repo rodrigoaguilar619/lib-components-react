@@ -162,16 +162,19 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
             footerButtons={footerButtons}
         />
         <br></br>
-        <DataTableComponent
-            title='Table title not header search and footer'
-            columnDefList={columnsList}
-            columnDataList={dataTableList}
-            columnOptionsTemplate={optionsTemplate}
-            totalRows={dataTableList.length}
-            footerButtons={footerButtons}
-            isShowSearch={false}
-            isShowFooter={false}
-        />
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <DataTableComponent
+                title='Table title not header search and footer'
+                tableWidth='85%'
+                columnDefList={columnsList}
+                columnDataList={dataTableList}
+                columnOptionsTemplate={optionsTemplate}
+                totalRows={dataTableList.length}
+                footerButtons={footerButtons}
+                isShowSearch={false}
+                isShowFooter={false}
+            />
+        </div>
         <TooltipConfigInputHelp />
         <TooltipConfigCustom />
         <TooltipConfigButtonNestedOptions />

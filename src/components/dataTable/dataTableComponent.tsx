@@ -125,26 +125,28 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
     let setMaskData = props.customMaskData ?? maskData;
 
     return (
-        <DataTable ref={dt} value={props.columnDataList} tableStyle={{ minWidth: '50rem' }}
-            header={header} globalFilter={globalFilterValue} {...showRowsPage()} footer={footer}
-            selectionMode="single" onSelectionChange={(e) => setSelectedRow(e.value)} selection={selectedRow}
-            {...generateRowExpansionTemplate()}
-            {...props.extraProps}>
-            {props.rowExpansionTemplate !== undefined ? <Column expander={true} style={{ width: '2%' }} /> : undefined}
-            {buildColumnOptions(props.columnOptionsTemplate)}
-            {props.columnDefList.map((col) => (
-                <Column key={col.field}
-                    field={col.field}
-                    header={col.header}
-                    sortable={col.tableConfig.isSortable}
-                    alignHeader={"center"}
-                    /*align={col.tableConfig.aligns?.alignCell ?? tableConfigDefault.aligns?.alignCell}*/
-                    style={col.tableConfig.styleCss}
-                    {...col.tableConfig.pluginProps}
-                    body={(rowData) => { return setMaskData(rowData[col.field], col.maskProps ?? undefined); }}
-                />
-            ))}
-        </DataTable>
+        <div style={{ width: props.tableWidth }}>
+            <DataTable ref={dt} value={props.columnDataList} tableStyle={{ minWidth: '50rem' }}
+                header={header} globalFilter={globalFilterValue} {...showRowsPage()} footer={footer}
+                selectionMode="single" onSelectionChange={(e) => setSelectedRow(e.value)} selection={selectedRow}
+                {...generateRowExpansionTemplate()}
+                {...props.extraProps}>
+                {props.rowExpansionTemplate !== undefined ? <Column expander={true} style={{ width: '2%' }} /> : undefined}
+                {buildColumnOptions(props.columnOptionsTemplate)}
+                {props.columnDefList.map((col) => (
+                    <Column key={col.field}
+                        field={col.field}
+                        header={col.header}
+                        sortable={col.tableConfig.isSortable}
+                        alignHeader={"center"}
+                        /*align={col.tableConfig.aligns?.alignCell ?? tableConfigDefault.aligns?.alignCell}*/
+                        style={col.tableConfig.styleCss}
+                        {...col.tableConfig.pluginProps}
+                        body={(rowData) => { return setMaskData(rowData[col.field], col.maskProps ?? undefined); }}
+                    />
+                ))}
+            </DataTable>
+        </div>
     )
 }
 

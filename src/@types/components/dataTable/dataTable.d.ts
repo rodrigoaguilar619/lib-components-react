@@ -35,6 +35,7 @@ export interface DataTableComponentI {
     columnDataList: any[],
     columnOptionsTemplate?: DataTableColumnOptionsPropsI,
     title: string,
+    tableWidth?: string,
     totalRows: number,
     isShowRowsPage?: boolean,
     isSortable?: boolean,
