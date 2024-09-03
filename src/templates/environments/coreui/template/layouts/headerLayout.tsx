@@ -31,7 +31,6 @@ const HeaderLayout = () => {
         <h5>{templateHeaderState.subtitle}</h5>
         </span>
       </CContainer>
-      <CHeaderDivider />
     </CHeader>
   )
 }
