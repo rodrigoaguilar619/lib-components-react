@@ -84,6 +84,23 @@ export const setOptionsToColumnsDefList = (inputColumns: FormInputColumnPropsI[]
 }
 
 /**
+ * Sets the executeOnChange function to a specific column in the inputColumns list.
+ *
+ * @param {FormInputColumnPropsI[]} inputColumns - the list of input columns
+ * @param {(formData: Record<string, any>) => void} executeOnChange - the function to be executed on change
+ * @param {string} id - the id of the column to update
+ * @return {void} 
+ */
+export const setExucuteOnChangeToColumnsDefList = (inputColumns: FormInputColumnPropsI[], executeOnChange: (formData: Record<string, any>) => void, id: string) => {
+
+    inputColumns.forEach((column) => {
+        if (column.inputProps.id === id) {
+            column.inputProps.executeOnChange = executeOnChange;
+        }
+    });
+}
+
+/**
  * Sets options to the columns container definition list.
  *
  * @param {FormInputContainerPropsI[]} container - the input container list
@@ -97,6 +114,44 @@ export const setOptionsToColumnsContainerDefList = (container: FormInputContaine
 
         if (inputContainer.inputColumns) {
             setOptionsToColumnsDefList(inputContainer.inputColumns, options, id);
+        }
+    });
+}
+
+/**
+ * Sets the executeOnChange function to columns in the container definition list.
+ *
+ * @param {FormInputContainerPropsI[]} container - The list of input containers.
+ * @param {(formData: Record<string, any>) => void} executeOnChange - The function to be executed on change.
+ * @param {string} id - The identifier.
+ * @return {void}
+ */
+export const setExucuteOnChangeToColumnsContainerDefList = (container: FormInputContainerPropsI[], executeOnChange: (formData: Record<string, any>) => void, id: string) => {
+
+    container.forEach((inputContainer: { inputColumns: FormInputColumnPropsI[]; }) => {
+
+        if (inputContainer.inputColumns) {
+            setExucuteOnChangeToColumnsDefList(inputContainer.inputColumns, executeOnChange, id);
+        }
+    });
+}
+
+/**
+ * Sets the executeOnChange function to all columns in the container definition list.
+ *
+ * @param {FormInputContainerPropsI[]} container - the input container list
+ * @param {(formData: Record<string, any>) => void} executeOnChange - the function to be executed on change
+ * @return {void} 
+ */
+export const setExucuteOnChangeToAllColumnsContainerDefList = (container: FormInputContainerPropsI[], executeOnChange: (formData: Record<string, any>) => void) => {
+
+    container.forEach((inputContainer: { inputColumns: FormInputColumnPropsI[]; }) => {
+
+        if (inputContainer.inputColumns) {
+
+            inputContainer.inputColumns.forEach((column) => {
+                column.inputProps.executeOnChange = executeOnChange;
+            });
         }
     });
 }

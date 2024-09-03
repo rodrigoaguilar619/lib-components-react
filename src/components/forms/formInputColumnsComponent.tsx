@@ -43,9 +43,7 @@ const FormInputColumnsComponent: React.FC<FormInputColumnsPropsI> = (props) => {
                 ...inputColumnProps.inputProps,
                 value: valueInput,
                 isShowError: isShowError,
-                updateValue: updateFormData.bind(null, props.formData, inputColumnProps.inputProps.id),
-                executeOnChange: props.executeOnChange
-            }} />
+            }} updateValue={updateFormData.bind(null, props.formData, inputColumnProps.inputProps.id)} />
             <div style={{ paddingLeft: "3px" }}>{buildValidatorSection}</div>
         </Col>);
     }

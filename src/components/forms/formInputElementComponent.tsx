@@ -61,8 +61,8 @@ const executeOnChange = (updateValue: (value: string | number | null) => void, v
    * @param {InputElementSelectPropsI | InputElementTextPropsI} props - the props for the input element
    * @return {JSX.Element} the built input element
    */
-const buildInputElement = (props: InputElementPropsListI) => {
-
+const buildInputElement = (props: InputElementPropsListI, updateValue: (value: string | number | null) => void) => {
+  
   let classNames: string[] = [];
 
   if (props.isShowError) {
@@ -74,11 +74,11 @@ const buildInputElement = (props: InputElementPropsListI) => {
       const textProps = props as InputElementTextPropsI;
       return <InputText className={classNames.join(" ")} disabled={props.isReadOnly}
         value={textProps.value} /*autoFocus*/
-        onChange={(e) => executeOnChange(textProps.updateValue, e.target.value, textProps.executeOnChange)} />;
+        onChange={(e) => executeOnChange(updateValue, e.target.value, textProps.executeOnChange)} />;
     }
     case InputElementEnum.MASK: {
       const maskProps = props as InputElementMaskPropsI;
-      return buildInputMask(maskProps);
+      return buildInputMask(maskProps, updateValue);
     }
     case InputElementEnum.SELECT: {
       const selectProps = props as InputElementSelectPropsI;
@@ -90,26 +90,26 @@ const buildInputElement = (props: InputElementPropsListI) => {
 
       return <Dropdown className={classNames.join(" ")} disabled={props.isReadOnly}
         value={getDropDownValue(optionsSelect, selectProps.value)}
-        onChange={(e: DropdownChangeEvent) => { executeOnChange(selectProps.updateValue, (e.value?.code ?? null), selectProps.executeOnChange) }} options={optionsSelect} optionLabel="name"
+        onChange={(e: DropdownChangeEvent) => { executeOnChange(updateValue, (e.value?.code ?? null), selectProps.executeOnChange) }} options={optionsSelect} optionLabel="name"
         placeholder={"-- " + (selectProps.placeholder ?? "Select element") + " --"} showClear={showClear} />
     }
     case InputElementEnum.CALENDAR: {
       const calendarProps = props as InputElementCalendarPropsI;
       return <Calendar className={classNames.join(" ")} dateFormat={calendarProps.dateFormat} disabled={props.isReadOnly}
         value={calendarProps.value ? new Date(calendarProps.value) : null}
-        onChange={(e) => { executeOnChange(calendarProps.updateValue, (e.value?.getTime() ?? null), calendarProps.executeOnChange) }}
+        onChange={(e) => { executeOnChange(updateValue, (e.value?.getTime() ?? null), calendarProps.executeOnChange) }}
         showButtonBar={true} />
     }
     case InputElementEnum.FILE: {
        const fileProps = props as InputElementFilePropsI;
-       return <Form.Control type="file" onChange={(event: any) => { executeOnChange(fileProps.updateValue, event.target.files.length > 0 ? event.target.files[0] : null, fileProps.executeOnChange) }} />
+       return <Form.Control type="file" onChange={(event: any) => { executeOnChange(updateValue, event.target.files.length > 0 ? event.target.files[0] : null, fileProps.executeOnChange) }} />
      }
     default:
       return <div>N/A</div>
   }
 };
 
-const buildInputMask = (props: InputElementMaskPropsI) => {
+const buildInputMask = (props: InputElementMaskPropsI, updateValue: (value: string | number | null) => void) => {
 
   let classNames: string[] = [];
 
@@ -120,12 +120,12 @@ const buildInputMask = (props: InputElementMaskPropsI) => {
   switch (props.maskType) {
     case InputMaskEnum.NUMBER: {
       return <InputNumber className={classNames.join(" ")} value={Number(props.value ?? null)} disabled={props.isReadOnly}
-        onValueChange={(e) => executeOnChange(props.updateValue, (e.value !== undefined && e.value !== null) ? e.value.toString() : "", props.executeOnChange)}
+        onValueChange={(e) => executeOnChange(updateValue, (e.value !== undefined && e.value !== null) ? e.value.toString() : "", props.executeOnChange)}
         maxFractionDigits={props.maskProps?.totalDecimals ?? undefined} minFractionDigits={props.maskProps?.totalDecimals ?? undefined} />;
     }
     case InputMaskEnum.PHONE: {
       return <InputMask value={props.value} unmask={true} autoClear={false} slotChar={""} disabled={props.isReadOnly}
-        onChange={(e) => { executeOnChange(props.updateValue, e.target.value ?? "", props.executeOnChange) }}
+        onChange={(e) => { executeOnChange(updateValue, e.target.value ?? "", props.executeOnChange) }}
         mask="999-999999" placeholder="999-999999" />
     }
     default:
@@ -134,8 +134,7 @@ const buildInputMask = (props: InputElementMaskPropsI) => {
 };
 
 const FormInputElementComponent: React.FC<InputElementComponentI> = (props) => {
-
-  return (buildInputElement(props.inputProps));
+  return (buildInputElement(props.inputProps, props.updateValue));
 }
 
 export default FormInputElementComponent

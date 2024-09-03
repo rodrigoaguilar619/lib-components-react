@@ -11,7 +11,6 @@ export interface InputElementPropsI {
     inputType: InputElementEnum;
     value: string;
     isShowError?: boolean;
-    updateValue: (value: any) => void;
     isReadOnly?: boolean;
     executeOnChange?: (formData: Record<string, any>) => void;
 }
@@ -45,4 +44,5 @@ export interface InputMaskPropsI {
 
 export interface InputElementComponentI {
     inputProps: InputElementPropsListI;
+    updateValue: (value: any) => void;
 }

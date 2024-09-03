@@ -9,7 +9,7 @@ import FilterAccoridionComponent from '@app/components/filterAccordion/filterAcc
 import { debug, generateDebugClassModule } from '@app/utils/webUtils/debugUtil';
 import { manageAlertModuleError } from '@app/utils/webUtils/httpManagerUtil';
 import { buildAlertErrorRedux, buildAlertSuccessRedux } from '@app/utils/componentUtils/alertUtil';
-import { buildFormDataContainers, setOptionsToColumnsDefList } from '@app/utils/componentUtils/formUtil';
+import { buildFormDataContainers, setExucuteOnChangeToAllColumnsContainerDefList, setOptionsToColumnsDefList } from '@app/utils/componentUtils/formUtil';
 import { setTemplateLoadingActiveMessageAction, setTemplateLoadingIsActiveAction } from '@app/controller/actions/templateLoadingAction';
 import { setTemplateHeaderSubTitleAction } from '@app/controller/actions/templateHeaderAction';
 import { columnsList, filterData, inputIds } from './dataTableModuleConfig';
@@ -44,6 +44,8 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
         dispatch(setTemplateHeaderSubTitleAction("Datatable list"));
         optionsTemplate.actionTemplate = actionTemplate;
         setFormFilterData(buildFormDataContainers([filterData]));
+        
+        setExucuteOnChangeToAllColumnsContainerDefList([filterData], executeFilterSearchOnchage);
 
         initModule();
         return () => {
@@ -93,9 +95,6 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
             });
     }
 
-    if(loadingState.isLoading)
-        return <LoadingModuleComponent />
-
     const executeGetDataTableList = () => {
 
         let debugClass = generateDebugClassModule("init datatable list");
@@ -116,12 +115,13 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
             });
     }
 
-    const executeFilterSearch = () => {
-        executeGetDataTableList();
-    }
-
     const executeFilterSearchOnchage = (formData: Record<string, any>) => {
         alert(JSON.stringify(formData));
+    }
+
+    const executeFilterSearch = () => {
+        alert(JSON.stringify(formFilterData));
+        executeGetDataTableList();
     }
 
     const showAlertError = () => {
@@ -138,6 +138,10 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
 
     footerButtons.push(<ButtonCustomComponent label="Generate alert success" onClick={showAlertSuccess} />);
     footerButtons.push(<ButtonCustomComponent label="Generate alert error" onClick={showAlertError} />);
+    
+    if(loadingState.isLoading)
+        return <LoadingModuleComponent />
+    
     return (<div>
         <ModalComponent title={modalState.titleModal} visible={modalState.showModal} selectorCloseModal={setCloseModal}
             body={modalState.bodyModal} size='sm' />
@@ -151,8 +155,7 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
             title="Filter"
             formData={formFilterData}
             executeFilterSearch={executeFilterSearch}
-            selectorUpdateFormData={setFormFilterData}
-            executeFilterSearchOnChange={executeFilterSearchOnchage.bind(null)} />
+            selectorUpdateFormData={setFormFilterData} />
         <DataTableComponent
             title='Table title'
             columnDefList={columnsList}

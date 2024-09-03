@@ -32,8 +32,7 @@ const FilterAccoridionComponent: React.FC<FilterAccordionPropsI> = (props) => {
                 inputColumns={formContainer.inputColumns}
                 width={widthColumns + "%"}
                 formData={formData}
-                selectorUpdateFormData={selectorUpdateFormData}
-                executeOnChange={props.executeFilterSearchOnChange}>
+                selectorUpdateFormData={selectorUpdateFormData}>
             </FormInputColumnsComponent>
             {buildButtonFilter(widthColumns + "%")}
         </Row></Container>);

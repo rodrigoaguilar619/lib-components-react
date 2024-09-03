@@ -8,7 +8,7 @@ import { FormInputColumnPropsI } from '@app/@types/components/formInputs/formInp
 describe('FormInputsMultipleComponent', () => {
     it('renders form inputs multiple times with add/remove functionality', () => {
         const inputColumns: FormInputColumnPropsI[] = [
-            { label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: 'value1', updateValue: () => { } } },
+            { label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: 'value1' } },
             ];
         const formDataList: any = [
             { column1: 'value1' },

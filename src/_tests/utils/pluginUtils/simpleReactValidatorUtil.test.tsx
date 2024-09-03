@@ -34,7 +34,6 @@ describe('Simple React Validator', () => {
                             id: 'inputField',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -47,7 +46,6 @@ describe('Simple React Validator', () => {
                             id: 'fieldToCompare',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -74,7 +72,6 @@ describe('Simple React Validator', () => {
                             id: 'inputField',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -101,7 +98,6 @@ describe('Simple React Validator', () => {
                             id: 'inputField',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -127,7 +123,6 @@ describe('Simple React Validator', () => {
                             id: 'inputField',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -140,7 +135,6 @@ describe('Simple React Validator', () => {
                             id: 'fieldToCompare',
                             value: '2',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -167,7 +161,6 @@ describe('Simple React Validator', () => {
                             id: 'inputField',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -180,7 +173,6 @@ describe('Simple React Validator', () => {
                             id: 'fieldToCompare',
                             value: '2',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -207,7 +199,6 @@ describe('Simple React Validator', () => {
                             id: 'inputField',
                             value: '',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",
@@ -220,7 +211,6 @@ describe('Simple React Validator', () => {
                             id: 'fieldToCompare',
                             value: '2',
                             inputType: 'text',
-                            updateValue: () => {},
                         },
                         validations: {
                             idValidation: "id",

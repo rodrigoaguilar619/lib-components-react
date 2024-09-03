@@ -8,8 +8,8 @@ import { buildFormDataContainers, buildFormDataColumns, buildFormDataMultiple } 
         const formContainers: FormInputContainerPropsI[] = [
           {
             inputColumns: [
-              { label: "label1", inputProps: { id: "id1", value: "value1", inputType: "text 1", updateValue: () => {} } },
-              { label: "label2", inputProps: { id: "id2", value: "value2", inputType: "text 2", updateValue: () => {} } }
+              { label: "label1", inputProps: { id: "id1", value: "value1", inputType: "text 1" } },
+              { label: "label2", inputProps: { id: "id2", value: "value2", inputType: "text 2" } }
             ],
             columnstotal: 2
           },
@@ -27,8 +27,8 @@ import { buildFormDataContainers, buildFormDataColumns, buildFormDataMultiple } 
       it("should build form data columns from form inputs", () => {
         // Prepare test data
         const formInputs = [
-            { id: "id1", label: "label1", inputProps: { value: "value1", inputType: "text 1", updateValue: () => {} } },
-            { id: "id2", label: "label2", inputProps: { value: "value2", inputType: "text 2", updateValue: () => {} } }
+            { id: "id1", label: "label1", inputProps: { value: "value1", inputType: "text 1" } },
+            { id: "id2", label: "label2", inputProps: { value: "value2", inputType: "text 2" } }
         ];
   
         // Execute the function
@@ -43,8 +43,8 @@ import { buildFormDataContainers, buildFormDataColumns, buildFormDataMultiple } 
       it("should build form data for multiple form inputs", () => {
         // Prepare test data
         const formInputs = [
-            { id: "id1", label: "label1", inputProps: { value: "value1", inputType: "text 1", updateValue: () => {} } },
-            { id: "id2", label: "label2", inputProps: { value: "value2", inputType: "text 2", updateValue: () => {} } }
+            { id: "id1", label: "label1", inputProps: { value: "value1", inputType: "text 1" } },
+            { id: "id2", label: "label2", inputProps: { value: "value2", inputType: "text 2" } }
         ];
   
         // Execute the function

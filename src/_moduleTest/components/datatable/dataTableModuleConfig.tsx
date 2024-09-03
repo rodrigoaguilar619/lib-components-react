@@ -4,6 +4,7 @@ import { CATALOG_DEFAULT_TRUE_FALSE } from "@app/catalogs/defaultCatalog";
 import { InputElementEnum, MaskDataTypeEnum } from "@app/catalogs/enumCatalog";
 
 export const inputIds = {
+    text_required: "text_required",
     text_normal: "text_normal",
     select_normal: "select_normal",
     calendar_normal: "calendar_normal",
@@ -118,15 +119,15 @@ export const filterData: FormInputContainerPropsI = {
         {
             label: "Text Input required", tooltipText: "Text input type required",
             inputProps: {
-                id: inputIds.text_normal,
-                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
+                id: inputIds.text_required,
+                inputType: InputElementEnum.TEXT, value: '',
             }
         },
         {
             label: "Select normal",
             inputProps: {
                 id: inputIds.select_normal,
-                inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: [],
+                inputType: InputElementEnum.SELECT, value: null, options: [],
                 placeholder: "Select city"
             }
         },
@@ -134,14 +135,14 @@ export const filterData: FormInputContainerPropsI = {
             label: "calendar 1",
             inputProps: {
                 id: inputIds.calendar_normal,
-                inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
+                inputType: InputElementEnum.CALENDAR, value: null
             }
         },
         {
             label: "Select normal",
             inputProps: {
                 id: "anwser_default",
-                inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: CATALOG_DEFAULT_TRUE_FALSE,
+                inputType: InputElementEnum.SELECT, value: null, options: CATALOG_DEFAULT_TRUE_FALSE,
                 placeholder: "Select answer"
             }
         },

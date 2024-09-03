@@ -34,7 +34,8 @@ const inputSectionOne: FormInputContainerPropsI = {
             label: "Text Input required", tooltipText: "Text input type required",
             inputProps: {
                 id: inputIds.text_normal,
-                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
+                inputType: InputElementEnum.TEXT, value: '',
+                executeOnChange: () => { console.log("test 1 executeOnChange") }
             },
             validations: {
                 idValidation: inputIds.text_normal, validatorRules: ["required"]
@@ -44,7 +45,7 @@ const inputSectionOne: FormInputContainerPropsI = {
             label: "Text Input default value",
             inputProps: {
                 id: inputIds.text_default_value,
-                inputType: InputElementEnum.TEXT, value: 'Text 2 default', updateValue: () => { }, isReadOnly: true
+                inputType: InputElementEnum.TEXT, value: 'Text 2 default', isReadOnly: true
             },
             validations: {
                 idValidation: inputIds.text_default_value, validatorRules: ["required"]
@@ -54,7 +55,7 @@ const inputSectionOne: FormInputContainerPropsI = {
             label: "Select normal",
             inputProps: {
                 id: inputIds.select_normal,
-                inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: cities,
+                inputType: InputElementEnum.SELECT, value: null, options: cities,
                 placeholder: "Select city"
             },
             validations: {
@@ -65,7 +66,7 @@ const inputSectionOne: FormInputContainerPropsI = {
             label: "Select answer",
             inputProps: {
                 id: inputIds.select_answer,
-                inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: answers,
+                inputType: InputElementEnum.SELECT, value: null, options: answers,
                 placeholder: "Select answer"
             },
             validations: {
@@ -76,7 +77,7 @@ const inputSectionOne: FormInputContainerPropsI = {
             label: "calendar 1",
             inputProps: {
                 id: inputIds.calendar_normal,
-                inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
+                inputType: InputElementEnum.CALENDAR, value: null
             },
             validations: {
                 idValidation: inputIds.calendar_normal, validatorRules: ["required"]
@@ -86,7 +87,7 @@ const inputSectionOne: FormInputContainerPropsI = {
             label: "calendar format yy/mm/dd",
             inputProps: {
                 id: inputIds.calendar_format,
-                inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }, dateFormat: "yy/mm/dd"
+                inputType: InputElementEnum.CALENDAR, value: null, dateFormat: "yy/mm/dd"
             },
             validations: {
                 idValidation: inputIds.calendar_format, validatorRules: ["required"]
@@ -103,7 +104,7 @@ const inputSectionTwo: FormInputContainerPropsI = {
             label: "Validate email",
             inputProps: {
                 id: inputIds.validate_email,
-                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
+                inputType: InputElementEnum.TEXT, value: ''
             },
             validations: {
                 idValidation: inputIds.validate_email, validatorRules: ["required", "email"]
@@ -113,7 +114,7 @@ const inputSectionTwo: FormInputContainerPropsI = {
             label: "Validate numeric with 2 decimals",
             inputProps: {
                 id: inputIds.validate_numeric,
-                inputType: InputElementEnum.MASK, value: '', updateValue: () => { },
+                inputType: InputElementEnum.MASK, value: '',
                 maskType: InputMaskEnum.NUMBER, maskProps: { totalDecimals: 2 }
             },
             validations: {
@@ -133,7 +134,7 @@ const inputSectionThree: FormInputContainerPropsI = {
                 + "<br/>la rule is added into the component because needs parameter value which be compare to dinamically",
             inputProps: {
                 id: inputIds.validate_number_1,
-                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
+                inputType: InputElementEnum.TEXT, value: ''
             },
             validations: {
                 idValidation: "validation_number_1", validatorRules: ["required"]
@@ -143,7 +144,7 @@ const inputSectionThree: FormInputContainerPropsI = {
             label: "Validate number 2",
             inputProps: {
                 id: inputIds.validate_number_2,
-                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { },
+                inputType: InputElementEnum.TEXT, value: '',
             },
             validations: {
                 idValidation: "validation_number_2", validatorRules: ["required"]
@@ -161,7 +162,7 @@ const inputSectionFour: FormInputContainerPropsI = {
             tooltipText: "load file",
             inputProps: {
                 id: inputIds.file,
-                inputType: InputElementEnum.FILE, value: null, updateValue: () => { }
+                inputType: InputElementEnum.FILE, value: null
             },
             validations: {
                 idValidation: "file", validatorRules: ["required"]
@@ -180,7 +181,7 @@ const inputSectionFive: FormInputContainerPropsI = {
             showColumn: false,
             inputProps: {
                 id: inputIds.text_normal,
-                inputType: InputElementEnum.TEXT, value: '', updateValue: () => { }
+                inputType: InputElementEnum.TEXT, value: ''
             },
             validations: {
                 idValidation: inputIds.text_normal, validatorRules: ["required"]
@@ -191,7 +192,7 @@ const inputSectionFive: FormInputContainerPropsI = {
             columnWidth: "33%",
             inputProps: {
                 id: inputIds.text_default_value,
-                inputType: InputElementEnum.TEXT, value: 'Text 2 default', updateValue: () => { }, isReadOnly: true
+                inputType: InputElementEnum.TEXT, value: 'Text 2 default', isReadOnly: true
             },
             validations: {
                 idValidation: inputIds.text_default_value, validatorRules: ["required"]
@@ -202,7 +203,7 @@ const inputSectionFive: FormInputContainerPropsI = {
             columnWidth: "33%",
             inputProps: {
                 id: inputIds.select_normal,
-                inputType: InputElementEnum.SELECT, value: null, updateValue: () => { }, options: cities,
+                inputType: InputElementEnum.SELECT, value: null, options: cities,
                 placeholder: "Select city"
             },
             validations: {
@@ -214,7 +215,7 @@ const inputSectionFive: FormInputContainerPropsI = {
             columnWidth: "66%",
             inputProps: {
                 id: inputIds.calendar_normal,
-                inputType: InputElementEnum.CALENDAR, value: null, updateValue: () => { }
+                inputType: InputElementEnum.CALENDAR, value: null
             },
             validations: {
                 idValidation: inputIds.calendar_normal, validatorRules: ["required"]
