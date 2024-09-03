@@ -1,4 +1,5 @@
 import { FormInputColumnPropsI, FormInputContainerPropsI } from "@app/@types/components/formInputs/formInputs";
+import { Location } from "react-router-dom";
 
 /**
  * Builds a form data object from the given form containers.
@@ -55,7 +56,7 @@ export function buildFormDataMultiple(formInputs: FormInputColumnPropsI[]) {
  * @param {string} paramName - the name of the parameter
  * @return {any} the retrieved parameter call
  */
-export function getParameterCall(location: any, props: any, paramName: string) {
+export function getParameterCall(location: Location<any>, props: any, paramName: string) {
 
     if (location.state?.[paramName]) {
         return location.state[paramName];
