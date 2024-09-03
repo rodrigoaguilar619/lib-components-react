@@ -3,6 +3,18 @@
     padding: 0.5rem 0.5rem
 }
 
+.p-datatable .p-datatable-header {
+    border-width: 0.1rem;
+}
+
+.p-datatable .p-datatable-footer {
+    border-width: 0.1rem;
+}
+
+.p-datatable .p-paginator {
+    border-width: 0.1rem;
+}
+
 .p-datatable thead, tbody, tfoot, tr, td, th {
     border-color: #E4E1E1;
     border-style: solid;
@@ -69,6 +81,26 @@
 
 .p-dropdown-item  {
     color: $app-color-text;
+}
+
+//--------------- ACCORDION CSS -----------------------
+.p-accordion-header.p-highlight .p-accordion-header-link {
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    color: white;
+    background-color: #367AF6;
+}
+
+.p-accordion-header p-highlight .p-accordion-header-link a {
+    color: white;
+}
+
+.p-accordion-header a {
+    color: black;
+    text-decoration: unset;
+}
+
+.p-accordion-header a:hover {
+    text-decoration: unset;
 }
 
 // --------- ACCORDION MODIFY TO REMOVE TITLE HIPERLINK ------
