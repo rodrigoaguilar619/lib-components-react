@@ -126,7 +126,7 @@ const DataTableComponent: React.FC<DataTableComponentI> = (props) => {
 
     return (
         <div style={{ width: props.tableWidth }}>
-            <DataTable ref={dt} value={props.columnDataList} tableStyle={{ minWidth: '50rem' }}
+            <DataTable ref={dt} value={props.columnDataList} tableStyle={{ minWidth: '50rem' }} stripedRows
                 header={header} globalFilter={globalFilterValue} {...showRowsPage()} footer={footer}
                 selectionMode="single" onSelectionChange={(e) => setSelectedRow(e.value)} selection={selectedRow}
                 {...generateRowExpansionTemplate()}
