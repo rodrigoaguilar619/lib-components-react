@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
   CHeader,
-  CHeaderDivider,
   CHeaderToggler,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'

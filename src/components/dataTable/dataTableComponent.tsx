@@ -2,7 +2,6 @@ import { DataTable, DataTableExpandedRows, DataTableValueArray } from 'primereac
 import { Column } from 'primereact/column';
 import { useRef, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { tableConfigDefault } from './tableConfigDefault';
 import { maskData } from '@app/utils/dataUtils/maskDataUtil';
 import { DataTableColumnOptionsPropsI, DataTableComponentI } from '@app/@types/components/dataTable/dataTable';
 import { ButtonsOrganizerComponent } from '../elements/buttonComponents';

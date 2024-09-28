@@ -7,6 +7,8 @@ import { InputElementEnum, InputMaskEnum } from '@app/catalogs/enumCatalog';
 import { InputDropDownValueI, InputElementCalendarPropsI, InputElementComponentI, InputElementFilePropsI, InputElementMaskPropsI, InputElementPropsListI, InputElementSelectPropsI, InputElementTextPropsI } from '@app/@types/components/inputs/inputElement';
 import { Form } from 'react-bootstrap';
 
+type ValueTypeExecuteOnChange = string | number | null;
+
 /**
    * Retrieves the dropdown value matching the specified code from the given options.
    *
@@ -47,7 +49,7 @@ const buildcatalogOptions = (options: InputDropDownValueI[], isOptionAll?: boole
 * @param {(value: string) => void} updateValue - The function to update the value
 * @param {string} value - The value to update
 */
-const executeOnChange = (updateValue: (value: string | number | null) => void, value: string | number | null, executeOnChange?: Function) => {
+const executeOnChange = (updateValue: (value: ValueTypeExecuteOnChange) => void, value: ValueTypeExecuteOnChange, executeOnChange?: Function) => {
   let formDataUpdated = updateValue(value);
 
   if (executeOnChange !== undefined) {
@@ -61,7 +63,7 @@ const executeOnChange = (updateValue: (value: string | number | null) => void, v
    * @param {InputElementSelectPropsI | InputElementTextPropsI} props - the props for the input element
    * @return {JSX.Element} the built input element
    */
-const buildInputElement = (props: InputElementPropsListI, updateValue: (value: string | number | null) => void) => {
+const buildInputElement = (props: InputElementPropsListI, updateValue: (value: ValueTypeExecuteOnChange) => void) => {
   
   let classNames: string[] = [];
 
@@ -109,7 +111,7 @@ const buildInputElement = (props: InputElementPropsListI, updateValue: (value: s
   }
 };
 
-const buildInputMask = (props: InputElementMaskPropsI, updateValue: (value: string | number | null) => void) => {
+const buildInputMask = (props: InputElementMaskPropsI, updateValue: (value: ValueTypeExecuteOnChange) => void) => {
 
   let classNames: string[] = [];
 

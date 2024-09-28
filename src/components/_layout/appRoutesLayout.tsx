@@ -1,16 +1,17 @@
 import { AppRoutesPropsI, AppRoutesPropsRouteI } from '@app/@types/components/layout/appRoutesLayout';
 import { ROUTE_LOGOUT } from '@app/catalogs/routesCatalog';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import LogoutLayout from './logoutLayout';
+import { _APP_SECURITY_ENABLED_, _APP_USERNAME_DEFAULT_ } from '@app/catalogs/constantCatalog';
 
 const AppRoutesLayout: React.FC<AppRoutesPropsI> = (props) => {
 
     useEffect(() => {
 
-        if (process.env.APP_USERNAME_DEFAULT != undefined) {
-            console.warn("Setting into localstorage username default: ", process.env.APP_USERNAME_DEFAULT);
-            localStorage.setItem('userName', process.env.APP_USERNAME_DEFAULT);
+        if (!_APP_SECURITY_ENABLED_ && _APP_USERNAME_DEFAULT_ != null) {
+            console.warn("Setting into localstorage username default: ", _APP_USERNAME_DEFAULT_);
+            localStorage.setItem('userName', _APP_USERNAME_DEFAULT_);
         }
     }, []);
 

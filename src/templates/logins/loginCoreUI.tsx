@@ -18,6 +18,7 @@ import {
     CSpinner,
 } from '@coreui/react'
 import { ComponentLoginMessageTypeEnum } from '@app/catalogs/enumCatalog'
+import { _APP_LOGIN_TITLE_ } from '@app/catalogs/constantCatalog'
 
 const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
 
@@ -61,10 +62,7 @@ const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
 
     const renderLoginTitle = () => {
 
-        if(process.env.APP_LOGIN_TITLE === undefined)
-            return;
-
-        return process.env.APP_LOGIN_TITLE
+        return _APP_LOGIN_TITLE_
     }
 
     return (
