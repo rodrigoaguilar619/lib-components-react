@@ -8,7 +8,7 @@ import { _APP_SECURITY_ENABLED_ } from '@app/catalogs/constantCatalog'
 import { ROUTE_LOGIN } from '@app/catalogs/routesCatalog'
 import { debug, generateDebugClassModule } from '@app/utils/webUtils/debugUtil';
 import { verifySessionService } from '@app/controller/services/authService';
-import { setTemplateLoadingActiveMessageAction } from '@app/controller/actions/templateLoadingAction';
+import { setTemplateLoadingActiveMessageAction, setTemplateLoadingIsActiveAction } from '@app/controller/actions/templateLoadingAction';
 
 const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
 
@@ -35,6 +35,12 @@ const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
 
   const initVerifySession = () => {
 
+    if(localStorage.getItem('userName') == undefined || localStorage.getItem('token') == undefined
+      || localStorage.getItem('userName') == null || localStorage.getItem('token') == null){
+      navigate(ROUTE_LOGIN);
+      return;
+    }
+
     let debugClass = generateDebugClassModule("init verify session routes layout");
     debug(debugClass, "start");
 
@@ -51,6 +57,7 @@ const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
             navigate(ROUTE_LOGIN, { state: { isSessionExpiredApp: true } });
         })
         .finally(() => {
+          dispatch(setTemplateLoadingIsActiveAction(false));
             setIsShowContent(true);
         });
 }
