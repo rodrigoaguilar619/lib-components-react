@@ -33,7 +33,7 @@ const FormInputColumnsComponent: React.FC<FormInputColumnsPropsI> = (props) => {
     const buildColumn = (inputColumnProps: FormInputColumnPropsI, width: string) => {
 
         const buildValidatorSection = buildValidator(inputColumnProps);
-        let valueInput = props.formData[inputColumnProps.inputProps.id] ?? "";
+        let valueInput = props.formData[inputColumnProps.inputProps.id] ?? null;
         let isShowError: boolean = buildValidatorSection?.props.children !== undefined;
         let widthColumn = inputColumnProps.columnWidth ?? width;
         

@@ -121,7 +121,7 @@ const buildInputMask = (props: InputElementMaskPropsI, updateValue: (value: Valu
 
   switch (props.maskType) {
     case InputMaskEnum.NUMBER: {
-      return <InputNumber className={classNames.join(" ")} value={Number(props.value ?? null)} disabled={props.isReadOnly}
+      return <InputNumber className={classNames.join(" ")} value={props.value === null || props.value === undefined ? null : Number(props.value)} disabled={props.isReadOnly}
         onValueChange={(e) => executeOnChange(updateValue, (e.value !== undefined && e.value !== null) ? e.value.toString() : "", props.executeOnChange)}
         maxFractionDigits={props.maskProps?.totalDecimals ?? undefined} minFractionDigits={props.maskProps?.totalDecimals ?? undefined} />;
     }
