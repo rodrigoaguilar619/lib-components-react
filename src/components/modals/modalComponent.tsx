@@ -41,6 +41,7 @@ const ModalComponent: React.FC<ModalPropsI> = (props) => {
             position={position}
             style={styles}
             onHide={() => props.selectorCloseModal()}
+            {...props.extraProps}
         >
             <AlertLayout componentType={ComponentTypeEnum.POPUP} />
             {props.body}

@@ -3,5 +3,6 @@ export interface ModalPropsI {
     visible: boolean;
     selectorCloseModal: () => void;
     body: ReactNode;
-    size?: "sm" | "md" | "lg"
+    size?: "sm" | "md" | "lg";
+    extraProps?: any;
 }
