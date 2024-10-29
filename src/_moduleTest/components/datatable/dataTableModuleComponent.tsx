@@ -25,15 +25,18 @@ import { DataTableModulePropsI } from '@app/_moduleTest/_propTypes/components/da
 import { getCatalogDataService } from '@app/_moduleTest/controller/services/catalogService';
 import LoadingModuleComponent from '@app/components/loadings/loadingModuleComponent';
 import useHookLoading from '@app/hookStates/loadingHookState';
+import ModalConfirmComponent from '@app/components/modals/modalConfirmComponent';
 
 const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [count, setCount] = useState<number>(0);
-    const [dataTableList, setDataTableList] = useState<[]>([]);
+    const [rowIdSelected, setRowIdSelected] = useState<number | null>(null);
+    const [dataTableList, setDataTableList] = useState<any[]>([]);
     const [formFilterData, setFormFilterData] = useState<Record<string, any>>({});
     const [modalState, setOpenModal, setCloseModal, setBodyModal, setTitleModal] = useHookModal();
+    const [modalConfirmState, setOpenModalConfirm, setCloseModalConfirm, setBodyModalConfirm, setTitleModalConfirm] = useHookModal();
     const [loadingState, setLoading] = useHookLoading();
     const optionsTemplate: DataTableColumnOptionsPropsI = tableOptionsTemplateDefault;
 
@@ -63,11 +66,23 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
         let buttonOptions = [];
         let buttonNestedOptions = [];
 
-        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faHammer} onClick={() => { setTitleModal("DATA ROW"); setBodyModal(modalBody); setOpenModal() }} tooltip="Show modal row data" />);
-        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faTrash} onClick={() => { }} tooltip="trash" />);
+        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faHammer} onClick={() => {
+            setTitleModal("DATA ROW"); setBodyModal(modalBody); setOpenModal() 
+        }} tooltip="Show modal row data" />);
 
-        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHome} onClick={() => { openFormInputModuleRoute(rowData.id) }} tooltip='Open form input module on route' />);
-        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHammer} onClick={() => { setTitleModal("FORM INPUTS TEST"); setBodyModal(<FormInputsModuleComponent componentType={ComponentTypeEnum.POPUP} id={rowData.id} />); setOpenModal() }} tooltip='Open form input module on popup' />);
+        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHome} onClick={() => {
+            openFormInputModuleRoute(rowData.id) 
+        }} tooltip='Open form input module on route' />);
+
+        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHammer} onClick={() => {
+            setTitleModal("FORM INPUTS TEST"); setBodyModal(<FormInputsModuleComponent componentType={ComponentTypeEnum.POPUP} id={rowData.id} />); setOpenModal()
+        }} tooltip='Open form input module on popup' />);
+
+        buttonOptions.push(<ButtonDataTableOptionNestedComponent icon={faTrash} onClick={() => {
+            setTitleModalConfirm("Modal confirm for row id: " + rowData.id); setRowIdSelected(rowData.id);
+            setBodyModalConfirm("Are you sure you want to delete this row?"); setOpenModalConfirm()
+        }} tooltip="trash" />);
+
         buttonOptions.push(<ButtonWithNestedOptionsComponent idTooltip={rowData.id} buttonOptions={buttonNestedOptions} />);
 
         return (<ButtonsOrganizerComponent buttonOptions={buttonOptions} />);
@@ -134,6 +149,13 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
         setCount(count + 1);
     };
 
+    const handleDeleteRow = () => {
+        setCloseModalConfirm();
+        let newDataTableList: any[] = dataTableList.filter((item: any) => item.id !== rowIdSelected);
+        setDataTableList(newDataTableList);
+        buildAlertSuccessRedux(dispatch, props.componentType, "Row " + rowIdSelected + " deleted successfully");
+    }
+
     let footerButtons = [];
 
     footerButtons.push(<ButtonCustomComponent label="Generate alert success" onClick={showAlertSuccess} />);
@@ -145,6 +167,8 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     return (<div>
         <ModalComponent title={modalState.titleModal} visible={modalState.showModal} selectorCloseModal={setCloseModal}
             body={modalState.bodyModal} size='sm' />
+        <ModalConfirmComponent title={modalConfirmState.titleModal} visible={modalConfirmState.showModal} selectorCloseModal={setCloseModalConfirm}
+            body={modalConfirmState.bodyModal} size='sm' executeOnConfirmFunction={handleDeleteRow} />
         <div style={{ display: "flex", gap: "3px" }}>
             {<ButtonCustomComponent label="Generate alert success" onClick={showAlertSuccess} />}
             {<ButtonCustomComponent label="Generate alert error" onClick={showAlertError} />}
