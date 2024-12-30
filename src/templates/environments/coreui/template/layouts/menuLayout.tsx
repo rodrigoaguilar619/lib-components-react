@@ -5,16 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppMenusItemsPropsDataI, AppMenusPropsI } from '@app/@types/components/layout/appMenuLayout';
 import { CoreuiSideBarStateI } from '@app/@types/templates/environments/coreui/controllers/reducers/coreuiSideBarReducer';
 import { _APP_NAV_LOGOUT_ENABLED_ } from '@app/catalogs/constantCatalog';
-import { NAV_LOGOUT } from '@app/catalogs/navCatalog';
 import { setSidebarShowAction, setSidebarShowFoldableAction } from '@app/templates/environments/coreui/controllers/actions/coreuiSideBarAction';
 import { SidebarNavLayout } from './sidebarNavLayout';
+import { transformNav } from '@app/utils/templateUtil/menuCoreuiUtil';
 
 const MenuLayout: React.FC<AppMenusPropsI> = (props) => {
   const dispatch = useDispatch();
   const coreuiSideBarState: CoreuiSideBarStateI = useSelector((state: any) => state.coreuiSideBarState);
 
-  const menuLogout: AppMenusItemsPropsDataI[] = _APP_NAV_LOGOUT_ENABLED_ ? [NAV_LOGOUT] : [];
-  const menuItems: AppMenusItemsPropsDataI[] = [...props.menuItems ?? [], ...menuLogout];
+  const menuItems: AppMenusItemsPropsDataI[] = transformNav(props.menuItems ?? []);
 
   
 return (

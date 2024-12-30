@@ -15,13 +15,13 @@ export interface AppMenusItemsPropsDataI
 export interface AppMenusPropsDataI {
     text?: string;
     url?: string;
-    icon?: string;
-    children?: AppMenusPropsDataI
+    icon?: string | React.ReactNode;
+    children?: AppMenusPropsDataI[];
 }
 
 export interface AppMenusPropsI {
     menu?: AppMenusPropsDataI[];            //for backend, after to process and convert like AppMenusItemsPropsDataI
-    menuItems?: AppMenusItemsPropsDataI[];  //for hardcoded menu, defined on project
+    menuItems?: AppMenusPropsDataI[];  //for hardcoded menu, defined on project
     isFromApi?: boolean
 }
 

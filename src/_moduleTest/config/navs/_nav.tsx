@@ -1,55 +1,49 @@
-import CIcon from '@coreui/icons-react'
-import {
-  cilPuzzle,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { ROUTE_DATATABLE_DATA, ROUTE_DATATABLE_EXPAND_DATA, ROUTE_FORMS_FORM_INPUTS, ROUTE_FORMS_INPUT_ELEMENTS, ROUTE_FORMS_INPUTS_MULTIPLE } from '@app/_moduleTest/config/catalogs/routesCatalog'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPuzzlePiece, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faWpforms } from '@fortawesome/free-brands-svg-icons'
+import { ROUTE_LOGOUT } from '@app/catalogs/routesCatalog'
+import { AppMenusPropsDataI } from '@app/@types/components/layout/appMenuLayout'
 
-const _nav = [
+const _nav: AppMenusPropsDataI[] = [
   {
-    component: CNavTitle,
-    name: 'Modules',
-  },
-  {
-    component: CNavGroup,
-    name: 'Datatable',
-    to: '/dataTable',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
+    text: 'Datatable',
+    url: '/dataTable',
+    icon: <FontAwesomeIcon icon={faPuzzlePiece} className="nav-icon" />,
+    children: [
       {
-        component: CNavItem,
-        name: 'Datatable Data',
-        to: ROUTE_DATATABLE_DATA,
+        text: 'Datatable Data',
+        url: ROUTE_DATATABLE_DATA,
       },
       {
-        component: CNavItem,
-        name: 'Datatable Expand Data',
-        to: ROUTE_DATATABLE_EXPAND_DATA,
+        text: 'Datatable Expand Data',
+        url: ROUTE_DATATABLE_EXPAND_DATA,
       },
     ],
   },
   {
-    component: CNavGroup,
-    name: 'Forms',
-    to: '/forms',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
+    text: 'Forms',
+    url: '/forms',
+    icon: <FontAwesomeIcon icon={faWpforms} className="nav-icon" />,
+    children: [
       {
-        component: CNavItem,
-        name: 'Input elements',
-        to: ROUTE_FORMS_INPUT_ELEMENTS,
+        text: 'Input elements',
+        url: ROUTE_FORMS_INPUT_ELEMENTS,
       },
       {
-        component: CNavItem,
-        name: 'Form inputs',
-        to: ROUTE_FORMS_FORM_INPUTS,
+        text: 'Form inputs',
+        url: ROUTE_FORMS_FORM_INPUTS,
       },
       {
-        component: CNavItem,
-        name: 'Form input multiple',
-        to: ROUTE_FORMS_INPUTS_MULTIPLE,
+        text: 'Form input multiple',
+        url: ROUTE_FORMS_INPUTS_MULTIPLE,
       },
     ],
+  },
+  {
+    text: 'Logout',
+    url: ROUTE_LOGOUT,
+    icon: <FontAwesomeIcon icon={faRightFromBracket} className="nav-icon" />
   }
 ]
 
