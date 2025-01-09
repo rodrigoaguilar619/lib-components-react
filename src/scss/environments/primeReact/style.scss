@@ -1,0 +1,13 @@
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'simplebar-react/dist/simplebar.min.css';
+@import "primereact/resources/themes/lara-light-indigo/theme.css";
+@import "primereact/resources/primereact.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";  
+@import "filepond/dist/filepond.min.css";

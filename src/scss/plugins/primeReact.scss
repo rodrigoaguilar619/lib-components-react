@@ -114,3 +114,27 @@
 .p-accordion-header-link {
     text-decoration: none;
 }
+
+// --------- MENU BAR MODIFY -------------------
+
+.p-menubar-root-list{
+    margin-bottom: unset;
+}
+
+.p-submenu-list, .p-menubar-root-list {
+    padding-left: unset;
+}
+
+.p-menuitem-content a {
+    text-decoration: unset;
+}
+
+.p-menubar .p-submenu-list .p-menuitem-link {
+    width: max-content !important;
+    max-width: none !important;
+}
+
+.p-menubar .p-submenu-list {
+    width: auto !important;
+    max-width: none !important;
+}

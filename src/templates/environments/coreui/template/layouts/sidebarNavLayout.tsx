@@ -33,7 +33,7 @@ export const SidebarNavLayout: React.FC<AppMenusSideBarPropsI> = ({ items }) => 
     return (
       <Component as="div" key={index}>
         {rest.to || rest.href ? (
-          <CNavLink {...(rest.to && { as: NavLink })} {...rest}>
+          <CNavLink {...(rest.to && { as: NavLink })} {...rest} {...item.attributes}>
             {navLink(name, icon, badge, indent)}
           </CNavLink>
         ) : (

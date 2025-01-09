@@ -1,0 +1,11 @@
+//--------------- COREUI MODIFY FONT SIZE DATA COMPONENTS AND WIDTH OF SIDEBAR ----------------
+:root {
+    // ------------- COUREUI SIDEBAR -----------------
+    --cui-nav-link-font-size: 14px;
+    --custom-pr-accordion-color: #367AF6;
+    --custom-bootstrap-btn-color: #367AF6;
+    --custom-bootstrap-btn-color-hover: #6f9ff7;
+}
+
+$app-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$app-color-text: #4b5563;

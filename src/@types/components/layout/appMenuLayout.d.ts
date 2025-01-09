@@ -9,6 +9,7 @@ export interface AppMenusItemsPropsDataI
     icon?: React.ReactNode;
     to?: string;
     href?: string;
+    attributes?: any;
     items?: AppSidebarNavItem[];
 }
 
@@ -16,6 +17,7 @@ export interface AppMenusPropsDataI {
     text?: string;
     url?: string;
     icon?: string | React.ReactNode;
+    isOpenExternal?: boolean;
     children?: AppMenusPropsDataI[];
 }
 
