@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { axiosInstance, initConfigMocks } from '@app/utils/webUtils/axiosUtil';
-import { MockConfigI } from '@app/@types/utils/axiosUtil';
+import { MockConfigI } from '@app/@types/utils/httpUtil';
 
 describe('axiosConfig', () => {
   let mock: MockAdapter;

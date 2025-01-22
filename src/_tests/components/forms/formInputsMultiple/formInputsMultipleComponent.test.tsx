@@ -28,7 +28,6 @@ describe('FormInputsMultipleComponent', () => {
         // Assert the initial rendering of form inputs and their values
         formDataList.forEach((formData: any) => {
             Object.entries(formData).forEach(([key, value]: any) => {
-                console.log("test", key, value);
                 const inputElement = getByText("Column 1") as HTMLInputElement;
                 expect(inputElement).toBeInTheDocument();
             });

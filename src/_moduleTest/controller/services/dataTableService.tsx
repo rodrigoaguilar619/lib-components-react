@@ -1,6 +1,6 @@
 import { URL_DATATABLE_EXPAND_LIST_GET, URL_DATATABLE_LIST_GET } from "@app/_moduleTest/catalogs/uriCatalog";
 import { HttpMethodEnum } from "@app/catalogs/enumCatalog";
-import { manageCallApiAuthPromise } from "@app/utils/webUtils/httpManagerUtil";
+import { manageAxiosCallApiAuthPromise } from "@app/utils/webUtils/httpManagerUtil";
 import { generateDebugClassService } from "@app/utils/webUtils/debugUtil";
 
 export function getDataTableDataService(paramId: number, filterData?: Record<string, any>) {
@@ -10,7 +10,7 @@ export function getDataTableDataService(paramId: number, filterData?: Record<str
     let params = { paramId: paramId, filterData: filterData };
     let url = URL_DATATABLE_LIST_GET;
     
-    return manageCallApiAuthPromise(debugClass, url, params, {}, HttpMethodEnum.POST);
+    return manageAxiosCallApiAuthPromise(debugClass, url, params, {}, HttpMethodEnum.POST);
 }
 
 export function getDataTableExpandDataService(paramId: number) {
@@ -20,5 +20,5 @@ export function getDataTableExpandDataService(paramId: number) {
     let params = { paramId: paramId };
     let url = URL_DATATABLE_EXPAND_LIST_GET;
     
-    return manageCallApiAuthPromise(debugClass, url, params, {}, HttpMethodEnum.POST);
+    return manageAxiosCallApiAuthPromise(debugClass, url, params, {}, HttpMethodEnum.POST);
 }

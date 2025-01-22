@@ -6,6 +6,36 @@ import { debug, debugError } from "./debugUtil";
 import { buildAlertErrorRedux } from "@app/utils/componentUtils/alertUtil";
 import { setRedirectLogoutAction, setRedirectSessionRestartAction, setSessionExpiredAction } from "@app/controller/actions/templateSessionAction";
 import { _APP_SECURITY_ENABLED_ } from "@app/catalogs/constantCatalog";
+import { fetchFluxInstance, fetchInstance } from "./fetchUtil";
+
+//TODO: RENAME TO manageAxiosCallApiAuthPromise
+/**
+ * Manages the API call with authentication and returns a Promise.
+ *
+ * @param {DebugClass} debugClass - the debug class for logging
+ * @param {string} url - the URL for the API call
+ * @param {Record<string, any>} params - the parameters for the API call
+ * @param {Record<string, any>} config - the configuration for the API call
+ * @param {HttpMethodEnum} httpMethod - the HTTP method for the API call
+ * @return {Promise<any>} a Promise that resolves to the response data or rejects with an error
+ */
+export function manageAxiosCallApiAuthPromise(debugClass: DebugClass, url: string, params: Record<string, any>, config: Record<string, any>, httpMethod: HttpMethodEnum) {
+
+    debug(debugClass, "start", { url: url, params });
+
+    const axiosMethod = httpMethod === HttpMethodEnum.POST ? axiosInstance.post : axiosInstance.get;
+
+    return axiosMethod(url, params, config)
+        .then(({ data }) => {
+
+            debug(debugClass, "result axios", data);
+            return Promise.resolve(data);
+        })
+        .catch((error) => {
+            debugError(debugClass, error);
+            return Promise.reject(error);
+        });
+}
 
 /**
  * Manages the API call with authentication and returns a Promise.
@@ -17,22 +47,42 @@ import { _APP_SECURITY_ENABLED_ } from "@app/catalogs/constantCatalog";
  * @param {HttpMethodEnum} httpMethod - the HTTP method for the API call
  * @return {Promise<any>} a Promise that resolves to the response data or rejects with an error
  */
-export function manageCallApiAuthPromise(debugClass: DebugClass, url: string, params: Record<string, any>, config: Record<string, any>, httpMethod: HttpMethodEnum) {
+export function manageFetchCallApiAuthPromise(debugClass: DebugClass, url: string, params: Record<string, any>, headers: Record<string, any>, httpMethod: HttpMethodEnum) {
 
     debug(debugClass, "start", { url: url, params });
 
-    const axiosMethod = httpMethod === HttpMethodEnum.POST ? axiosInstance.post : axiosInstance.get;
+    return fetchInstance(url, {method: httpMethod, headers: headers, body: JSON.stringify(params)})
+        .then((data) => {
 
-    return axiosMethod(url, params, config)
-        .then(({ data }) => {
-
-            debug(debugClass, "result", data);
+            debug(debugClass, "result fetch", data);
             return Promise.resolve(data);
         })
         .catch((error) => {
             debugError(debugClass, error);
             return Promise.reject(error);
         });
+}
+
+/**
+ * Manages the API flux call with authentication and returns a Promise.
+ *
+ * @param {DebugClass} debugClass - the debug class for logging
+ * @param {string} url - the URL for the API call
+ * @param {Record<string, any>} params - the parameters for the API call
+ * @param {Record<string, any>} config - the configuration for the API call
+ * @param {HttpMethodEnum} httpMethod - the HTTP method for the API call
+ * @return {Promise<any>} a Promise that resolves to the response data or rejects with an error
+ */
+export function manageFetchFluxCallApiAuthPromise(debugClass: DebugClass, url: string, params: Record<string, any>, headers: Record<string, any>, httpMethod: HttpMethodEnum, onData: (chunks: string[]) => void) {
+
+    debug(debugClass, "start", { url: url, params });
+
+    return fetchFluxInstance(url, {method: httpMethod, headers: headers, body: JSON.stringify(params)}, (chunks: any[]) => {
+            return onData(chunks);
+        })
+        .catch((error) => {
+            return Promise.reject(error);
+    });
 }
 
 /**

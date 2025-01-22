@@ -1,4 +1,4 @@
-import { MockConfigI } from '@app/@types/utils/axiosUtil';
+import { MockConfigI } from '@app/@types/utils/httpUtil';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 

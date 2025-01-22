@@ -28,7 +28,7 @@ export function transformNav(inputNav: AppMenusPropsDataI[]) {
     if (item.isOpenExternal) {
       transformedItem.target = '_blank';
     }
-    console.log("transformedItem", transformedItem);
+
     return transformedItem;
   });
 }
