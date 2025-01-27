@@ -33,8 +33,22 @@ const DataTableExpandModuleComponent: React.FC<DataTableModulePropsI> = (props) 
         return () => {
         };
     }, []);
-    
 
+    const actionTemplate = (rowData: any, _column: any) => {
+
+        let buttonOptions = [];
+        let buttonNestedOptions = [];
+
+        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faHammer} onClick={() => {  }} tooltip="Show modal row data" />);
+        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faTrash} onClick={() => { }} tooltip="trash" />);
+
+        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHome} onClick={() => { }} tooltip='Open form input module on route' />);
+        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHammer} onClick={() => { }} tooltip='Open form input module on popup' />);
+        buttonOptions.push(<ButtonWithNestedOptionsComponent idTooltip={rowData.id} buttonOptions={buttonNestedOptions} />);
+
+        return (<ButtonsOrganizerComponent buttonOptions={buttonOptions} />);
+    }
+    
     const initModule = () => {
 
         let debugClass = generateDebugClassModule("init datatable list module");
@@ -58,21 +72,6 @@ const DataTableExpandModuleComponent: React.FC<DataTableModulePropsI> = (props) 
 
     if(loadingState.isLoading)
         return <LoadingModuleComponent />
-
-    const actionTemplate = (rowData: any, column: any) => {
-
-        let buttonOptions = [];
-        let buttonNestedOptions = [];
-
-        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faHammer} onClick={() => {  }} tooltip="Show modal row data" />);
-        buttonNestedOptions.push(<ButtonDataTableOptionNestedComponent icon={faTrash} onClick={() => { }} tooltip="trash" />);
-
-        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHome} onClick={() => { }} tooltip='Open form input module on route' />);
-        buttonOptions.push(<ButtonDataTableOptionComponent icon={faHammer} onClick={() => { }} tooltip='Open form input module on popup' />);
-        buttonOptions.push(<ButtonWithNestedOptionsComponent idTooltip={rowData.id} buttonOptions={buttonNestedOptions} />);
-
-        return (<ButtonsOrganizerComponent buttonOptions={buttonOptions} />);
-    }
     
     const rowExpansionTemplate = (data: any) => {
         return (
