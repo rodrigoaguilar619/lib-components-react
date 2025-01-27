@@ -1,4 +1,4 @@
-const configServer = require("../../src/webpack/webpack.config.server.tsx");
+const configServer = require("../../../src/bundlers/webpack/webpack.config.server.tsx");
 
 module.exports = (arg: Record<string, any>, env: Record<string, any>) => {
 

@@ -27,9 +27,6 @@
     "outDir": "./lib",
     "rootDir": "src",
   },
-  "include": [
-    //"src/**/*.ts", "src/**/*.tsx", "src/**/*.css"
-    "src"
-, "_tests"  ],
+  "include": ["src", "_tests"  ],
   "exclude": ["node_modules"]
 }

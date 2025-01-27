@@ -23,7 +23,7 @@ function getCommonConfig(enviroment: string, args: Record<string, any>) {
         mode: enviroment,
         entry: './src/index.tsx',
         output: {
-            path: path.resolve(args.dirname, '../../dist/dist_' + enviroment),
+            path: path.resolve(args.dirname, '../../../dist/dist_' + enviroment),
             filename: 'bundles/[name].[fullhash].bundle.js',
             chunkFilename: 'bundles/[name].chunk.js',
         },
@@ -31,8 +31,8 @@ function getCommonConfig(enviroment: string, args: Record<string, any>) {
             extensions: ['.ts', '.tsx', '.js', '.jsx'],
             modules: [path.resolve('node_modules'), 'node_modules'],
             alias: {
-                "src": path.resolve(args.dirname, '../../src'),
-                "@app": path.resolve(args.dirname, '../../src')
+                "src": path.resolve(args.dirname, '../../../src'),
+                "@app": path.resolve(args.dirname, '../../../src')
             },
         },
         module: {
@@ -87,9 +87,9 @@ function getCommonPlugins(enviroment: string, args: Record<string, any>) {
     let dotEnvFile;
 
     if (args.dotEnvFile)
-        dotEnvFile = "../../config/env/" + args.dotEnvFile;
+        dotEnvFile = "../../../config/env/" + args.dotEnvFile;
     else
-        dotEnvFile = enviroment === 'production' ? '../../config/env/.env.production' : '../../config/env/.env.development';
+        dotEnvFile = enviroment === 'production' ? '../../../config/env/.env.production' : '../../../config/env/.env.development';
 
     return [
         new Dotenv({
@@ -97,7 +97,7 @@ function getCommonPlugins(enviroment: string, args: Record<string, any>) {
         }),
         new HtmlWebpackPlugin({
             title: args.htmlTitle,
-            template: path.resolve(__dirname, "../../public/index.html"),
+            template: path.resolve(__dirname, "../../../public/indexWebpack.html"),
             filename: "./index.html"
         }),
         enviroment === 'development' ? new ReactRefreshWebpackPlugin() : "",
@@ -161,7 +161,7 @@ function executeCommonConfig(enviroment: string, args: Record<string, any>) {
                 new BundleAnalyzerPlugin({
                     analyzerMode: 'static',
                     openAnalyzer: false,
-                    reportFilename: path.resolve(args.dirname, '../../dist/report_' + enviroment + '.html'),
+                    reportFilename: path.resolve(args.dirname, '../../../dist/report_' + enviroment + '.html'),
                 }),
             ],
         }

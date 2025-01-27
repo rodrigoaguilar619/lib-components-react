@@ -1,6 +1,6 @@
 {
   "name": "lib-components-react",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "dependencies": {
     "@coreui/chartjs": "^4.0.0",
     "@coreui/coreui": "^5.0.1",
@@ -20,7 +20,6 @@
     "chart.js": "^4.4.2",
     "classnames": "^2.5.1",
     "core-js": "^3.37.0",
-    "dotenv": "^16.4.5",
     "filepond": "^4.31.1",
     "moment": "^2.30.1",
     "primeflex": "^3.3.1",
@@ -65,6 +64,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.1",
     "css-minimizer-webpack-plugin": "^7.0.0",
+    "dotenv": "^16.4.7",
     "dotenv-webpack": "^8.1.0",
     "eslint-plugin-react": "^7.34.1",
     "file-loader": "^6.2.0",
@@ -97,17 +97,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-dev": "webpack-dev-server --config ./config/webpack/webpack.dev.server.tsx --open",
-    "build": "react-scripts build",
+    "start-dev-webpack": "webpack-dev-server --config ./config/bundlers/webpack/webpack.dev.server.tsx --open",
     "build-publish-scss": "rimraf ./lib && babel src/scss/ --out-dir lib/scss --copy-files",
     "build-publish-types": "babel src/@types/ --out-dir lib/@types --copy-files && babel public/ --out-dir lib/public --copy-files",
     "build-publish-tsc": "tsc && tsc-alias && rimraf ./lib/_tests ./lib/_moduleTest ./lib/*.js ./lib/_moduleTest ./lib/*.ts",
     "build-publish": "npm-run-all build-publish-scss build-publish-types build-publish-tsc",
-    "build-dev": "webpack --config ./config/webpack/webpack.dev.tsx",
-    "build-prod": "webpack --config ./config/webpack/webpack.prod.tsx",
+    "build-dev-webpack": "webpack --config ./config/bundlers/webpack/webpack.dev.tsx",
+    "build-prod-webpack": "webpack --config ./config/bundlers/webpack/webpack.prod.tsx",
     "sonarqube": "sonar-scanner -Dsonar.cpd.exclusions=true -Dproject.settings=./sonar-project.properties",
-    "test": "jest --coverage",
-    "eject": "react-scripts eject"
+    "test": "jest --coverage"
   },
   "eslintConfig": {
     "extends": [

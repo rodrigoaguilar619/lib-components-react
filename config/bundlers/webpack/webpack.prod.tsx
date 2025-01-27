@@ -1,4 +1,4 @@
-const configProd = require("../../src/webpack/webpack.config.build.tsx");
+const configProd = require("../../../src/bundlers/webpack/webpack.config.build.tsx");
 
 module.exports = (arg: Record<string, any>, env: Record<string, any>) => {
 
