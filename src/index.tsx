@@ -10,8 +10,8 @@ createRoot(document.getElementById('root')!).render(
   <App />,
 )
 
-if (module.hot) {
-  module.hot.accept();
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
 }
 
 // If you want to start measuring performance in your app, pass a function
