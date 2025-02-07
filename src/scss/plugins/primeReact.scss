@@ -35,6 +35,10 @@
     background-color: #E4E1E1;
 }
 
+.p-datatable-scrollable-table > .p-datatable-thead {
+    z-index: 1;
+}
+
 // --------- DATATABLE MODIFY SEARCH INPUT TEXT -----------
 .p-datatable .p-input-icon-left .pi.pi-search {
     padding-left: 5px;
