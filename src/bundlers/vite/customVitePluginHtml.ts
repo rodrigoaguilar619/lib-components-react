@@ -8,7 +8,7 @@ function customHtmlPluginVite(userOptions = {}) {
     ...plugin,
     name: 'custom-vite-plugin-html',
     async closeBundle() {
-        console.log('Skipping file move and cleanup in closeBundle');
+        console.log('customHtmlPluginVite Skipping file move and cleanup in closeBundle');
       }
   }));
 

@@ -17,8 +17,8 @@ function removeDir(dirPath: string) {
               removeFile(dirPath, file); // Delete files
           }
       });
-      //fs.rmdirSync(dirPath); // Remove the now-empty folder
-      console.log("Deleted folder: ".concat(dirPath));
+      /*fs.rmdirSync(dirPath); // Remove the now-empty folder
+      console.log("Deleted folder: ".concat(dirPath));*/
   }
 }
 function removeFile(distPath: string, fileName: string) {
@@ -41,13 +41,15 @@ function copyFiles(publicHtmlPath: string, localHtmlPath: string) {
       fs.copyFileSync(publicHtmlPath, localHtmlPath);
   }
 }
-function updateIndexHtml(oldPath: string, newPath: string) {
+function updateIndexHtml(oldPath: string, newPath: string, buildFilesPath: string) {
   fs.readFile(oldPath, 'utf8', function (err: any, data: any) {
       if (err) {
           console.error('Error reading file:', err);
           return;
       }
-      var updatedData = data.replace(/\/assets/g, 'assets').replace(/\/css/g, 'css').replace(/\/js/g, 'js');
+      let regex = new RegExp("..\/" + buildFilesPath, "g");
+      var updatedData = data.replace(regex, buildFilesPath);
+
       fs.writeFile(newPath, updatedData, 'utf8', function (err: any) {
           if (err) {
               console.error('Error writing to file:', err);
@@ -63,6 +65,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
 
   var mode = enviroment;
   var isProduction = mode === 'production';
+  var buildFilesPath = "bundles";
   var dirNameLibs = pathVite.resolve(__dirname, '../../../');
   
   var envFilePath = pathVite.resolve(args.dirname, "./config/env/.env.".concat(mode));
@@ -103,7 +106,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
                   var distPath = pathVite.resolve(args.dirname, distEnvironmentPath);
                   var oldPath = pathVite.join(distPath, 'public/indexVite.html');
                   var newPath = pathVite.join(distPath, 'index.html');
-                  updateIndexHtml(oldPath, newPath);
+                  updateIndexHtml(oldPath, newPath, buildFilesPath);
                   removeDir(pathVite.join(distPath, 'public'));
                   removeFile(distPath, 'indexWebpack.html');
                   removeFile(distPath, 'indexVite.html');
@@ -119,31 +122,66 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
       define: {
           'process.env': process.env,
       },
+      optimizeDeps: {
+        exclude: [dirNameLibs], // Avoid processing the library itself
+      },
       build: {
           outDir: distEnvironmentPath,
-          assetsDir: 'assets',
+          assetsDir: buildFilesPath,
           sourcemap: isProduction ? false : true,
           minify: isProduction ? 'esbuild' : false,
           rollupOptions: {
               output: {
-                  entryFileNames: "js/[name].js",
-                  chunkFileNames: "js/[name]-[hash].js",
+                  entryFileNames: buildFilesPath + "/js/[name].js",
+                  chunkFileNames: buildFilesPath + "/js/[name]-[hash].js",
                   assetFileNames: function ({ name }: any) {
                       if (/\.(gif|jpe?g|png|svg)$/.test(name !== null && name !== void 0 ? name : '')) {
-                          return 'images/[name]-[hash][extname]';
+                          return buildFilesPath + '/images/[name]-[hash][extname]';
                       }
                       if (/\.css$/.test(name !== null && name !== void 0 ? name : '')) {
-                          return 'css/[name]-[hash][extname]';
+                          return buildFilesPath + '/css/[name]-[hash][extname]';
                       }
-                      return 'assets/[name]-[hash][extname]';
+                      return buildFilesPath + '/assets/[name]-[hash][extname]';
+                  },
+                  manualChunks: function (id: string) {
+                      if (id.includes('node_modules')) {
+                          if (id.includes('primereact/datatable'))
+                              return 'vendor-primereact-datatable';
+                          if (id.includes('highcharts'))
+                              return 'vendor-highcharts';
+                          if (id.includes('primereact'))
+                              return 'vendor-primereact';
+                          if (id.includes('@fortawesome'))
+                              return 'vendor-fontawesome';
+                          if (id.includes('moment'))
+                              return 'vendor-moment';
+                          if (id.includes('axios'))
+                              return 'vendor-axios';
+                          if (id.includes('core-js'))
+                              return 'vendor-core-js';
+                          if (id.includes('lodash'))
+                              return 'vendor-lodash';
+
+                          return 'vendor'; // Other vendor libraries
+                      }
                   },
               },
           },
+          commonjsOptions: {
+            include: [/node_modules/], // Ensure dependencies come from main project
+          },
       },
+      base: './',
       server: {
           port: 3000,
           open: true,
           host: 'localhost',
+          fs: {
+            allow: [
+              args.dirname, // Allow access to the main project
+              pathVite.resolve(dirNameLibs, 'node_modules') // Allow the library’s own dependencies
+            ]
+          }
       },
   };
 }
