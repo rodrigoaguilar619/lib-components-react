@@ -1,10 +1,10 @@
-const { PluginOption } = require('vite');
 const react = require('@vitejs/plugin-react');
 const pathVite = require('path');
 const dotenv = require('dotenv');
 const { visualizer } = require('rollup-plugin-visualizer');
-var customHtmlPlugin = require('./customVitePluginHtml').customHtmlPlugin;
+const customHtmlPlugin = require('./customVitePluginHtml').customHtmlPlugin;
 const fs = require('fs');
+const { checker } = require('vite-plugin-checker');
 
 function removeDir(dirPath: string) {
   if (fs.existsSync(dirPath)) {
@@ -67,6 +67,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
   var isProduction = mode === 'production';
   var buildFilesPath = "bundles";
   var dirNameLibs = pathVite.resolve(__dirname, '../../../');
+  var removeWarning;
   
   var envFilePath = pathVite.resolve(args.dirname, "./config/env/.env.".concat(mode));
   dotenv.config({ path: envFilePath });
@@ -84,6 +85,11 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
   return {
       plugins: [
           react(),
+          checker({ 
+            typescript: true,
+            overlay: isProduction ? false : true, // Prevents errors from showing in the browser overlay
+            terminal: true, // Ensures errors appear only in the terminal 
+          }),
           visualizer({
               open: false,
               filename: 'dist/report_' + mode + '.html',
@@ -170,6 +176,13 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
           commonjsOptions: {
             include: [/node_modules/], // Ensure dependencies come from main project
           },
+      },
+      css: {
+        preprocessorOptions: {
+          scss: {
+            quietDeps: removeWarning, // Suppresses warnings from dependencies
+          },
+        },
       },
       base: './',
       server: {
