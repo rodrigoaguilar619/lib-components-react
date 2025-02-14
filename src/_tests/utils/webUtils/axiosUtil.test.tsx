@@ -7,7 +7,7 @@ describe('axiosConfig', () => {
   let mock: MockAdapter;
 
   beforeEach(() => {
-    mock = new MockAdapter(axiosInstance);
+    mock = new MockAdapter(axiosInstance as any);
   });
 
   afterEach(() => {

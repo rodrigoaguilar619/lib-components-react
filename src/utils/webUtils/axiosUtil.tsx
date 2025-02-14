@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
 
 //config mocks for development
 export function initConfigMocks(mockConfigs: MockConfigI[]) {
-    const mock = new MockAdapter(axiosInstance);
+    const mock = new MockAdapter(axiosInstance as any);
 
     mockConfigs.forEach((config: MockConfigI) => {
         mock.onPost(config.url).reply(config.status, config.response);
