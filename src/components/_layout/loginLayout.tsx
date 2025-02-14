@@ -1,5 +1,4 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { setRedirectSessionRestart } from '@app/utils/webUtils/httpManagerUtil'
 import { useDispatch } from 'react-redux'
 import axios, { HttpStatusCode } from 'axios'
 import React, { useEffect } from 'react'
@@ -14,6 +13,7 @@ import { ComponentLoginMessageTypeEnum, EnvironmentEnum } from '@app/catalogs/en
 import DebugClass from '@app/classes/debugClass'
 import { loginService, verifySessionService } from '@app/controller/services/authService'
 import { debug, debugError, generateDebugClassModule, showDataDevelopment } from '@app/utils/webUtils/debugUtil'
+import { setRedirectSessionRestart } from '@app/utils/webUtils/routeUtil'
 
 const LoginLayout: React.FC<LoginLayoutPropsI> = (props) => {
 

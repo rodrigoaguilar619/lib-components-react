@@ -10,12 +10,11 @@ const FormInputsModuleComponent = React.lazy(() => import('@app/_moduleTest/comp
 const FormInputsMultipleModuleComponent = React.lazy(() => import('@app/_moduleTest/components/forms/formInputsMultipleModule/formInputsMultipleModuleComponent'))
 
 const routes = [
-  { path: { _APP_CONTEXT_PATH_ }, exact: true, name: 'Home' },
-  { path: ROUTE_DATATABLE_DATA, name: 'Datatable Data', element: () => <DataTableModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
-  { path: ROUTE_DATATABLE_EXPAND_DATA, name: 'Datatable Expand Data', element: () => <DataTableExpandModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
-  { path: ROUTE_FORMS_INPUT_ELEMENTS, name: 'Input elements', element: () => <InputElementModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
-  { path: ROUTE_FORMS_FORM_INPUTS, name: 'Form inputs', element: () => <FormInputsModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
-  { path: ROUTE_FORMS_INPUTS_MULTIPLE, name: 'Form inputs', element: () => <FormInputsMultipleModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
+  { path: ROUTE_DATATABLE_DATA, name: 'Datatable Data', element: <DataTableModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
+  { path: ROUTE_DATATABLE_EXPAND_DATA, name: 'Datatable Expand Data', element: <DataTableExpandModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
+  { path: ROUTE_FORMS_INPUT_ELEMENTS, name: 'Input elements', element: <InputElementModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
+  { path: ROUTE_FORMS_FORM_INPUTS, name: 'Form inputs', element: <FormInputsModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
+  { path: ROUTE_FORMS_INPUTS_MULTIPLE, name: 'Form inputs', element: <FormInputsMultipleModuleComponent componentType={ComponentTypeEnum.MODULE} /> },
 ]
 
 export default routes

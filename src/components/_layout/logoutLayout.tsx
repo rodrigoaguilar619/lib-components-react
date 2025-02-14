@@ -5,7 +5,8 @@ import { ComponentTypeEnum } from '@app/catalogs/enumCatalog'
 import { setTemplateLoadingActiveMessageAction, setTemplateLoadingIsActiveAction } from '@app/controller/actions/templateLoadingAction'
 import { logoutService } from '@app/controller/services/authService'
 import { debug, generateDebugClassModule } from '@app/utils/webUtils/debugUtil'
-import { manageAlertModuleError, redirectLogout } from '@app/utils/webUtils/httpManagerUtil'
+import { manageAlertModuleError } from '@app/utils/webUtils/httpManagerUtil'
+import { redirectLogout } from '@app/utils/webUtils/routeUtil'
 
 const LogoutLayout = () => {
 

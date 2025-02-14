@@ -1,7 +1,7 @@
 export interface AppRoutesPropsRouteI {
     path: string;
     exact?: boolean;
-    element: React.ComponentType<any>;
+    element: React.ReactNode | null;
 }
 
 export interface AppRoutesPropsI {

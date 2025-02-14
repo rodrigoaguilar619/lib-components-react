@@ -4,11 +4,10 @@ import { axiosInstance } from "./axiosUtil";
 import { ComponentTypeEnum, HttpMethodEnum } from "@app/catalogs/enumCatalog";
 import { debug, debugError } from "./debugUtil";
 import { buildAlertErrorRedux } from "@app/utils/componentUtils/alertUtil";
-import { setRedirectLogoutAction, setRedirectSessionRestartAction, setSessionExpiredAction } from "@app/controller/actions/templateSessionAction";
 import { _APP_SECURITY_ENABLED_ } from "@app/catalogs/constantCatalog";
 import { fetchFluxInstance, fetchInstance } from "./fetchUtil";
+import { redirectSessionExpired } from "./routeUtil";
 
-//TODO: RENAME TO manageAxiosCallApiAuthPromise
 /**
  * Manages the API call with authentication and returns a Promise.
  *
@@ -128,16 +127,4 @@ export function manageAlertModuleError(dispatch: any, componentType: ComponentTy
     catch(errorCatch) {
         debugError(debugClass, "Error manage module", errorCatch);
     }
-}
-
-export function redirectLogout(dispatch: any, isRedirectLogout: boolean) {
-    dispatch(setRedirectLogoutAction(isRedirectLogout));
-}
-
-export function redirectSessionExpired(dispatch: any, isSessionExpired: boolean) {
-    dispatch(setSessionExpiredAction(isSessionExpired));
-}
-
-export function setRedirectSessionRestart(dispatch: any) {
-    dispatch(setRedirectSessionRestartAction());
 }

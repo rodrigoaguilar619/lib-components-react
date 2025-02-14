@@ -18,18 +18,11 @@ const AppRoutesLayout: React.FC<AppRoutesPropsI> = (props) => {
     return (
         <div className='body-content'>
             <Routes>
-                {props.routes.map((route: AppRoutesPropsRouteI, idx: number) => {
-                    return (
-                        route.element && (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                index={route.exact}
-                                element={<route.element />}
-                            />
-                        )
-                    )
-                })}
+                {props.routes.map((route: AppRoutesPropsRouteI, index: number) => (
+                    typeof route.path === "string" ? (
+                        <Route key={index} path={route.path} index={route.exact} element={route.element} />
+                    ) : null
+                ))}
                 <Route path={ROUTE_LOGOUT} element={<LogoutLayout />} />
                 <Route path="/" element={<Navigate to={props.routeStart} replace />} />
             </Routes>

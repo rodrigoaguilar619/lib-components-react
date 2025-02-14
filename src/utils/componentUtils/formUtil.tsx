@@ -1,5 +1,5 @@
 import { FormInputColumnPropsI, FormInputContainerPropsI } from "@app/@types/components/formInputs/formInputs";
-import { Location, useLocation } from "react-router-dom";
+import { Location } from "react-router-dom";
 
 /**
  * Builds a form data object from the given form containers.
@@ -154,12 +154,4 @@ export const setExucuteOnChangeToAllColumnsContainerDefList = (container: FormIn
             });
         }
     });
-}
-
-export function getSafeLocation(): Location | null {
-    try {
-        return useLocation();
-    } catch (error) {
-        return null;
-    }
 }

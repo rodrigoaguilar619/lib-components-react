@@ -8,6 +8,7 @@ import DataTableComponent from '@app/components/dataTable/dataTableComponent';
 import FilterAccoridionComponent from '@app/components/filterAccordion/filterAccordionComponent';
 import { debug, generateDebugClassModule } from '@app/utils/webUtils/debugUtil';
 import { manageAlertModuleError } from '@app/utils/webUtils/httpManagerUtil';
+import { getSafeNavigate, redirectSamePage } from '@app/utils/webUtils/routeUtil';
 import { buildAlertErrorRedux, buildAlertSuccessRedux } from '@app/utils/componentUtils/alertUtil';
 import { buildFormDataContainers, setExucuteOnChangeToAllColumnsContainerDefList, setOptionsToColumnsDefList } from '@app/utils/componentUtils/formUtil';
 import { setTemplateLoadingActiveMessageAction, setTemplateLoadingIsActiveAction } from '@app/controller/actions/templateLoadingAction';
@@ -19,7 +20,6 @@ import { TooltipConfigButtonNestedOptions, TooltipConfigCustom, TooltipConfigInp
 import { ButtonCustomComponent, ButtonDataTableOptionComponent, ButtonDataTableOptionNestedComponent, ButtonWithNestedOptionsComponent, ButtonsOrganizerComponent } from '@app/components/elements/buttonComponents';
 import { ComponentTypeEnum } from '@app/catalogs/enumCatalog';
 import { ROUTE_FORMS_FORM_INPUTS } from '@app/_moduleTest/config/catalogs/routesCatalog';
-import { useNavigate } from 'react-router-dom';
 import { DataTableColumnOptionsPropsI } from '@app/@types/components/dataTable/dataTable';
 import { DataTableModulePropsI } from '@app/_moduleTest/_propTypes/components/datatable/dataTableModule';
 import { getCatalogDataService } from '@app/_moduleTest/controller/services/catalogService';
@@ -30,7 +30,7 @@ import ModalConfirmComponent from '@app/components/modals/modalConfirmComponent'
 const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigate = getSafeNavigate();
     const [count, setCount] = useState<number>(0);
     const [rowIdSelected, setRowIdSelected] = useState<number | null>(null);
     const [dataTableList, setDataTableList] = useState<any[]>([]);
@@ -56,7 +56,7 @@ const DataTableModuleComponent: React.FC<DataTableModulePropsI> = (props) => {
     }, []);
 
     const openFormInputModuleRoute = (id: string) => {
-        navigate(ROUTE_FORMS_FORM_INPUTS, { state: { id: id } });
+        redirectSamePage(navigate, ROUTE_FORMS_FORM_INPUTS, { id: id });
     };
 
     const actionTemplate = (rowData: any, column: any) => {
