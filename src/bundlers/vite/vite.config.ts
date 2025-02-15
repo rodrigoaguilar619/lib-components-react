@@ -67,7 +67,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
   var isProduction = mode === 'production';
   var buildFilesPath = "bundles";
   var dirNameLibs = pathVite.resolve(__dirname, '../../../');
-  var removeWarning;
+  var removeWarning = true;
   
   var envFilePath = pathVite.resolve(args.dirname, "./config/env/.env.".concat(mode));
   dotenv.config({ path: envFilePath });
@@ -87,7 +87,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
           react(),
           checker({ 
             typescript: true,
-            overlay: isProduction ? false : true, // Prevents errors from showing in the browser overlay
+            overlay: isProduction ? false : removeWarning, // Prevents errors from showing in the browser overlay
             terminal: true, // Ensures errors appear only in the terminal 
           }),
           visualizer({
