@@ -4,8 +4,10 @@ import { TemplateMenuStateI } from "./templateMenuReducer";
 import { TemplateAlertStateI } from "./templateAlertsReducer";
 import { TemplateLoadingStateI } from "./templateLoadingReducer";
 import { TemplateSessionStateI } from "./templateSessionReducer";
+import { templateUserDataStateI } from "./templateUserReducer";
 
 export interface RootTemplateStateI {
+    templateUserDataState: templateUserDataStateI;
     templateSessionState: TemplateSessionStateI;
     templateHeaderState: TemplateHeaderStateI;
     templateFooterState: TemplateFooterStateI;

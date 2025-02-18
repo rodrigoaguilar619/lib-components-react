@@ -28,7 +28,7 @@ const App = () => {
     <Provider store={store}>
     <MainApp
       routesSection={{ routes: routes, routeStart: _APP_ROUTE_START_ }}
-      menusSection={{ menuItems: _nav, isFromApi: false }}
+      menusSection={{ menuItems: _nav }}
       loginTemplate={LoginCoreUI}
     />
     </Provider>)

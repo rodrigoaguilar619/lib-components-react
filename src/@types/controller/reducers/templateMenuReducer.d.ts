@@ -1,13 +1,5 @@
-
-export interface TemplateMenuDataI {
-    text?: string;
-    url?: string;
-    icon?: string;
-    children?: TemplateMenuDataI
-}
-
 export interface TemplateMenuStateI {
-    menus?: TemplateMenuDataI[];
+    menus?: AppMenusPropsDataI;
 }
 
 export interface TemplateMenuActionI extends TemplateMenuStateI {
