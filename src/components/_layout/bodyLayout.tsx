@@ -7,8 +7,9 @@ import { TemplateSessionStateI } from '@app/@types/controller/reducers/templateS
 import { _APP_SECURITY_ENABLED_ } from '@app/catalogs/constantCatalog'
 import { ROUTE_LOGIN } from '@app/catalogs/routesCatalog'
 import { debug, generateDebugClassModule } from '@app/utils/webUtils/debugUtil';
-import { verifySessionService } from '@app/controller/services/authService';
+import { getUserDataService, verifySessionService } from '@app/controller/services/authService';
 import { setTemplateLoadingActiveMessageAction, setTemplateLoadingIsActiveAction } from '@app/controller/actions/templateLoadingAction';
+import { setTemplateUserDataAction } from '@app/controller/actions/templateUserDataAction'
 
 const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
 
@@ -16,8 +17,20 @@ const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isShowContent, setIsShowContent] = React.useState(false);
+  const [isSessionVerified, setIsSessionVerified] = React.useState(false);
 
   const templateSessionState: TemplateSessionStateI = useSelector((state: any) => state.templateSessionState);
+
+  useEffect(() => {
+
+    axios.all([initVerifySession()])
+      .then(() => {
+        return axios.all([initGetUserData()])
+      })
+      .then(() => {
+        setIsShowContent(true);
+      });
+  }, []);
 
   useEffect(() => {
 
@@ -25,18 +38,18 @@ const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
   }, [location.pathname]);
 
   useEffect(() => {
-
-    if (_APP_SECURITY_ENABLED_)
       initVerifySession();
-    else
-      setIsShowContent(true);
-
 }, [location, navigate]);
 
   const initVerifySession = () => {
 
+    if (_APP_SECURITY_ENABLED_ === false) {
+      setIsSessionVerified(true);
+      return;
+    }
+
     if(localStorage.getItem('userName') == undefined || localStorage.getItem('token') == undefined
-      || localStorage.getItem('userName') == null || localStorage.getItem('token') == null){
+      || localStorage.getItem('userName') == null || localStorage.getItem('token') == null) {
       navigate(ROUTE_LOGIN);
       return;
     }
@@ -44,9 +57,9 @@ const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
     let debugClass = generateDebugClassModule("init verify session routes layout");
     debug(debugClass, "start");
 
-    setIsShowContent(false);
+    setIsSessionVerified(false);
     dispatch(setTemplateLoadingActiveMessageAction(true, "Verifying session..."));
-    axios.all([verifySessionService()])
+    return axios.all([verifySessionService()])
         .then(axios.spread((verifySessionData) => {
 
             debug(debugClass, "result", verifySessionData);
@@ -58,14 +71,35 @@ const BodyLayout: React.FC<BodyLayoutPropsI> = (props) => {
         })
         .finally(() => {
           dispatch(setTemplateLoadingIsActiveAction(false));
-            setIsShowContent(true);
+          setIsSessionVerified(true);
         });
 }
+
+  const initGetUserData = () => {
+
+    let debugClass = generateDebugClassModule("init get user data");
+    debug(debugClass, "start");
+
+    dispatch(setTemplateLoadingActiveMessageAction(true, "Getting user data..."));
+    return axios.all([getUserDataService()])
+        .then(axios.spread((userData) => {
+
+            debug(debugClass, "result", userData);
+            dispatch(setTemplateUserDataAction(userData.data.userName, userData.data.userRols));
+
+        }))
+        .catch((error) => {
+            debug(debugClass, "Error getting user data", error);
+        })
+        .finally(() => {
+          dispatch(setTemplateLoadingIsActiveAction(false));
+        });
+  }
 
   return (<div>
       {templateSessionState.isRedirectLogout === true ? <Navigate to={ROUTE_LOGIN} state={{ isLogout: true }} /> : null}
       {templateSessionState.isSessionExpired === true ? <Navigate to={ROUTE_LOGIN} state={{ isSessionExpiredApp: true }} /> : null}
-      {props.body(isShowContent)}
+      {props.body(isSessionVerified && isShowContent)}
     </div>
   )
 }
