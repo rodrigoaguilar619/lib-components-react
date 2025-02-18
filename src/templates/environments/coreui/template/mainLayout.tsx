@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MainLayoutPropsI } from '@app/@types/templates/environments/coreui/template/mainLayout'
 import { ComponentTypeEnum } from '@app/catalogs/enumCatalog'
 import BodyLayout from '@app/components/_layout/bodyLayout'
@@ -11,7 +11,7 @@ import MenuLayout from './layouts/menuLayout'
 
 const MainLayout: React.FC<MainLayoutPropsI> = (props) => {
 
-  const buildContent = (isShowContent: boolean) => {
+  const buildBody = (isShowContent: boolean) => {
 
     return <div>
       <LoadingLayout />
@@ -28,7 +28,7 @@ const MainLayout: React.FC<MainLayoutPropsI> = (props) => {
   }
 
   return (
-    <BodyLayout body={buildContent} />
+    <BodyLayout body={buildBody} />
   )
 }
 

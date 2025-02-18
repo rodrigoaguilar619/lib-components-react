@@ -8,12 +8,14 @@ import { _APP_NAV_LOGOUT_ENABLED_ } from '@app/catalogs/constantCatalog';
 import { setSidebarShowAction, setSidebarShowFoldableAction } from '@app/templates/environments/coreui/controllers/actions/coreuiSideBarAction';
 import { SidebarNavLayout } from './sidebarNavLayout';
 import { transformNav } from '@app/utils/templateUtil/menuCoreuiUtil';
+import { TemplateMenuStateI } from '@app/@types/controller/reducers/templateMenuReducer';
 
 const MenuLayout: React.FC<AppMenusPropsI> = (props) => {
   const dispatch = useDispatch();
   const coreuiSideBarState: CoreuiSideBarStateI = useSelector((state: any) => state.coreuiSideBarState);
+  const templateMenuState: TemplateMenuStateI = useSelector((state: any) => state.templateMenuState);
 
-  const menuItems: AppMenusItemsPropsDataI[] = transformNav(props.menuItems ?? []);
+  const menuItems: AppMenusItemsPropsDataI[] = transformNav( props.menuItems?.length ? props.menuItems : templateMenuState.menus);
 
   
 return (
