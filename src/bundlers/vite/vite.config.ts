@@ -74,6 +74,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
   
   var distPath = pathVite.resolve(args.dirname, 'dist');
   var distEnvironmentPath = pathVite.join(distPath, 'dist_' + mode);
+  var packageJson = JSON.parse(fs.readFileSync(pathVite.resolve(args.dirname, 'package.json'), 'utf-8'));
   
   var localHtmlPath = pathVite.resolve(args.dirname, 'public/indexVite.html');
   var publicHtmlPath = (dirNameLibs === args.dirname)
@@ -126,7 +127,7 @@ function executeViteCommonConfig(enviroment: string, args: Record<string, any>) 
           },
       },
       define: {
-          'process.env': process.env,
+          'process.env': { ...process.env, APP_VERSION: packageJson.version }
       },
       optimizeDeps: {
         exclude: [dirNameLibs], // Avoid processing the library itself
