@@ -10,3 +10,4 @@ export const _APP_NAV_LOGOUT_ENABLED_: boolean = JSON.parse(process.env.APP_NAV_
 export const _APP_SECURITY_ENABLED_: boolean = JSON.parse(process.env.APP_SECURITY_ENABLED ?? "false");         //boolean to determine if security is enabled
 export const _APP_USERNAME_DEFAULT_: string | null = process.env.APP_USERNAME_DEFAULT ?? null;                //username default when login
 export const _APP_LOGIN_TITLE_: string = process.env.APP_LOGIN_TITLE ?? "Login Default";                        //app title to shoe on header
+export const _APP_VERSION_: string = process.env.APP_VERSION ?? "0.0.0";                                        //app version

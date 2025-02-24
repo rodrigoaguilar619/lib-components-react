@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { MainTemplatePropsI } from '@app/@types/templates/environments/coreui/template/mainTemplate';
 import LoginLayout from '@app/components/_layout/loginLayout';
@@ -12,36 +12,30 @@ const loading = (
     </div>
   )
 
-class MainTemplate extends Component<MainTemplatePropsI> {
+  const MainTemplate: React.FC<MainTemplatePropsI> = (props) => {
 
-  constructor(props: MainTemplatePropsI) {
-      super(props);
-  }
-
-  renderRoutesList() {
+    function renderRoutesList() {
     
-    let routesList: JSX.Element[] = [];
+      let routesList: JSX.Element[] = [];
+  
+      if (props.loginTemplate != undefined)
+          routesList.push(<Route key={'login'} index path={ _APP_CONTEXT_PATH_ + 'login'} element={<LoginLayout loginTemplate={props.loginTemplate} />} />);
+  
+      //routesList.push(<Route index path="/404" element={<Page404 />} />);
+      routesList.push(<Route key={'main'} path="*" element={<MainLayout {...props} />} />);
+  
+      return routesList;
+    }
 
-    if (this.props.loginTemplate != undefined)
-        routesList.push(<Route key={'login'} index path={ _APP_CONTEXT_PATH_ + 'login'} element={<LoginLayout loginTemplate={this.props.loginTemplate} />} />);
-
-    //routesList.push(<Route index path="/404" element={<Page404 />} />);
-    routesList.push(<Route key={'main'} path="*" element={<MainLayout {...this.props} />} />);
-
-    return routesList;
+    return (
+      <HashRouter>
+        <Suspense fallback={loading}>
+          <Routes>
+            {renderRoutesList()}
+          </Routes>
+        </Suspense>
+      </HashRouter>
+    )
   }
 
-    render() {
-        return (
-          <HashRouter>
-            <Suspense fallback={loading}>
-              <Routes>
-                {this.renderRoutesList()}
-              </Routes>
-            </Suspense>
-          </HashRouter>
-        )
-      }
-}
-
-export default MainTemplate;
+  export default MainTemplate

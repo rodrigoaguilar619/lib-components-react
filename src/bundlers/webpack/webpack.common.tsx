@@ -8,6 +8,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const webpack = require('webpack');
+const fsFile = require('fs');
 
 
 /**
@@ -83,7 +85,8 @@ function getCommonConfig(enviroment: string, args: Record<string, any>) {
  * @return {Array} an array of common plugins
  */
 function getCommonPlugins(enviroment: string, args: Record<string, any>) {
-    
+
+    let packageJson = JSON.parse(fsFile.readFileSync(path.resolve(args.dirname, '../../../package.json'), 'utf-8'));
     let dotEnvFile;
 
     if (args.dotEnvFile)
@@ -99,6 +102,9 @@ function getCommonPlugins(enviroment: string, args: Record<string, any>) {
             title: args.htmlTitle,
             template: path.resolve(__dirname, "../../../public/indexWebpack.html"),
             filename: "./index.html"
+        }),
+        new webpack.DefinePlugin({
+            'process.env.APP_VERSION': JSON.stringify(packageJson.version),
         }),
         enviroment === 'development' ? new ReactRefreshWebpackPlugin() : "",
     ].filter(Boolean)

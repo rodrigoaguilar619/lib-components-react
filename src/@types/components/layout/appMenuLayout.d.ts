@@ -22,9 +22,7 @@ export interface AppMenusPropsDataI {
 }
 
 export interface AppMenusPropsI {
-    menu?: AppMenusPropsDataI[];            //for backend, after to process and convert like AppMenusItemsPropsDataI
-    menuItems?: AppMenusPropsDataI[];  //for hardcoded menu, defined on project
-    isFromApi?: boolean
+    menuItems?: AppMenusPropsDataI[];
 }
 
 
