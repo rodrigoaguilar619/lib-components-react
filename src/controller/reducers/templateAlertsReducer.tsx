@@ -1,5 +1,5 @@
 import { TemplateAlertStateI } from "@app/@types/controller/reducers/templateAlertsReducer";
-import { ACTION_TEMPLATE_ALERT_MESSAGE_LIST_SET, ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE, ACTION_TEMPLATE_ALERT_MESSAGE_SET } from "@app/controller/actions/templateAlertAction";
+import { ACTION_TEMPLATE_ALERT_MESSAGE_LIST_SET, ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE, ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE_ALL, ACTION_TEMPLATE_ALERT_MESSAGE_SET } from "@app/controller/actions/templateAlertAction";
 import { ComponentTypeEnum } from "@app/catalogs/enumCatalog";
 
 const initialState: TemplateAlertStateI = {
@@ -21,6 +21,8 @@ const templateAlertReducer = (type: ComponentTypeEnum) => {
                 return { ...state, messages: action.messages }
             case ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE + "_" + type:
                 return { ...state, messages: state.messages.filter((message) => { if (message.id != action.id) return message }) }
+            case ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE_ALL + "_" + type:
+                return { ...state, messages: [] }
             default:
                 return state
         }

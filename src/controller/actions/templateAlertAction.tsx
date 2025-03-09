@@ -4,6 +4,7 @@ import { AlertTypeEnum, ComponentTypeEnum } from "@app/catalogs/enumCatalog";
 export const ACTION_TEMPLATE_ALERT_MESSAGE_SET = "ACTION_TEMPLATE_ALERT_MESSAGE_SET";
 export const ACTION_TEMPLATE_ALERT_MESSAGE_LIST_SET = "ACTION_TEMPLATE_ALERT_MESSAGE_LIST_SET";
 export const ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE = "ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE";
+export const ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE_ALL = "ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE_ALL";
 
 export const setTemplateAlertMessageAction = (type: ComponentTypeEnum, summary: string, message: string, alertType: AlertTypeEnum, id: number, timerShowMessageFunction: NodeJS.Timeout) => ({
     type: ACTION_TEMPLATE_ALERT_MESSAGE_SET + "_" + type,
@@ -22,4 +23,8 @@ export const setTemplateAlertMessagesAction = (type: ComponentTypeEnum, messages
 export const removeTemplateAlertMessageAction = (type: ComponentTypeEnum, id: number) => ({
     type: ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE + "_" + type,
     id: id
+});
+
+export const removeTemplateAlertsMessageAction = (type: ComponentTypeEnum) => ({
+    type: ACTION_TEMPLATE_ALERT_MESSAGE_REMOVE_ALL + "_" + type,
 });
