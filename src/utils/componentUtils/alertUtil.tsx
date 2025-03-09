@@ -2,6 +2,7 @@ import { AlertsDataI } from "@app/@types/components/alerts/alerts";
 import { _APP_ALERT_TIME_TOAST_MILLIS_ } from "@app/catalogs/constantCatalog";
 import { AlertTypeEnum, ComponentTypeEnum } from "@app/catalogs/enumCatalog";
 import { removeTemplateAlertMessageAction, setTemplateAlertMessageAction } from "@app/controller/actions/templateAlertAction";
+import { dialogScrollTop } from "./dialogUtil";
 
 export const buildAlertRedux = (dispatch: any, type: ComponentTypeEnum, summary: string, message: string, alertType: AlertTypeEnum) => {
     
@@ -12,7 +13,11 @@ export const buildAlertRedux = (dispatch: any, type: ComponentTypeEnum, summary:
         }, _APP_ALERT_TIME_TOAST_MILLIS_ );
     
     dispatch(setTemplateAlertMessageAction(type, summary, message, alertType, id, timer ));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (type === ComponentTypeEnum.MODULE)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    else
+        dialogScrollTop();
 }
 
 /**

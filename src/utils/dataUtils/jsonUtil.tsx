@@ -16,3 +16,12 @@ export function buildDataTableConfig(currentPage: number | null, rowsPerPage: nu
         }
     }
 }
+
+export function isValidJson(obj: any) {
+    try {
+        JSON.parse(obj);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}

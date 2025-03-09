@@ -3,6 +3,8 @@ import { ModalPropsI } from "@app/@types/components/modals/modal";
 import { ComponentTypeEnum } from "@app/catalogs/enumCatalog";
 import AlertLayout from "@app/templates/environments/coreui/template/layouts/alertLayout";
 import { Dialog } from "primereact/dialog";
+import { useDispatch } from "react-redux";
+import { removeTemplateAlertsMessageAction } from "@app/controller/actions/templateAlertAction";
 
 const getModalStyles = (size: string | undefined) => {
     let styles = {};
@@ -28,8 +30,14 @@ const getModalStyles = (size: string | undefined) => {
 
 const ModalComponent: React.FC<ModalPropsI> = (props) => {
 
+    const dispatch = useDispatch();
     const { styles, maximizable } = getModalStyles(props.size);
     const position: "center" | "top" | undefined = "top";
+
+    const onHide = () => {
+        dispatch(removeTemplateAlertsMessageAction(ComponentTypeEnum.POPUP));
+        props.selectorCloseModal();
+    };
 
     if (!props.visible) return null;
 
@@ -40,7 +48,8 @@ const ModalComponent: React.FC<ModalPropsI> = (props) => {
             maximizable={maximizable}
             position={position}
             style={styles}
-            onHide={() => props.selectorCloseModal()}
+            onHide={() => onHide()}
+            pt={{ content: { className: 'custom-dialog' } }}
             {...props.extraProps}
         >
             <AlertLayout componentType={ComponentTypeEnum.POPUP} />
