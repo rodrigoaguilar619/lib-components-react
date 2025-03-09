@@ -7,6 +7,7 @@ import { buildAlertErrorRedux } from "@app/utils/componentUtils/alertUtil";
 import { _APP_SECURITY_ENABLED_ } from "@app/catalogs/constantCatalog";
 import { fetchFluxInstance, fetchInstance } from "./fetchUtil";
 import { redirectSessionExpired } from "./routeUtil";
+import { isValidJson } from "@app/utils/dataUtils/jsonUtil";
 
 /**
  * Manages the API call with authentication and returns a Promise.
@@ -127,4 +128,19 @@ export function manageAlertModuleError(dispatch: any, componentType: ComponentTy
     catch(errorCatch) {
         debugError(debugClass, "Error manage module", errorCatch);
     }
+}
+
+export function manageAlertModuleErrorFlux(dispatch: any, componentType:ComponentTypeEnum, debugClass: DebugClass, error: any) {
+    
+    let parseError; 
+    
+    if (error.message !== undefined && isValidJson(error.message)) {
+        parseError = { response: JSON.parse(error.message) };
+        parseError.response.status = parseError.response.code;
+        parseError.response.data.message = parseError.response.message;
+    }
+    else
+        parseError = error;
+
+    return manageAlertModuleError(dispatch, componentType, debugClass, parseError);
 }
