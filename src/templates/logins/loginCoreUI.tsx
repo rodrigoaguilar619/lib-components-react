@@ -1,7 +1,5 @@
 import React from 'react'
 import { LoginChildrenPropsI } from '@app/@types/components/layout/loginLayout'
-import { cilLockLocked, cilUser } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
 import { Message } from 'primereact/message'
 import {
     CButton,
@@ -19,6 +17,8 @@ import {
 } from '@coreui/react'
 import { ComponentLoginMessageTypeEnum } from '@app/catalogs/enumCatalog'
 import { _APP_LOGIN_TITLE_ } from '@app/catalogs/constantCatalog'
+import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
 
@@ -81,7 +81,7 @@ const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
                                             <p className="text-medium-emphasis">Sign In to your account</p>
                                             <CInputGroup className="mb-3">
                                                 <CInputGroupText>
-                                                    <CIcon icon={cilUser} />
+                                                    <FontAwesomeIcon icon={faUser} className="" />
                                                 </CInputGroupText>
                                                 <CFormInput
                                                     placeholder="Username"
@@ -92,7 +92,7 @@ const LoginCoreUI: React.FC<LoginChildrenPropsI> = (props) => {
                                             </CInputGroup>
                                             <CInputGroup className="mb-4">
                                                 <CInputGroupText>
-                                                    <CIcon icon={cilLockLocked} />
+                                                <FontAwesomeIcon icon={faLock} className="" />
                                                 </CInputGroupText>
                                                 <CFormInput
                                                     type="password"
