@@ -30,10 +30,10 @@ return (
       }}
   >
     <SidebarNavLayout items={menuItems} />
-    <CSidebarFooter className="border-top d-none d-lg-flex">
-      <CSidebarToggler
-        onClick={() => dispatch(setSidebarShowFoldableAction(!coreuiSideBarState.sidebarUnfoldable))}
-      />
+    <CSidebarFooter className="border-top d-none d-lg-flex" style={{ cursor: 'pointer' }}
+      onClick={() => dispatch(setSidebarShowFoldableAction(!coreuiSideBarState.sidebarUnfoldable))}
+    >
+      <CSidebarToggler/>
     </CSidebarFooter>
   </CSidebar>
 )
