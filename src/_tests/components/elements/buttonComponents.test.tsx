@@ -1,6 +1,5 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import {
   ButtonComponent,
   ButtonSubmitComponent,
@@ -12,12 +11,17 @@ import {
   ButtonCustomComponent
 } from '@app/components/elements/buttonComponents';
 import { faSave, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from 'react-tooltip';
+
+jest.mock('@fortawesome/react-fontawesome', () => ({
+  FontAwesomeIcon: ({ icon }: any) => <span data-testid="icon">{icon?.iconName ?? 'icon'}</span>,
+}));
 
 describe('ButtonComponent', () => {
-  it('renders button with label and icon', () => {
+  it('renders with label and icon, and triggers onClick', () => {
     const onClick = jest.fn();
-    const { getByText } = render(<ButtonComponent label="Submit" icon={faSave} onClick={onClick} />);
-    const button = getByText('Submit');
+    render(<ButtonComponent label="Submit" icon={faSave} onClick={onClick} />);
+    const button = screen.getByRole('button', { name: /submit/i });
 
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
@@ -26,10 +30,10 @@ describe('ButtonComponent', () => {
 });
 
 describe('ButtonSubmitComponent', () => {
-  it('renders submit button', () => {
+  it('renders submit button and fires onClick', () => {
     const onClick = jest.fn();
-    const { getByText } = render(<ButtonSubmitComponent label="Submit" onClick={onClick} />);
-    const button = getByText('Submit');
+    render(<ButtonSubmitComponent label="Submit" onClick={onClick} />);
+    const button = screen.getByRole('button', { name: /submit/i });
 
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
@@ -38,10 +42,10 @@ describe('ButtonSubmitComponent', () => {
 });
 
 describe('ButtonSearchComponent', () => {
-  it('renders search button', () => {
+  it('renders search button and fires onClick', () => {
     const onClick = jest.fn();
-    const { getByText } = render(<ButtonSearchComponent label="Search" onClick={onClick} />);
-    const button = getByText('Search');
+    render(<ButtonSearchComponent label="Search" onClick={onClick} />);
+    const button = screen.getByRole('button', { name: /search/i });
 
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
@@ -50,65 +54,84 @@ describe('ButtonSearchComponent', () => {
 });
 
 describe('ButtonDataTableOptionComponent', () => {
-  it('renders button with options for data table', () => {
+  it('renders button with label and icon', () => {
     const onClick = jest.fn();
-    const { getByText } = render(<ButtonDataTableOptionComponent label="Option" icon={faSave} onClick={onClick} />);
-    const button = getByText('Option');
+    render(<ButtonDataTableOptionComponent label="Option" icon={faSave} onClick={onClick} tooltip="Save it" />);
+    const button = screen.getByRole('button', { name: /option/i });
 
     expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('data-tooltip-content', 'Save it');
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalled();
   });
 });
 
 describe('ButtonDataTableOptionNestedComponent', () => {
-  it('renders button with nested options for data table', () => {
+  it('renders button with nested option styling', () => {
     const onClick = jest.fn();
-    const { getByText } = render(<ButtonDataTableOptionNestedComponent label="Option" icon={faSave} onClick={onClick} />);
-    const button = getByText('Option');
+    render(<ButtonDataTableOptionNestedComponent label="Nested" icon={faSave} onClick={onClick} tooltip="Nested tooltip" />);
+    const button = screen.getByRole('button', { name: /nested/i });
 
     expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('data-tooltip-content', 'Nested tooltip');
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalled();
   });
 });
 
 describe('ButtonWithNestedOptionsComponent', () => {
-  it('renders button with nested options', () => {
-    const { getByText } = render(
-      <ButtonWithNestedOptionsComponent
-        idTooltip="123"
-        buttonOptions={[<button key="1">Option 1</button>, <button key="2">Option 2</button>]}
-      />
+  it('shows nested buttons inside tooltip on hover', async () => {
+    render(
+      <>
+        <ButtonWithNestedOptionsComponent
+          idTooltip="test"
+          buttonOptions={[
+            <button key="1">Option 1</button>,
+            <button key="2">Option 2</button>
+          ]}
+        />
+        <Tooltip id="tooltip_nested_options_test" />
+      </>
     );
-    const button = getByText('...');
 
-    expect(button).toBeInTheDocument();
+    const mainButton = screen.getByRole('button', { name: '...' });
+    expect(mainButton).toBeInTheDocument();
+
+    // Hover over the button to trigger tooltip
+    fireEvent.mouseOver(mainButton);
+
+    // Wait for tooltip to appear with nested buttons
+    await waitFor(() => {
+      expect(screen.getByText('Option 1')).toBeInTheDocument();
+      expect(screen.getByText('Option 2')).toBeInTheDocument();
+    });
   });
 });
 
 describe('ButtonsOrganizerComponent', () => {
-  it('renders buttons organized in flex container', () => {
-    const { getByText } = render(
+  it('renders multiple buttons in flex container', () => {
+    render(
       <ButtonsOrganizerComponent
-        buttonOptions={[<button key="1">Button 1</button>, <button key="2">Button 2</button>]}
+        buttonOptions={[
+          <button key="a">A</button>,
+          <button key="b">B</button>
+        ]}
       />
     );
-    const button1 = getByText('Button 1');
-    const button2 = getByText('Button 2');
 
-    expect(button1).toBeInTheDocument();
-    expect(button2).toBeInTheDocument();
+    expect(screen.getByText('A')).toBeInTheDocument();
+    expect(screen.getByText('B')).toBeInTheDocument();
   });
 });
 
 describe('ButtonCustomComponent', () => {
-  it('renders custom button', () => {
+  it('renders custom button and fires onClick', () => {
     const onClick = jest.fn();
-    const { getByText } = render(<ButtonCustomComponent label="Custom" icon={faSearch} onClick={onClick} />);
-    const button = getByText('Custom');
+    render(<ButtonCustomComponent label="Custom" icon={faSearch} onClick={onClick} tooltip="Custom Tooltip" />);
+    const button = screen.getByRole('button', { name: /custom/i });
 
     expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('data-tooltip-content', 'Custom Tooltip');
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalled();
   });

@@ -27,7 +27,7 @@ export function formatDate(value: number | string, format: string) {
     if (value == undefined || value == null)
         return "";
 
-    let newDate = moment(Number(value));
+    let newDate = moment.utc(Number(value));
     let newDateFormated;
 
     try {

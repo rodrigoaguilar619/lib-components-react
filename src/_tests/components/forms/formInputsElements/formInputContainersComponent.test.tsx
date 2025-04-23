@@ -1,32 +1,86 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
 import FormInputColumnsComponent from '@app/components/forms/formInputColumnsComponent';
 import { InputElementEnum } from '@app/catalogs/enumCatalog';
-import { FormInputColumnPropsI } from '@app/@types/components/formInputs/formInputs';
 
 describe('FormInputColumnsComponent', () => {
-  it('calls updateFormData when input value changes', () => {
-    const inputColumns: FormInputColumnPropsI[] = [{ label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: 'Value 1' } }];
-    const formData = { column1: '' };
-    const selectorUpdateFormData = jest.fn();
-    const validatorControl = { current: { message: jest.fn() } };
-    const executeOnChange = jest.fn();
+  const mockSelectorUpdateFormData = jest.fn();
 
-    const { getByText } = render(
-      <FormInputColumnsComponent
-        inputColumns={inputColumns}
-        formData={formData}
-        selectorUpdateFormData={selectorUpdateFormData}
-        validatorControl={validatorControl}
-        width='100%'
-      />
-    );
+  const basicProps = {
+    inputColumns: [
+      {
+        label: 'Username',
+        tooltipText: 'This is your login name',
+        inputProps: {
+          id: 'username',
+          inputType: InputElementEnum.TEXT,
+          value: 'john_doe',
+        },
+      },
+    ],
+    width: '250px',
+    formData: { username: 'john_doe' },
+    selectorUpdateFormData: mockSelectorUpdateFormData,
+  };
 
-    const labelElement = getByText('Column 1') as HTMLElement;
-    const inputElement = labelElement.nextSibling as HTMLInputElement;
-    fireEvent.change(inputElement, { target: { value: 'New Value' } });
+  beforeEach(() => {
+    mockSelectorUpdateFormData.mockClear();
+  });
 
-    expect(selectorUpdateFormData).toHaveBeenCalledWith({ ...formData, column1: 'New Value' });
+  it('renders input with label and tooltip', () => {
+    render(<FormInputColumnsComponent {...basicProps} />);
+
+    // Tooltip button (FontAwesome Icon) is not tested directly but Label and input can be
+    expect(screen.getByText(/username/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue('john_doe')).toBeInTheDocument();
+  });
+
+  it('calls selectorUpdateFormData on input change', () => {
+    render(<FormInputColumnsComponent {...basicProps} />);
+
+    const input = screen.getByDisplayValue('john_doe');
+    fireEvent.change(input, { target: { value: 'new_user' } });
+
+    expect(mockSelectorUpdateFormData).toHaveBeenCalledWith({ username: 'new_user' });
+  });
+
+  it('respects showColumn: false by not rendering the column', () => {
+    const propsWithHiddenColumn = {
+      ...basicProps,
+      inputColumns: [
+        {
+          ...basicProps.inputColumns[0],
+          showColumn: false,
+        },
+      ],
+    };
+
+    render(<FormInputColumnsComponent {...propsWithHiddenColumn} />);
+    expect(screen.queryByLabelText(/username/i)).not.toBeInTheDocument();
+  });
+
+  it('renders validation message when validatorControl is defined', () => {
+    const mockValidatorControl = {
+      current: {
+        message: jest.fn().mockReturnValue('Username is required'),
+      },
+    };
+
+    const propsWithValidation = {
+      ...basicProps,
+      validatorControl: mockValidatorControl,
+      inputColumns: [
+        {
+          ...basicProps.inputColumns[0],
+          validations: {
+            idValidation: 'username',
+            validatorRules: ['required'],
+          },
+        },
+      ],
+    };
+
+    render(<FormInputColumnsComponent {...propsWithValidation} />);
+    expect(screen.getByText('Username is required')).toBeInTheDocument();
   });
 });

@@ -1,6 +1,6 @@
 import React from "react";
 
-function formatJsonValue(value: any): JSX.Element {
+export function formatJsonValue(value: any): JSX.Element {
   if (value === null) {
     return <span>null</span>;
   } else if (typeof value === 'object') {
@@ -10,7 +10,7 @@ function formatJsonValue(value: any): JSX.Element {
   }
 }
 
-function formatJson(json: Record<string, any>): JSX.Element | null {
+export function formatJson(json: Record<string, any>): JSX.Element | null {
   if (!json || typeof json !== 'object') {
     return null;
   }
@@ -29,7 +29,7 @@ function formatJson(json: Record<string, any>): JSX.Element | null {
   );
 }
 
-function formatArray(array: any[]): JSX.Element | null {
+export function formatArray(array: any[]): JSX.Element | null {
   if (!Array.isArray(array)) {
     return null;
   }
