@@ -1,8 +1,8 @@
-@import "variables";
+@use "variables";
 
-@import "custom";
-@import "../../../scss/plugins/coreUI.scss";
-@import "../../../scss/plugins/primeReact.scss";
-@import "../../../scss/plugins/reactTooltip.scss";
-@import "../../../scss/plugins/filepond.scss";
-@import "../../../scss/plugins/bootstrap.scss";
+@use "custom";
+@use "../../../scss/plugins/coreUI.scss";
+@use "../../../scss/plugins/primeReact.scss";
+@use "../../../scss/plugins/reactTooltip.scss";
+@use "../../../scss/plugins/filepond.scss";
+@use "../../../scss/plugins/bootstrap.scss";

@@ -1,10 +1,21 @@
 //------- This css file is used for dependence of variables and functions of coreui
+@use "@coreui/coreui/scss/coreui" as core;
+
+$sidebar-width: 25rem;
 
 .wrapper {
     width: 100%;
-    @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+    @include core.ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
     will-change: auto;
-    @include transition(padding .15s);
+    @include core.transition(padding .15s);
+}
+
+.sidebar:not(.hide):not(.sidebar-narrow):not(.sidebar-narrow-unfoldable:not(:hover)):not(.sidebar-narrow-unfoldable):not(.sidebar-overlaid):not(.sidebar-end) ~ * {
+    --cui-sidebar-occupy-start: #{$sidebar-width};
+}
+
+.sidebar {
+    --cui-sidebar-width: #{$sidebar-width};
 }
 
 .sidebar-toggler {
