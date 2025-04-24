@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { ModalPropsI } from "@app/@types/components/modals/modal";
 import { ComponentTypeEnum } from "@app/catalogs/enumCatalog";
 import AlertLayout from "@app/templates/environments/coreui/template/layouts/alertLayout";
@@ -43,6 +43,7 @@ const ModalComponent: React.FC<ModalPropsI> = (props) => {
 
     return (
         <Dialog
+            appendTo={document.body}
             header={props.title}
             visible={props.visible}
             maximizable={maximizable}
@@ -53,7 +54,7 @@ const ModalComponent: React.FC<ModalPropsI> = (props) => {
             {...props.extraProps}
         >
             <AlertLayout componentType={ComponentTypeEnum.POPUP} />
-            {props.body}
+            <Suspense fallback={<div>Loading form...</div>}>{props.body}</Suspense>
         </Dialog>
     );
 }
