@@ -32,7 +32,7 @@ const ModalConfirmComponent: React.FC<ModalConfirmPropsI> = (props) => {
             visible={props.visible}
             selectorCloseModal={props.selectorCloseModal}
             body={props.body}
-            size={props.size !== undefined ? props.size : "sm"}
+            size={props.size ?? "sm"}
             extraProps={{...props.extraProps, style:{ width: '30vw', top: '12vw' }, footer:footerContent }}
         />
     );

@@ -17,7 +17,7 @@ import { ReactNode } from 'react';
  * @param {string | undefined} tooltip - The tooltip content for the button
  * @return {JSX.Element} The Bootstrap button component
  */
-export const ButtonComponent = (props: { label?: string, icon?: IconProp | any, onClick: any, size?: "sm" | "lg", tooltipId?: string, tooltip?: string }) => {
+export const ButtonComponent = (props: { label?: string, icon?: any, onClick: any, size?: "sm" | "lg", tooltipId?: string, tooltip?: string }) => {
 
     return (<BootstrapButton variant="primary" onClick={props.onClick} size={props.size} data-tooltip-id={props.tooltipId} data-tooltip-content={props.tooltip}>
         {props.icon !== undefined ? <FontAwesomeIcon icon={props.icon} /> : null} {props.label}
@@ -55,7 +55,7 @@ export const ButtonSearchComponent = (props: { label: string, onClick: any }) =>
  * @param {string} [tooltip] - optional tooltip for the button
  * @return {type} the built button option
  */
-export const ButtonDataTableOptionComponent = (props: { label?: string, icon?: IconProp | any, onClick: any, tooltip?: string }) => {
+export const ButtonDataTableOptionComponent = (props: { label?: string, icon?: any, onClick: any, tooltip?: string }) => {
     return ButtonComponent({label: props.label, icon: props.icon, onClick: props.onClick, size: "sm", tooltipId: TooltipIdCustomEnum.TOOLTIP_CUSTOM, tooltip: props.tooltip});
 }
 
@@ -66,7 +66,7 @@ export const ButtonDataTableOptionComponent = (props: { label?: string, icon?: I
  * @param {React.ReactNode} tooltipOptions - optional tooltip options
  * @return {React.ReactNode} the button with nested options and tooltip
  */
-export const ButtonDataTableOptionNestedComponent = (props: { label?: string, icon?: IconProp | any, onClick: any, tooltip?: string }) => {
+export const ButtonDataTableOptionNestedComponent = (props: { label?: string, icon?: any, onClick: any, tooltip?: string }) => {
     return ButtonComponent({label: props.label, icon: props.icon, onClick: props.onClick, size: "sm", tooltipId: TooltipIdCustomEnum.TOOLTIP_BUTTON_NESTED_OPTIONS, tooltip: props.tooltip});
 }
 
@@ -99,7 +99,7 @@ export const ButtonsOrganizerComponent = (props: { buttonOptions: ReactNode[], j
     return (
         <div style={{ display: "flex", gap: "3px", alignItems: "center", justifyContent: props.justifyContent ?? "center" }}>
             {props.buttonOptions.map((button, index) => (
-                <div key={index}>{button}</div>
+                <div key={crypto.randomUUID()}>{button}</div>
             ))}
         </div>
     );
@@ -113,6 +113,6 @@ export const ButtonsOrganizerComponent = (props: { buttonOptions: ReactNode[], j
  * @param {any} onClick - the onClick handler for the button
  * @return {type} the constructed button
  */
-export const ButtonCustomComponent = (props: { label?: string, icon?: IconProp | any, onClick: any, tooltip?: string }) => {
+export const ButtonCustomComponent = (props: { label?: string, icon?: any, onClick: any, tooltip?: string }) => {
     return ButtonComponent({label: props.label, icon: props.icon, onClick: props.onClick, tooltipId: TooltipIdCustomEnum.TOOLTIP_CUSTOM, tooltip: props.tooltip});
 }

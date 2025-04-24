@@ -1,7 +1,7 @@
 class DebugClass {
 
-    private moduleName: string;
-    private debugColor: string | undefined;
+    private readonly moduleName: string;
+    private readonly debugColor: string | undefined;
     
     constructor(moduleName: string, debugColor?: string) {
         this.moduleName = moduleName;

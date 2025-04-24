@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { CBadge, CNavLink, CSidebarNav } from '@coreui/react';
@@ -61,8 +60,4 @@ export const SidebarNavLayout: React.FC<AppMenusSideBarPropsI> = ({ items }) => 
     )}
     </CSidebarNav>
   )
-}
-
-SidebarNavLayout.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.any).isRequired,
 }

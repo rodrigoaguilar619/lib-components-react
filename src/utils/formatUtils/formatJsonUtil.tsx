@@ -19,7 +19,7 @@ export function formatJson(json: Record<string, any>): JSX.Element | null {
     <div>
       {'{'}
       {Object.entries(json).map(([key, value], index, array) => (
-        <React.Fragment key={index}>
+        <React.Fragment key={crypto.randomUUID()}>
           <span style={{ fontWeight: 'bold' }}>{`"${key}"`}</span>: {formatJsonValue(value)}
           {index < array.length - 1 ? ', ' : ''}
         </React.Fragment>
@@ -38,7 +38,7 @@ export function formatArray(array: any[]): JSX.Element | null {
     <div>
       {'['}
       {array.map((value, index, array) => (
-        <React.Fragment key={index}>
+        <React.Fragment key={crypto.randomUUID()}>
           <div style={{ display: 'flex' }}>{formatJsonValue(value)}
           {index < array.length - 1 ? ', ' : ''}
           </div>

@@ -11,6 +11,17 @@ import { customHtmlPlugin } from './customVitePluginHtml.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const vendorMap = [
+  { key: 'primereact/datatable', label: 'vendor-primereact-datatable' },
+  { key: 'highcharts', label: 'vendor-highcharts' },
+  { key: 'primereact', label: 'vendor-primereact' },
+  { key: '@fortawesome', label: 'vendor-fontawesome' },
+  { key: 'moment', label: 'vendor-moment' },
+  { key: 'axios', label: 'vendor-axios' },
+  { key: 'core-js', label: 'vendor-core-js' },
+  { key: 'lodash', label: 'vendor-lodash' },
+];
+
 // File/folder utilities
 function removeDir(dirPath: string) {
   if (fs.existsSync(dirPath)) {
@@ -152,22 +163,15 @@ export function executeCommonConfig(enviroment: string, args: Record<string, any
             if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
               return `${buildFilesPath}/images/[name]-[hash][extname]`;
             }
-            if (/\.css$/.test(name ?? '')) {
+            if ((name ?? '').endsWith('.css')) {
               return `${buildFilesPath}/css/[name]-[hash][extname]`;
             }
             return `${buildFilesPath}/assets/[name]-[hash][extname]`;
           },
           manualChunks(id: string) {
             if (id.includes('node_modules')) {
-              if (id.includes('primereact/datatable')) return 'vendor-primereact-datatable';
-              if (id.includes('highcharts')) return 'vendor-highcharts';
-              if (id.includes('primereact')) return 'vendor-primereact';
-              if (id.includes('@fortawesome')) return 'vendor-fontawesome';
-              if (id.includes('moment')) return 'vendor-moment';
-              if (id.includes('axios')) return 'vendor-axios';
-              if (id.includes('core-js')) return 'vendor-core-js';
-              if (id.includes('lodash')) return 'vendor-lodash';
-              return 'vendor';
+              const match = vendorMap.find(({ key }) => id.includes(key));
+              return match ? match.label : 'vendor';
             }
           },
         },

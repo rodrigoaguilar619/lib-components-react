@@ -101,7 +101,17 @@ export function initConfigMocks(mockConfigs: MockConfigI[]) {
 
     globalThis.fetch = async (url: RequestInfo | URL, options?: RequestInit): Promise<any> => {
 
-        const config = mockConfigs.find((mockConfig) => url.toString().endsWith(mockConfig.url) && options?.method === 'POST');
+        let urlString = '';
+
+        if (typeof url === 'string') {
+        urlString = url;
+        } else if (url instanceof URL) {
+        urlString = url.toString();
+        } else if (url instanceof Request) {
+        urlString = url.url;
+        }
+        
+        const config = mockConfigs.find((mockConfig) => urlString.endsWith(mockConfig.url) && options?.method === 'POST');
 
         if (config) {
             return {

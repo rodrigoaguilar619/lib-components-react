@@ -31,7 +31,7 @@ const FormInputContainersComponent: React.FC<FormInputsComponentI> = (props) => 
                 widthColumn = (100 / formContainerProps.columnstotal) + "%";
             }
 
-            return <Container key={index} style={styles}><Row>
+            return <Container key={crypto.randomUUID()} style={styles}><Row>
                 <FormInputColumnsComponent
                     inputColumns={formContainerProps.inputColumns}
                     width={widthColumn}

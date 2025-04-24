@@ -91,7 +91,7 @@ const FormInputMultipleComponent: React.FC<FormInputsMultipleComponentI> = (prop
                 props.formDataList.map((formData: Record<string, any>, index: number) => {
 
                     return (
-                        <Row key={index} style={{ width: "100%" }}>
+                        <Row key={crypto.randomUUID()} style={{ width: "100%" }}>
                             <Col md={"auto"} style={{ width: columnInputWidth }}>
                                 <Row>
                                     <FormInputColumnsComponent
