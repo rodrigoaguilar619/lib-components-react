@@ -12,7 +12,7 @@ export function transformNav(inputNav: AppMenusPropsDataI[]): AppMenusItemsProps
   const transformItem = (navItem: AppMenusPropsDataI): AppMenusItemsPropsDataI => {
     return {
       component: navItem?.children?.length ? CNavGroup : CNavItem,
-      name: navItem.text || '',
+      name: navItem.text ?? '',
       to: navItem.url,
       icon: navItem.icon,
       attributes: setAttributeUrl(navItem.isOpenExternal),

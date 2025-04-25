@@ -1,7 +1,6 @@
 import React from 'react'
 import { ROUTE_DATATABLE_DATA, ROUTE_DATATABLE_EXPAND_DATA, ROUTE_FORMS_FORM_INPUTS, ROUTE_FORMS_INPUT_ELEMENTS, ROUTE_FORMS_INPUTS_MULTIPLE } from '@app/_moduleTest/config/catalogs/routesCatalog'
 import { ComponentTypeEnum } from '@app/catalogs/enumCatalog'
-import { _APP_CONTEXT_PATH_ } from '@app/catalogs/constantCatalog'
 import DataTableExpandModuleComponent from '@app/_moduleTest/components/datatableExpand/dataTableExpandModuleComponent'
 
 const DataTableModuleComponent = React.lazy(() => import('@app/_moduleTest/components/datatable/dataTableModuleComponent'))

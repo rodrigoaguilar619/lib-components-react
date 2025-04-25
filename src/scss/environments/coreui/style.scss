@@ -1,15 +1,15 @@
 // If you want to override variables do it here
-@import "variables";
+@use "variables";
 
 $enable-ltr: true;
 $enable-rtl: true;
 
-@import "@coreui/coreui/scss/coreui";
+@use "@coreui/coreui/scss/coreui";
+@use "../../../scss/plugins/dependenceCoreUI.scss";
+
 @import 'simplebar-react/dist/simplebar.min.css';
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";  
 @import "primereact/resources/primereact.css";
 @import "primereact/resources/themes/lara-light-indigo/theme.css";
 @import "filepond/dist/filepond.min.css";
-
-@import "../../../scss/plugins/dependenceCoreUI.scss";

@@ -1,61 +1,73 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import FilterAccoridionComponent from '@app/components/filterAccordion/filterAccordionComponent';
-import { InputElementEnum } from '@app/catalogs/enumCatalog';
-import { FormInputContainerPropsI } from '@app/@types/components/formInputs/formInputs';
+import '@testing-library/jest-dom';
+import { render, screen, fireEvent, within } from '@testing-library/react';
+import FilterAccordionComponent from '@app/components/filterAccordion/filterAccordionComponent';
+import { FilterAccordionPropsI } from '@app/@types/components/filterAccordion/filterAccordion';
 
-describe('FilterAccoridionComponent', () => {
-    it('renders accordion with title and form container', () => {
-        const title = 'Filter';
-        const formContainer: FormInputContainerPropsI = {
-            columnstotal: 2,
-            containerWidth: '100%',
-            inputColumns: [
-                { label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: '' } },
-                { label: 'Column 2', inputProps: { id: 'column2', inputType: InputElementEnum.TEXT, value: '' } }
-            ],
-        };
-        const formData = { column1: '', column2: '' };
-        const selectorUpdateFormData = jest.fn();
-        const executeFilterSearch = jest.fn();
+jest.mock('@app/components/forms/formInputColumnsComponent', () => () => (
+  <div>Mocked Form Input Columns</div>
+));
 
-        const { getByText, getByLabelText } = render(
-            <FilterAccoridionComponent
-                title={title}
-                formContainer={formContainer}
-                formData={formData}
-                selectorUpdateFormData={selectorUpdateFormData}
-                executeFilterSearch={executeFilterSearch}
-            />
-        );
+describe('FilterAccordionComponent', () => {
+  const mockFormData = {
+    name: 'John',
+    email: 'john@example.com'
+  };
 
-        const accordionTitle = getByText(title);
-        expect(accordionTitle).toBeInTheDocument();
-    });
+  const props: FilterAccordionPropsI = {
+    title: 'Search Filters',
+    formData: mockFormData,
+    selectorUpdateFormData: jest.fn(),
+    executeFilterSearch: jest.fn(),
+    formContainer: {
+      columnstotal: 2,
+      inputColumns: [
+        {
+          label: 'Name',
+          inputProps: {
+            id: 'name',
+            inputType: 'text',
+            value: '',
+          }
+        }
+      ]
+    }
+  };
 
-    it('does not render search button if executeFilterSearch is undefined', () => {
-        const title = 'Filter';
-        const formContainer: FormInputContainerPropsI = {
-            columnstotal: 2,
-            inputColumns: [
-                { label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: '' } },
-                { label: 'Column 2', inputProps: { id: 'column2', inputType: InputElementEnum.TEXT, value: '' } }
-            ],
-        };
-        const formData = { column1: '', column2: '' };
-        const selectorUpdateFormData = jest.fn();
+  it('renders accordion with title and form inputs', () => {
+    render(<FilterAccordionComponent {...props} />);
+  
+    // Accordion tab header
+    expect(screen.getByText('Search Filters')).toBeInTheDocument();
+  
+    // Form content is mocked
+    expect(screen.getByText('Mocked Form Input Columns')).toBeInTheDocument();
+  
+    // Get the specific Col container by traversing from the button text
+    const buttonContainer = screen.getByText('Search').closest('div');
+  
+    // Search within that container to get the specific button
+    const searchButton = within(buttonContainer!).getByRole('button', { name: /Search/i });
+  
+    expect(searchButton).toBeInTheDocument();
+  });
 
-        const { queryByText } = render(
-            <FilterAccoridionComponent
-                title={title}
-                formContainer={formContainer}
-                formData={formData}
-                selectorUpdateFormData={selectorUpdateFormData}
-            />
-        );
+  it('clicks search button and calls handler', () => {
+    render(<FilterAccordionComponent {...props} />);
+    const buttonContainer = screen.getByText('Search').closest('div');// screen.getByRole('button', { name: /Search/i });
+    const searchButton = within(buttonContainer!).getByRole('button', { name: /Search/i });
+    
+    fireEvent.click(searchButton);
+    expect(props.executeFilterSearch).toHaveBeenCalled();
+  });
 
-        const searchButton = queryByText('Search');
-        expect(searchButton).toBeNull();
-    });
+  it('does not render form if formData is empty', () => {
+    const emptyProps = {
+      ...props,
+      formData: {},
+    };
+
+    const { queryByText } = render(<FilterAccordionComponent {...emptyProps} />);
+    expect(queryByText('Mocked Form Input Columns')).not.toBeInTheDocument();
+    expect(screen.getByText('Search Filters')).toBeInTheDocument(); // Accordion still renders
+  });
 });

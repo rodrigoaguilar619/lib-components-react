@@ -46,6 +46,7 @@
 
 .p-datatable .p-input-icon-left .p-inputtext.p-component {
     padding-left: 20px;
+    width: 100%;
 }
 
 // ---------- MESSAGES MODIFY MARGINS ----------------
@@ -80,8 +81,8 @@
 
 .p-dropdown-label.p-inputtext {
     padding: 0.40rem 0.75rem;
-    font-family: $app-font-family;
-    color: $app-color-text;
+    font-family: inherit;
+    color: #4b5563;
 }
 
 .p-dropdown-items {
@@ -90,7 +91,7 @@
 }
 
 .p-dropdown-item  {
-    color: $app-color-text;
+    color: #4b5563;
 }
 
 //--------------- ACCORDION CSS -----------------------

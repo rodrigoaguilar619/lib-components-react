@@ -1,4 +1,4 @@
-import axios from 'axios';
+/*import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { axiosInstance, initConfigMocks } from '@app/utils/webUtils/axiosUtil';
 import { MockConfigI } from '@app/@types/utils/httpUtil';
@@ -71,4 +71,82 @@ describe('axiosConfig', () => {
   });
 
   // Add more test cases as needed for other functionality
+});
+*/
+
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { axiosInstance, initConfigMocks } from '@app/utils/webUtils/axiosUtil';
+import { MockConfigI } from '@app/@types/utils/httpUtil';
+
+describe('Axios Utils', () => {
+  let mockAxios: MockAdapter;
+
+  beforeEach(() => {
+    mockAxios = new MockAdapter(axiosInstance);
+    localStorage.clear();
+  });
+
+  afterEach(() => {
+    mockAxios.restore();
+  });
+
+  describe('axiosInstance request interceptor', () => {
+    it('should attach Authorization header if token is in localStorage', async () => {
+      localStorage.setItem('token', 'test-token');
+      localStorage.setItem('userName', 'john.doe');
+
+      mockAxios.onPost('/test').reply(config => {
+        expect(config.headers?.Authorization).toBe('Bearer test-token');
+
+        const requestData = JSON.parse(config.data);
+        expect(requestData.userName).toBe('john.doe');
+        return [200, { success: true }];
+      });
+
+      const response = await axiosInstance.post('/test', {});
+      expect(response.status).toBe(200);
+      expect(response.data.success).toBe(true);
+    });
+
+    it('should not attach Authorization if token is missing', async () => {
+      mockAxios.onPost('/no-token').reply(config => {
+        expect(config.headers?.Authorization).toBeUndefined();
+        return [200, {}];
+      });
+
+      await axiosInstance.post('/no-token', {});
+    });
+
+    it('should not modify request data if userName is not in localStorage', async () => {
+      localStorage.setItem('token', 'another-token');
+
+      mockAxios.onPost('/no-username').reply(config => {
+        const requestData = JSON.parse(config.data);
+        expect(requestData.userName).toBeUndefined();
+        return [200, {}];
+      });
+
+      await axiosInstance.post('/no-username', {});
+    });
+  });
+
+  describe('initConfigMocks', () => {
+    it('should initialize mock POST endpoints', async () => {
+      const mockConfig: MockConfigI[] = [
+        {
+          method: 'post',
+          url: '/mock-endpoint',
+          status: 201,
+          response: { message: 'Mocked!' }
+        }
+      ];
+
+      initConfigMocks(mockConfig);
+
+      const response = await axiosInstance.post('/mock-endpoint', {});
+      expect(response.status).toBe(201);
+      expect(response.data.message).toBe('Mocked!');
+    });
+  });
 });

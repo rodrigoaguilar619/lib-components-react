@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppMenusItemsPropsDataI, AppMenusPropsI } from '@app/@types/components/layout/appMenuLayout';
 import { CoreuiSideBarStateI } from '@app/@types/templates/environments/coreui/controllers/reducers/coreuiSideBarReducer';
-import { _APP_NAV_LOGOUT_ENABLED_ } from '@app/catalogs/constantCatalog';
 import { setSidebarShowAction, setSidebarShowFoldableAction } from '@app/templates/environments/coreui/controllers/actions/coreuiSideBarAction';
 import { SidebarNavLayout } from './sidebarNavLayout';
 import { transformNav } from '@app/utils/templateUtil/menuCoreuiUtil';

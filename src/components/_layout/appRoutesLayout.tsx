@@ -20,7 +20,7 @@ const AppRoutesLayout: React.FC<AppRoutesPropsI> = (props) => {
             <Routes>
                 {props.routes.map((route: AppRoutesPropsRouteI, index: number) => (
                     typeof route.path === "string" ? (
-                        <Route key={index} path={route.path} index={route.exact} element={route.element} />
+                        <Route key={route.path} path={route.path} index={route.exact} element={route.element} />
                     ) : null
                 ))}
                 <Route path={ROUTE_LOGOUT} element={<LogoutLayout />} />

@@ -1,58 +1,98 @@
-import { buildAlertRedux, buildAlertErrorRedux, removeAlertRedux } from '@app/utils/componentUtils/alertUtil';
-import { AlertTypeEnum, ComponentTypeEnum } from '@app/catalogs/enumCatalog';
-import { removeTemplateAlertMessageAction, setTemplateAlertMessageAction } from '@app/controller/actions/templateAlertAction';
-import { AlertsDataI } from '@app/@types/components/alerts/alerts';
-
-// Mocking dispatch function
-const mockDispatch = jest.fn();
-
-// Mocking setTimeout
-jest.useFakeTimers();
-
-/*describe('buildAlertRedux', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        jest.clearAllTimers();
+  import { buildAlertRedux, buildAlertErrorRedux, removeAlertRedux, buildAlertSuccessRedux } from '@app/utils/componentUtils/alertUtil';
+  import { removeTemplateAlertMessageAction, setTemplateAlertMessageAction } from '@app/controller/actions/templateAlertAction';
+  import { ComponentTypeEnum, AlertTypeEnum } from '@app/catalogs/enumCatalog';
+  import { _APP_ALERT_TIME_TOAST_MILLIS_ } from '@app/catalogs/constantCatalog';
+  import { AlertsDataI } from '@app/@types/components/alerts/alerts';
+  
+  jest.mock('@app/controller/actions/templateAlertAction', () => ({
+    setTemplateAlertMessageAction: jest.fn(),
+    removeTemplateAlertMessageAction: jest.fn()
+  }));
+  
+  const mockDispatch = jest.fn();
+  const originalScrollTo = window.scrollTo;
+  const mockScrollTo = jest.fn();
+  window.scrollTo = mockScrollTo;
+  
+  jest.useFakeTimers();
+  
+  describe('alertUtils', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
     });
-
-    it('should dispatch setTemplateAlertMessageAction', () => {
-        const summary = 'Test Summary';
-        const message = 'Test Message';
-        const alertType = AlertTypeEnum.ERROR;
-        
-        buildAlertRedux(mockDispatch, ComponentTypeEnum.MODULE, summary, message, alertType);
-        
-        expect(mockDispatch).toHaveBeenCalledTimes(1);
+  
+    describe('buildAlertRedux', () => {
+      it('dispatches alert and schedules removal for MODULE type', () => {
+        buildAlertRedux(mockDispatch, ComponentTypeEnum.MODULE, 'Summary', 'Message', AlertTypeEnum.SUCCESS);
+  
+        expect(setTemplateAlertMessageAction).toHaveBeenCalled();
+        expect(mockDispatch).toHaveBeenCalled();
+        expect(mockScrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+  
+        jest.advanceTimersByTime(_APP_ALERT_TIME_TOAST_MILLIS_);
+  
+        expect(removeTemplateAlertMessageAction).toHaveBeenCalled();
+      });
+  
+      it('calls dialogScrollTop for DIALOG type', () => {
+        const mockDialogScrollTop = jest.fn();
+        jest.mock('@app/utils/componentUtils/dialogUtil', () => ({
+          dialogScrollTop: mockDialogScrollTop
+        }));
+  
+        buildAlertRedux(mockDispatch, ComponentTypeEnum.POPUP, 'Summary', 'Message', AlertTypeEnum.SUCCESS);
+      });
     });
-});
-
-describe('buildAlertErrorRedux', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        jest.clearAllTimers();
+  
+    describe('buildAlertErrorRedux', () => {
+      it('calls buildAlertRedux with ERROR type', () => {
+        buildAlertErrorRedux(mockDispatch, ComponentTypeEnum.MODULE, 'Something went wrong');
+        expect(setTemplateAlertMessageAction).toHaveBeenCalledWith(
+          ComponentTypeEnum.MODULE,
+          'ERROR',
+          'Something went wrong',
+          AlertTypeEnum.ERROR,
+          expect.any(Number),
+          expect.any(Object)
+        );
+      });
     });
-
-    it('should dispatch setTemplateAlertMessageAction', () => {
-        const errorMessage = 'Test Error Message';
-        
-        buildAlertErrorRedux(mockDispatch, ComponentTypeEnum.MODULE, errorMessage);
-        
-        expect(mockDispatch).toHaveBeenCalledTimes(1);
+  
+    describe('buildAlertSuccessRedux', () => {
+      it('calls buildAlertRedux with SUCCESS type', () => {
+        buildAlertSuccessRedux(mockDispatch, ComponentTypeEnum.POPUP, 'Success!');
+        expect(setTemplateAlertMessageAction).toHaveBeenCalledWith(
+          ComponentTypeEnum.POPUP,
+          'SUCCESS',
+          'Success!',
+          AlertTypeEnum.SUCCESS,
+          expect.any(Number),
+          expect.any(Object)
+        );
+      });
     });
-});*/
-
-describe('removeAlertRedux', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        jest.clearAllTimers();
+  
+    describe('removeAlertRedux', () => {
+      it('clears the timer and dispatches removal', () => {
+        const fakeTimer = setTimeout(() => {}, 1000);
+        const alertsList: AlertsDataI[] = [
+          {
+            id: 123,
+            message: 'Hi',
+            summary: 'Alert',
+            alertType: AlertTypeEnum.WARNING,
+            timerShowMessageFunction: fakeTimer
+          }
+        ];
+  
+        removeAlertRedux(mockDispatch, ComponentTypeEnum.POPUP, alertsList, 123);
+  
+        expect(removeTemplateAlertMessageAction).toHaveBeenCalledWith(ComponentTypeEnum.POPUP, 123);
+      });
     });
-
-    it('should dispatch removeTemplateAlertMessageAction', () => {
-        const idToRemove = 123;
-        const alertList: AlertsDataI[] = [{ id: 123, timerShowMessageFunction: setTimeout(() => {}, 1000) , message: 'Test Message', alertType: AlertTypeEnum.ERROR, summary: 'Test Summary' }];
-        
-        removeAlertRedux(mockDispatch, ComponentTypeEnum.MODULE, alertList, idToRemove);
-        
-        expect(mockDispatch).toHaveBeenCalledTimes(1);
-    });
-});
+  });
+  
+  afterAll(() => {
+    window.scrollTo = originalScrollTo;
+  });
+  

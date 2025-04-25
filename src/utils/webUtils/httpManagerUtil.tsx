@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "axios";
+import axios, { HttpStatusCode } from "axios";
 import DebugClass from "@app/classes/debugClass";
 import { axiosInstance } from "./axiosUtil";
 import { ComponentTypeEnum, HttpMethodEnum } from "@app/catalogs/enumCatalog";
@@ -8,6 +8,20 @@ import { _APP_SECURITY_ENABLED_ } from "@app/catalogs/constantCatalog";
 import { fetchFluxInstance, fetchInstance } from "./fetchUtil";
 import { redirectSessionExpired } from "./routeUtil";
 import { isValidJson } from "@app/utils/dataUtils/jsonUtil";
+
+export function normalizeError(error: any) {
+    
+    let normalizedError: Error & { response?: any };
+
+    if (axios.isAxiosError(error))
+        normalizedError = error;
+    else if (error instanceof Error)
+        normalizedError = error;
+    else
+        normalizedError = new Error("Unknown error");
+
+    return normalizedError;
+}
 
 /**
  * Manages the API call with authentication and returns a Promise.
@@ -33,7 +47,7 @@ export function manageAxiosCallApiAuthPromise(debugClass: DebugClass, url: strin
         })
         .catch((error) => {
             debugError(debugClass, error);
-            return Promise.reject(error);
+            return Promise.reject(normalizeError(error));
         });
 }
 
@@ -59,7 +73,7 @@ export function manageFetchCallApiAuthPromise(debugClass: DebugClass, url: strin
         })
         .catch((error) => {
             debugError(debugClass, error);
-            return Promise.reject(error);
+            return Promise.reject(normalizeError(error));
         });
 }
 
@@ -81,7 +95,7 @@ export function manageFetchFluxCallApiAuthPromise(debugClass: DebugClass, url: s
             return onData(chunks);
         })
         .catch((error) => {
-            return Promise.reject(error);
+            return Promise.reject(normalizeError(error));
     });
 }
 
@@ -93,7 +107,7 @@ export function manageFetchFluxCallApiAuthPromise(debugClass: DebugClass, url: s
  * @param {any} error - The error object to be managed
  * @return {void} 
  */
-export function manageAlertModuleError(dispatch: any, componentType: ComponentTypeEnum, debugClass: DebugClass, error: any) {
+export function manageAlertModuleError(dispatch: any, componentType: ComponentTypeEnum, debugClass: DebugClass, error: Error & { response?: any }) {
 
     try {
 

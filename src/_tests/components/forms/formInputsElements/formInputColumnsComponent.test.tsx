@@ -1,55 +1,83 @@
-import React from 'react';
-import { getByText, render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
 import FormInputColumnsComponent from '@app/components/forms/formInputColumnsComponent';
 import { InputElementEnum } from '@app/catalogs/enumCatalog';
-import { FormInputColumnPropsI } from '@app/@types/components/formInputs/formInputs';
 
 describe('FormInputColumnsComponent', () => {
-  it('calls updateFormData when input value changes', () => {
-    const inputColumns: FormInputColumnPropsI[] = [{ label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: 'Value 1' } }];
-    const formData = { column1: '' };
-    const selectorUpdateFormData = jest.fn();
-    const validatorControl = { current: { message: jest.fn() } };
-    const executeOnChange = jest.fn();
+  const mockSelectorUpdateFormData = jest.fn();
 
-    const { getByText } = render(
-        <FormInputColumnsComponent
-          inputColumns={inputColumns}
-          formData={formData}
-          selectorUpdateFormData={selectorUpdateFormData}
-          validatorControl={validatorControl}
-          width='100%'
-        />
-      );
-  
-      const labelSpanElement = getByText('Column 1');
-      const inputElement = labelSpanElement.nextSibling as HTMLInputElement;
-      inputElement.value = 'New Value';
-      inputElement.dispatchEvent(new Event('change'));
+  const basicProps = {
+    inputColumns: [
+      {
+        inputProps: {
+          id: 'username',
+          inputType: InputElementEnum.TEXT,
+          value: 'john_doe',
+        },
+        label: 'Username',
+        tooltipText: 'Enter your username',
+      },
+    ],
+    width: '200px',
+    formData: { username: 'john_doe' },
+    selectorUpdateFormData: mockSelectorUpdateFormData,
+  };
+
+  it('renders input with label and tooltip', () => {
+    render(<FormInputColumnsComponent {...basicProps} />);
+
+    expect(screen.getByText(/username/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue('john_doe')).toBeInTheDocument();
   });
 
-  it('calls updateFormData when input value changes', () => {
-    const inputColumns: FormInputColumnPropsI[] = [{ label: 'Column 1', inputProps: { id: 'column1', inputType: InputElementEnum.TEXT, value: 'Value 1' } }];
-    const formData = { column1: '' };
-    const selectorUpdateFormData = jest.fn();
-    const validatorControl = { current: { message: jest.fn() } };
-    const executeOnChange = jest.fn();
+  it('calls selectorUpdateFormData on input change', () => {
+    render(<FormInputColumnsComponent {...basicProps} />);
 
-    const { getByText } = render(
-      <FormInputColumnsComponent
-        inputColumns={inputColumns}
-        formData={formData}
-        selectorUpdateFormData={selectorUpdateFormData}
-        validatorControl={validatorControl}
-        width='100%'
-      />
-    );
+    const input = screen.getByDisplayValue('john_doe');
+    fireEvent.change(input, { target: { value: 'new_user' } });
 
-    const labelElement = getByText('Column 1') as HTMLElement;
-    const inputElement = labelElement.nextSibling as HTMLInputElement;
-    fireEvent.change(inputElement, { target: { value: 'New Value' } });
+    expect(mockSelectorUpdateFormData).toHaveBeenCalledWith({ username: 'new_user' });
+  });
 
-    expect(selectorUpdateFormData).toHaveBeenCalledWith({ ...formData, column1: 'New Value' });
+  it('does not render hidden columns', () => {
+    const hiddenColumnProps = {
+      ...basicProps,
+      inputColumns: [
+        {
+          ...basicProps.inputColumns[0],
+          showColumn: false,
+        },
+      ],
+    };
+
+    render(<FormInputColumnsComponent {...hiddenColumnProps} />);
+
+    expect(screen.queryByDisplayValue('john_doe')).toBeNull();
+  });
+
+  it('renders validation message when validator is present', () => {
+    const validatorControl = {
+      current: {
+        message: jest.fn().mockReturnValue('This field is required'),
+      },
+    };
+
+    const withValidationProps = {
+      ...basicProps,
+      validatorControl,
+      inputColumns: [
+        {
+          ...basicProps.inputColumns[0],
+          validations: {
+            idValidation: 'username',
+            validatorRules: ['required'],
+          },
+        },
+      ],
+    };
+
+    render(<FormInputColumnsComponent {...withValidationProps} />);
+
+    expect(screen.getByText('This field is required')).toBeInTheDocument();
   });
 });

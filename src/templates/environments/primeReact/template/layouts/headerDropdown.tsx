@@ -26,16 +26,16 @@ const HeaderDropdown = () => {
   }, []);
 
   const buildRoles = (roles: string[]) => {
-    return roles.map((rol: string) => { return <a className="dropdown-item">{formatToCapitalize(rol)}</a> })
+    return roles.map((rol: string) => { return <button className="dropdown-item" key={rol}>{formatToCapitalize(rol)}</button> })
   }
 
   const renderOverlay = () => {
     return (<div className="dropdown">
       <div className="dropdown-content">
         <div className="dropdown-header dropdown-header-first">Version:</div>
-        <a className="dropdown-item">{appVersion}</a>
+        <button className="dropdown-item">{appVersion}</button>
         <div className="dropdown-header dropdown-header">User:</div>
-        <a className="dropdown-item">{templateUserDataState.userName}</a>
+        <button className="dropdown-item">{templateUserDataState.userName}</button>
         <div className="dropdown-header">Roles</div>
         {buildRoles(templateUserDataState.userRols)}
       </div>
@@ -44,11 +44,11 @@ const HeaderDropdown = () => {
 
   return (
     <div style={{ cursor: "pointer" }} ref={dropdownRef}>
-      <div onClick={() => { setOverLayVisible(!overLayVisible) }} >
+      <button onClick={() => { setOverLayVisible(!overLayVisible) }} style={{ border: "none", backgroundColor: "transparent", outline: "none", color: "inherit" }} >
         <div style={{ float: "left", marginRight: "2px", scale: "0.9" }}><FontAwesomeIcon icon={faUser} /></div>
         <div style={{ float: "left", marginRight: "2px" }}>{templateUserDataState.userName}</div>
         <div style={{ float: "right", scale: "0.7" }}>▼</div>
-      </div>
+      </button>
       {overLayVisible && renderOverlay()}
     </div>
   )

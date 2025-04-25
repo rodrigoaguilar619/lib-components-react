@@ -19,7 +19,7 @@ const HeaderDropdown = () => {
   const appVersion = _APP_VERSION_;
 
   const buildRoles = (roles: string[]) => {
-    return roles.map((rol: string) => { return <div>{formatToCapitalize(rol)}</div> })
+    return roles.map((rol: string) => { return <div key={rol}>{formatToCapitalize(rol)}</div> })
   }
 
   return (

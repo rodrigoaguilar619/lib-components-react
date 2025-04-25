@@ -1,79 +1,101 @@
-import { _APP_ENVIRONMENT_ } from "@app/catalogs/constantCatalog";
-import DebugClass from "@app/classes/debugClass";
-import { EnvironmentEnum } from "@app/catalogs/enumCatalog";
-import { generateDebugClassModule, generateDebugClassService, debug, debugError } from "@app/utils/webUtils/debugUtil";
+import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+import { generateDebugClassModule, generateDebugClassService, debug, debugError, showDataDevelopment } from '@app/utils/webUtils/debugUtil';
+import DebugClass from '@app/classes/debugClass';
 
-describe('debugUtils', () => {
+jest.mock('@app/catalogs/constantCatalog', () => ({
+  _APP_ENVIRONMENT_: 'development', // default mock
+}));
+
+describe('debugUtil', () => {
+
   beforeEach(() => {
-    jest.spyOn(console, 'log').mockImplementation(() => {});
-    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(global.crypto, 'getRandomValues').mockImplementation((array: any) => {
+      for (let i = 0; i < array.length; i++) {
+        array[i] = 123; // deterministic
+      }
+      return array;
+    });
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  it('should generate DebugClass instances for modules with random colors', () => {
-    const moduleName = 'Module1';
-    const debugClass = generateDebugClassModule(moduleName);
-
-    expect(debugClass.getModuleName()).toContain(moduleName);
-    expect(debugClass.getDebugColor()).toBeDefined();
+  test('generateDebugClassModule returns DebugClass instance with MODULE tag', () => {
+    const debugClass = generateDebugClassModule('TestModule');
+    expect(debugClass.getModuleName()).toMatch(/MODULE: TestModule/);
+    expect(debugClass.getDebugColor()).toContain('background-color');
   });
 
-  it('should generate DebugClass instances for services with random colors', () => {
-    const serviceName = 'Service1';
-    const debugClass = generateDebugClassService(serviceName);
-
-    expect(debugClass.getModuleName()).toContain(serviceName);
-    expect(debugClass.getDebugColor()).toBeDefined();
+  test('generateDebugClassService returns DebugClass instance with SERVICE tag', () => {
+    const debugClass = generateDebugClassService('TestService');
+    expect(debugClass.getModuleName()).toMatch(/SERVICE: TestService/);
+    expect(debugClass.getDebugColor()).toContain('background-color');
   });
 
-  it('should log debug message when environment is not production', () => {
-    const debugClass = new DebugClass('Test Module', 'color: white; background-color: black;');
-    debug(debugClass, 'Debug message');
-
-    // Construct the expected log message with the correct styling
-    const expectedMessage = expect.stringContaining('%cTest Module');
-    const expectedStyling = 'color: white; background-color: black;';
-    expect(console.log).toHaveBeenCalledWith(expectedMessage, expectedStyling, 'Debug message');
+  test('debug logs to console in non-production env', () => {
+    const consoleLog = jest.spyOn(console, 'log').mockImplementation(() => {});
+    const mockClass = new DebugClass('TestModule', 'color: blue');
+    debug(mockClass, 'Hello');
+    expect(consoleLog).toHaveBeenCalledWith('%cTestModule', 'color: blue', 'Hello');
   });
 
-  it('should log with debugColor when _APP_ENVIRONMENT_ is equal to EnvironmentEnum.PRODUCTION and debugColor is defined', () => {
-    const consoleLogSpy = jest.spyOn(console, 'log');
-    const debugClass = new DebugClass('Test Module', 'color: white; background-color: black;');
-    debugClass.getDebugColor = () => 'color: red; background-color: white;';
-    debug(debugClass, 'test');
-    expect(consoleLogSpy).toHaveBeenCalled();
-    consoleLogSpy.mockRestore();
+  test('debugError logs error to console', () => {
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const mockClass = new DebugClass('TestModule', 'color: red');
+    debugError(mockClass, 'Something went wrong');
+    expect(consoleError).toHaveBeenCalledWith('%cTestModule', 'color: red', 'Something went wrong');
   });
 
-  it('should log with debugColor when _APP_ENVIRONMENT_ is equal to EnvironmentEnum.PRODUCTION and debugColor is undefined', () => {
-    const consoleLogSpy = jest.spyOn(console, 'log');
-    const debugClass = new DebugClass('Test Module');
-    debugClass.getDebugColor = () => 'color: red; background-color: white;';
-    debug(debugClass, 'test');
-    expect(consoleLogSpy).toHaveBeenCalled();
-    consoleLogSpy.mockRestore();
-  });
-
-  it('should log error message with debugError', () => {
-    const debugClass = new DebugClass('Test Module', 'color: white; background-color: black;');
-    debugError(debugClass, 'Error message');
+  describe('showDataDevelopment', () => {
+    const mockConstantPath = '@app/catalogs/constantCatalog';
   
-    // Construct the expected log message with the correct styling
-    const expectedMessage = expect.stringContaining('%cTest Module');
-    const expectedStyling = 'color: white; background-color: black;';
-    expect(console.error).toHaveBeenCalledWith(expectedMessage, expectedStyling, 'Error message');
-  });
-
-  it('should log error message with debugError default color style', () => {
-    const debugClass = new DebugClass('Test Module');
-    debugError(debugClass, 'Error message');
+    afterEach(() => {
+      jest.resetModules(); // clear cached modules to reapply mocks
+    });
   
-    // Construct the expected log message with the correct styling
-    const expectedMessage = expect.stringContaining('%cTest Module');
-    const expectedStyling = 'color: white; background-color: #E1901A';
-    expect(console.error).toHaveBeenCalledWith(expectedMessage, expectedStyling, 'Error message');
+    test('renders formatted JSON object if environment is development', async () => {
+      jest.doMock(mockConstantPath, () => ({
+        _APP_ENVIRONMENT_: 'development',
+      }));
+  
+      const { showDataDevelopment } = await import('@app/utils/webUtils/debugUtil');
+  
+      render(showDataDevelopment('User', { name: 'Alice', age: 30 }) as JSX.Element);
+  
+      expect(screen.getByText('User:')).toBeInTheDocument();
+      expect(screen.getByText('"name"')).toBeInTheDocument();
+      expect(screen.getByText('"Alice"')).toBeInTheDocument();
+      expect(screen.getByText('"age"')).toBeInTheDocument();
+      expect(screen.getByText('30')).toBeInTheDocument();
+    });
+  
+    test('renders formatted array if environment is development', async () => {
+      jest.doMock(mockConstantPath, () => ({
+        _APP_ENVIRONMENT_: 'development',
+      }));
+  
+      const { showDataDevelopment } = await import('@app/utils/webUtils/debugUtil');
+  
+      render(showDataDevelopment('Items', ['apple', 'banana']) as JSX.Element);
+  
+      expect(screen.getByText('Items:')).toBeInTheDocument();
+      expect(screen.getByText('"apple"')).toBeInTheDocument();
+      expect(screen.getByText('"banana"')).toBeInTheDocument();
+    });
+  
+    test('renders primitive value if environment is development', async () => {
+      jest.doMock(mockConstantPath, () => ({
+        _APP_ENVIRONMENT_: 'development',
+      }));
+  
+      const { showDataDevelopment } = await import('@app/utils/webUtils/debugUtil');
+  
+      render(showDataDevelopment('Count', 42) as JSX.Element);
+  
+      expect(screen.getByText('Count:')).toBeInTheDocument();
+      expect(screen.getByText('42')).toBeInTheDocument();
+    });
   });
 });

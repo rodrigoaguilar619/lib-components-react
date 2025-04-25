@@ -58,7 +58,7 @@ export function buildFormDataMultiple(formInputs: FormInputColumnPropsI[]) {
  */
 export function getParameterCall(location: Location<any> | null, props: any, paramName: string) {
 
-    if (location != null && location.state?.[paramName]) {
+    if (location?.state?.[paramName]) {
         return location.state[paramName];
     }
     else if (props[paramName]) {

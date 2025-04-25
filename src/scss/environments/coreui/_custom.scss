@@ -1,12 +1,14 @@
+@use "_variables" as customVariable;
+
 // ----------------- MODIFY FOR CHANGE PRIMEREACT SIZE COMPONENTS ----------------
 html {
     font-size: 11px;
-    font-family: $app-font-family;
+    font-family: customVariable.$app-font-family;
 }
 
 input, button, select, optgroup, textarea {
-    font-family: $app-font-family;
-    color: $app-color-text;
+    font-family: customVariable.$app-font-family;
+    color: customVariable.$app-color-text;
 }
 
 //--------------- button heperlink ------------------------------

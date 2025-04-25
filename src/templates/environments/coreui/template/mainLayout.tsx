@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { MainLayoutPropsI } from '@app/@types/templates/environments/coreui/template/mainLayout'
 import { ComponentTypeEnum } from '@app/catalogs/enumCatalog'
 import BodyLayout from '@app/components/_layout/bodyLayout'
