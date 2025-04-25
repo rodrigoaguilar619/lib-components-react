@@ -3,7 +3,7 @@
 import 'react-app-polyfill/stable'
 import 'core-js'
 import { createRoot } from 'react-dom/client'
-import reportWebVitals from './reportWebVitals'
+import reportWebVitals from './utils/webUtils/reportWebVitalUtil'
 import App from './_moduleTest/App'
 
 createRoot(document.getElementById('root')!).render(
